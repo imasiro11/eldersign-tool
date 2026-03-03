@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>合成経験値計算ツール</title>
+  <link rel="stylesheet" href="../theme.css?v8" />
+  <style>
+    .tool-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .input-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    .input-row label {
+      font-weight: 600;
+    }
+
+    .input-row input,
+    .input-row select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--md-sys-outline-variant);
+      background: var(--md-sys-surface);
+      color: var(--md-sys-on-surface);
+      font-size: 0.95rem;
+    }
+
+    .level-preset-group {
+      grid-column: 2;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .level-preset-group .chip-button {
+      min-width: 3.6em;
+    }
+
+    .result-pair-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .result-pair-list .result-row {
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .result-label {
+      color: var(--md-sys-on-surface-variant);
+      font-size: 0.9rem;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+
+    .result-value {
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .toggle-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .formula-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--md-sys-outline-variant);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--md-sys-surface);
+    }
+
+    .formula-table th,
+    .formula-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--md-sys-outline-variant);
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .formula-table tr:last-child th,
+    .formula-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .formula-table th {
+      width: 180px;
+      color: var(--md-sys-on-surface-variant);
+      font-weight: 600;
+      background: color-mix(in srgb, var(--md-sys-surface) 90%, var(--md-sys-primary-container));
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header class="reveal">
+      <p class="subtitle">Eldersign Toolkit</p>
+      <h1>合成経験値計算ツール</h1>
+      <p class="subtitle">素材の条件から合成経験値を計算（小数点以下切り捨て）</p>
+      <div class="nav-links">
+        <a class="button secondary" href="../index.html">ツール集へ戻る</a>
+      </div>
+    </header>
+
+    <div class="reveal calc-output-panel">
+      <div class="calc-output-grid">
+        <article class="calc-output-item">
+          <div class="result-card">
+            <div id="exp-result-list" class="result-pair-list"></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <section class="reveal">
+      <div class="section-title">
+        <h2>入力</h2>
+      </div>
+      <div class="tool-grid">
+        <article class="card no-hover">
+          <h3>素材条件</h3>
+          <div class="form-grid">
+            <div class="input-row">
+              <label for="level">Lv</label>
+              <input id="level" type="number" min="1" step="1" value="1" />
+              <div class="level-preset-group" id="level-preset-buttons" aria-label="レベルプリセット">
+                <button type="button" class="chip-button" data-level="30">30</button>
+                <button type="button" class="chip-button" data-level="40">40</button>
+                <button type="button" class="chip-button" data-level="50">50</button>
+                <button type="button" class="chip-button" data-level="60">60</button>
+                <button type="button" class="chip-button" data-level="70">70</button>
+              </div>
+            </div>
+            <div class="input-row">
+              <label for="family">ファミリー</label>
+              <input type="hidden" id="family" value="1" />
+              <div class="chip-group" data-chip-target="family">
+                <button type="button" class="chip-button" data-value="1.25">同種 1.25</button>
+                <button type="button" class="chip-button" data-value="1.125">同ファミリー 1.125</button>
+                <button type="button" class="chip-button is-active" data-value="1">他ファミリー 1.0</button>
+              </div>
+            </div>
+            <div class="input-row">
+              <label for="grade">グレード</label>
+              <select id="grade">
+                <option value="1">C（1）</option>
+                <option value="2">CC（2）</option>
+                <option value="3">CCC（3）</option>
+                <option value="4">B（4）</option>
+                <option value="5">BB（5）</option>
+                <option value="6">BBB（6）</option>
+                <option value="7">A（7）</option>
+                <option value="8">AA（8）</option>
+                <option value="9">AAA（9）</option>
+                <option value="10">SSS（10）</option>
+              </select>
+            </div>
+            <div class="input-row">
+              <label for="rarity">レアリティ</label>
+              <input type="hidden" id="rarity" value="1" />
+              <div class="chip-group" data-chip-target="rarity">
+                <button type="button" class="chip-button chip-rarity-bronze is-active" data-value="1">ブロンズ</button>
+                <button type="button" class="chip-button chip-rarity-silver" data-value="2">シルバー</button>
+                <button type="button" class="chip-button chip-rarity-gold" data-value="4">ゴールド</button>
+                <button type="button" class="chip-button chip-rarity-platinum" data-value="8">プラチナ</button>
+              </div>
+            </div>
+            <div class="toggle-list">
+              <label class="toggle-item">
+                <input id="skill-inherit" type="checkbox" />
+                <span>スキル継承あり（+0.5）</span>
+              </label>
+              <label class="toggle-item">
+                <input id="ability-nourishment" type="checkbox" />
+                <span>アビリティ「養分」あり（+10）</span>
+              </label>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="section-title">
+        <h2>計算式</h2>
+      </div>
+      <article class="card no-hover">
+        <table class="formula-table">
+          <tbody>
+            <tr>
+              <th>合成経験値</th>
+              <td>(16 + 3.2 × (Lv - 1)) × ファミリー × グレード × レアリティ × (スキル継承可否 + 養分可否)<br />※ 小数点以下切り捨て</td>
+            </tr>
+            <tr>
+              <th>ファミリー</th>
+              <td>同種=1.25 / 同ファミリー（亜種含む）=1.125 / 他ファミリー=1</td>
+            </tr>
+            <tr>
+              <th>グレード</th>
+              <td>C=1 / CC=2 / CCC=3 / B=4 / BB=5 / BBB=6 / A=7 / AA=8 / AAA=9 / SSS=10</td>
+            </tr>
+            <tr>
+              <th>レアリティ</th>
+              <td>ブロンズ=1 / シルバー=2 / ゴールド=4 / プラチナ=8</td>
+            </tr>
+            <tr>
+              <th>加算項</th>
+              <td>スキル継承あり=0.5（なし=0） / 養分あり=10（なし=1）</td>
+            </tr>
+            <tr>
+              <th>育成必要Exp</th>
+              <td>Lv1→2の必要Expを初項、増分を公差とした等差数列和<br />ブロンズ: 初項20 / 公差10 / 上限Lv30<br />シルバー: 初項25 / 公差15 / 上限Lv50<br />ゴールド: 初項30 / 公差20 / 上限Lv70<br />プラチナ: 初項35 / 公差25 / 上限Lv90</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+    </section>
+
+    <section class="reveal">
+      <div class="section-title">
+        <h2>育成必要Exp 早見表</h2>
+      </div>
+      <article class="card no-hover">
+        <table class="formula-table">
+          <thead>
+            <tr>
+              <th>レアリティ</th>
+              <th>Lv30</th>
+              <th>Lv50</th>
+              <th>Lv70</th>
+              <th>Lv90</th>
+            </tr>
+          </thead>
+          <tbody id="growth-quick-table-body"></tbody>
+        </table>
+      </article>
+    </section>
+  </main>
+
+  <script src="./tool-common.js?v1" defer></script>
+  <script src="./exp.js?v8" defer></script>
+  <script src="../footer.js" defer></script>
+</body>
+
+</html>

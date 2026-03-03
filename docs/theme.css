@@ -394,6 +394,54 @@ h1 {
   box-shadow: 0 6px 12px color-mix(in srgb, var(--md-sys-shadow) 60%, transparent);
 }
 
+.chip-button.chip-rarity-bronze {
+  background: var(--md-sys-surface);
+  color: var(--md-sys-on-surface-variant);
+  border-color: #4e8d7c;
+}
+
+.chip-button.chip-rarity-silver {
+  background: var(--md-sys-surface);
+  color: var(--md-sys-on-surface-variant);
+  border-color: #c7cdd3;
+}
+
+.chip-button.chip-rarity-gold {
+  background: var(--md-sys-surface);
+  color: var(--md-sys-on-surface-variant);
+  border-color: #d9b348;
+}
+
+.chip-button.chip-rarity-platinum {
+  background: var(--md-sys-surface);
+  color: var(--md-sys-on-surface-variant);
+  border-color: #e089c1;
+}
+
+.chip-button.is-active.chip-rarity-bronze {
+  background: color-mix(in srgb, #4e8d7c 70%, var(--md-sys-surface));
+  color: #04100c;
+  box-shadow: 0 0 0 1px color-mix(in srgb, #4e8d7c 70%, transparent);
+}
+
+.chip-button.is-active.chip-rarity-silver {
+  background: color-mix(in srgb, #c7cdd3 70%, var(--md-sys-surface));
+  color: #0b0f12;
+  box-shadow: 0 0 0 1px color-mix(in srgb, #c7cdd3 70%, transparent);
+}
+
+.chip-button.is-active.chip-rarity-gold {
+  background: color-mix(in srgb, #d9b348 70%, var(--md-sys-surface));
+  color: #1a1200;
+  box-shadow: 0 0 0 1px color-mix(in srgb, #d9b348 70%, transparent);
+}
+
+.chip-button.is-active.chip-rarity-platinum {
+  background: color-mix(in srgb, #e089c1 70%, var(--md-sys-surface));
+  color: #1a0012;
+  box-shadow: 0 0 0 1px color-mix(in srgb, #e089c1 70%, transparent);
+}
+
 .hint {
   margin: 0;
   font-size: 0.9rem;
