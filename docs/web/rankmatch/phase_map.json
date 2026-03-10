@@ -1,6 +1,15 @@
 {
   "phases": [
     {
+      "id": "phase13",
+      "label": "13期",
+      "groups": {
+        "S": "./13S.csv",
+        "A1": "./13A1.csv",
+        "A2": "./13A2.csv"
+      }
+    },
+    {
       "id": "phase12",
       "label": "12期",
       "groups": {
