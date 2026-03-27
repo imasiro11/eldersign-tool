@@ -27,6 +27,13 @@
     [RARITY.PLATINUM]: 8,
   });
 
+  const FAMILY_NAME_BY_ID = Object.freeze({
+    1: "妖精",
+    2: "魔獣",
+    3: "外来",
+    4: "人造",
+  });
+
   const TARGETS = ["HP", "攻撃", "魔力", "防御", "命中", "敏捷"];
   const GRADE_TOOL_URL = "https://yuki-kamikita.github.io/eldersign-tool/web/grade.html";
   // const GRADE_TOOL_URL = "http://localhost:8080/docs/web/grade.html";
@@ -47,6 +54,21 @@
     }
 
     return { level: parseInt(mLv[1], 10), maxLevel: parseInt(mLv[2], 10) };
+  }
+
+  function getMonsterFamilyName() {
+    const h3 =
+      document.querySelector("div.card_d header.card h3") ||
+      document.querySelector("h3");
+    if (!h3) return null;
+
+    const icon = h3.querySelector('img[src*="/img/menu/fm_"]');
+    if (!icon || !icon.src) return null;
+
+    const match = icon.src.match(/fm_(\d+)\.png/i);
+    if (!match) return null;
+
+    return FAMILY_NAME_BY_ID[parseInt(match[1], 10)] ?? null;
   }
 
   function getRarity(maxLevel) {
@@ -271,10 +293,8 @@
     }
   }
 
-  async function renameMonsterToBasePoint(monsterId, deliveryPoint) {
+  async function renameMonster(monsterId, nextName) {
     if (!monsterId) throw new Error("モンスターIDが取得できません");
-
-    const nextName = `納品基礎pt${deliveryPoint}`;
     const renameUrl = new URL("/mcard_name", window.location.origin);
     renameUrl.searchParams.set("mid", monsterId);
     renameUrl.searchParams.set("pg", "0");
@@ -462,7 +482,7 @@
   }
 
   function renderPanel(lines, moreLines, gradeUrl, panelTitle, options = {}) {
-    const { onRenameClick } = options;
+    const { renameActions = {} } = options;
     const overlayPadTop = 10;
     const overlayPadBottom = 10;
     const overlay = document.createElement("div");
@@ -540,7 +560,11 @@
           target.appendChild(link);
           return;
         }
-        if (onRenameClick && /^納品pt:\s*\d+/.test(line)) {
+        const renameAction =
+          (/^納品pt:\s*\d+/.test(line) && renameActions.delivery) ||
+          (/^[^\s]+経験値:\s*\d+/.test(line) && renameActions.experience) ||
+          null;
+        if (renameAction) {
           const wrap = document.createElement("span");
           wrap.textContent = line;
 
@@ -558,7 +582,7 @@
             const originalText = renameBtn.textContent;
             renameBtn.textContent = "変更中";
             try {
-              await onRenameClick();
+              await renameAction();
               renameBtn.textContent = "変更済み";
             } catch (error) {
               renameBtn.disabled = false;
@@ -633,6 +657,7 @@
     const { G, sqrtG } = getGrowth(level, maxLevel, rarity);
     const expRarityFactor = EXP_COEFF_BY_RARITY[rarity] ?? 1;
     const monsterId = getMonsterId();
+    const familyName = getMonsterFamilyName();
 
     const rows = getStatusRows();
     if (!rows) return;
@@ -677,9 +702,8 @@
       lines.push(`行動値: ${Math.round(actionValue)}`);
       if (grade != null) {
         const baseExp = expRarityFactor * grade * ((level + 4) / 5) * 16;
-        const expO = Math.floor(baseExp);
         const expS = Math.floor(baseExp * 1.125);
-        currentStatusTailLines.push(`経験値: 異${expO} / 同${expS}`);
+        currentStatusTailLines.push(`${familyName || "同族"}経験値: ${expS}`);
       } else {
         currentStatusTailLines.push("経験値: 取得失敗");
       }
@@ -696,19 +720,40 @@
     const moreLines = [...maxLevelLines, ...nextGradeLines, ...combatMemoLines];
     const gradeUrl = buildGradeToolUrl(statInfo);
     renderPanel(lines, moreLines, gradeUrl, panelTitle, {
-      onRenameClick: async () => {
-        const nextName = await renameMonsterToBasePoint(monsterId, deliveryPointDisplay);
-        const heading =
-          document.querySelector("div.card_d header.card h1") ||
-          document.querySelector("h1");
-        if (heading) {
-          const textNode = [...heading.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
-          if (textNode) {
-            textNode.textContent = nextName + " ";
-          } else {
-            heading.prepend(document.createTextNode(nextName + " "));
+      renameActions: {
+        delivery: async () => {
+          const nextName = await renameMonster(monsterId, `納品基礎pt${deliveryPointDisplay}`);
+          const heading =
+            document.querySelector("div.card_d header.card h1") ||
+            document.querySelector("h1");
+          if (heading) {
+            const textNode = [...heading.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+            if (textNode) {
+              textNode.textContent = nextName + " ";
+            } else {
+              heading.prepend(document.createTextNode(nextName + " "));
+            }
           }
-        }
+        },
+        experience: async () => {
+          if (grade == null) {
+            throw new Error("経験値が取得できません");
+          }
+          const baseExp = expRarityFactor * grade * ((level + 4) / 5) * 16;
+          const expS = Math.floor(baseExp * 1.125);
+          const nextName = await renameMonster(monsterId, `${familyName || "同族"}経験値${expS}`);
+          const heading =
+            document.querySelector("div.card_d header.card h1") ||
+            document.querySelector("h1");
+          if (heading) {
+            const textNode = [...heading.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+            if (textNode) {
+              textNode.textContent = nextName + " ";
+            } else {
+              heading.prepend(document.createTextNode(nextName + " "));
+            }
+          }
+        },
       },
     });
   } catch (e) {
