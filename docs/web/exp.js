@@ -69,7 +69,7 @@
 
   function calcGrowthExp(config, targetLevel) {
     if (!config) return 0;
-    const level = Math.max(1, Math.min(config.maxLevel, Math.floor(targetLevel)));
+    const level = Math.min(config.maxLevel, Math.floor(targetLevel));
     const terms = Math.max(0, level - 1);
     return (terms * (2 * config.growBase + (terms - 1) * config.growStep)) / 2;
   }
@@ -145,36 +145,47 @@
     const selectedRarity = readNumber(inputs.rarity, 1);
     const rarityConfig = RARITY_CONFIG[selectedRarity] || RARITY_CONFIG[1];
     const maxLevel = rarityConfig.maxLevel;
-    const level = Math.max(1, Math.min(maxLevel, Math.floor(readNumber(inputs.level, 1))));
+    const rawLevel = inputs.level.value.trim();
+    const hasLevel = rawLevel !== "";
+    const parsedLevel = hasLevel ? Number(rawLevel) : NaN;
+    const level = hasLevel && Number.isFinite(parsedLevel)
+      ? Math.max(0, Math.min(maxLevel, Math.floor(parsedLevel)))
+      : null;
     const family = readNumber(inputs.family, 1);
     const grade = readNumber(inputs.grade, 1);
     const rarity = selectedRarity;
     const skillValue = inputs.skillInherit.checked ? 0.5 : 0;
     const nourishmentValue = inputs.abilityNourishment.checked ? 10 : 1;
 
-    const base = 16 + 3.2 * (level - 1);
-    const factor = skillValue + nourishmentValue;
-    const raw = base * family * grade * rarity * factor;
-    const total = Math.floor(raw);
-    const growthExp = calcGrowthExp(rarityConfig, level);
-    const diff = total - growthExp;
-    const diffText = `${diff >= 0 ? "+" : ""}${diff.toLocaleString("ja-JP")}`;
+    let total = null;
+    let growthExp = null;
+    let diffText = "-";
+
+    if (level !== null) {
+      const base = 16 + 3.2 * (level - 1);
+      const factor = skillValue + nourishmentValue;
+      const raw = base * family * grade * rarity * factor;
+      total = Math.floor(raw);
+      growthExp = calcGrowthExp(rarityConfig, level);
+      const diff = total - growthExp;
+      diffText = `${diff >= 0 ? "+" : ""}${diff.toLocaleString("ja-JP")}`;
+    }
 
     renderResultPairs(
       outputList,
       [
-        { label: "合成経験値", value: `${total.toLocaleString("ja-JP")}` },
-        { label: `育成必要Exp (Lv1→Lv${level})`, value: `${growthExp.toLocaleString("ja-JP")}` },
+        { label: "合成経験値", value: total == null ? "-" : `${total.toLocaleString("ja-JP")}` },
+        { label: level == null ? "育成必要Exp" : `育成必要Exp (Lv1→Lv${level})`, value: growthExp == null ? "-" : `${growthExp.toLocaleString("ja-JP")}` },
         { label: "差分 (合成経験値 - 育成必要Exp)", value: diffText },
       ],
       { itemClass: "result-row" }
     );
 
-    if (inputs.level.value !== String(level)) {
+    if (level !== null && inputs.level.value !== String(level)) {
       inputs.level.value = String(level);
     }
     inputs.level.max = String(maxLevel);
-    syncLevelPresetActive(level);
+    syncLevelPresetActive(level == null ? "" : level);
     saveFormState();
   }
 
