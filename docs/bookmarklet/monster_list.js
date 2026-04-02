@@ -28,12 +28,23 @@
   };
 
   const parseOwnedCount = () => {
-    const footer = document.querySelector("footer p");
-    if (!footer) return null;
-    const match = footer.textContent.match(/全\s*(\d+)\s*\/\s*\d+\s*枚/);
-    if (!match) return null;
-    const value = parseInt(match[1], 10);
-    return Number.isNaN(value) ? null : value;
+    const footer = document.querySelector("footer");
+    const scope = footer || document.body;
+    const texts = [...scope.querySelectorAll("p")].map((p) => p.textContent || "");
+    for (const text of texts) {
+      const normalized = text.replace(/\s+/g, "");
+      const withTotal = normalized.match(/全\s*([\d,]+)\s*\/\s*([\d,]+)\s*(?:枚|人|件)?/);
+      if (withTotal) {
+        const value = parseInt(withTotal[1].replace(/,/g, ""), 10);
+        return Number.isNaN(value) ? null : value;
+      }
+      const totalOnly = normalized.match(/全\s*([\d,]+)\s*(?:枚|人|件)?/);
+      if (totalOnly) {
+        const value = parseInt(totalOnly[1].replace(/,/g, ""), 10);
+        return Number.isNaN(value) ? null : value;
+      }
+    }
+    return null;
   };
 
   const getCurrentPage = () => {
