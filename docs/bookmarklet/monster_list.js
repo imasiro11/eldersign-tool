@@ -29,7 +29,7 @@
   };
 
   const getCurrentPage = () => {
-    const on = document.querySelector("nav.pager li.on a");
+    const on = document.querySelector("a.on");
     const value = on ? parseInt(on.textContent, 10) : 1;
     return Number.isNaN(value) ? 1 : value;
   };
@@ -59,11 +59,6 @@
     }
 
     const currentPage = getCurrentPage();
-    if (currentPage !== 1) {
-      alert("1ページ目で実行してください。");
-      return;
-    }
-
     const ownedCount = parseOwnedCount();
     if (!ownedCount) {
       alert("枚数の取得に失敗しました。");
@@ -71,7 +66,7 @@
     }
 
     const totalPages = Math.ceil(ownedCount / PER_PAGE);
-    if (totalPages <= 1) {
+    if (currentPage >= totalPages) {
       alert("追加ページはありません。");
       return;
     }
@@ -80,8 +75,10 @@
     const errors = [];
     const fragment = document.createDocumentFragment();
 
-    for (let page = 2; page <= totalPages; page += 1) {
-      panel.textContent = `取得中 ${page - 1}/${totalPages - 1} ページ`;
+    const pagesToFetch = totalPages - currentPage;
+
+    for (let page = currentPage + 1; page <= totalPages; page += 1) {
+      panel.textContent = `取得中 ${page - currentPage}/${pagesToFetch} ページ`;
       try {
         const url = buildPageUrl(page);
         const response = await fetch(url, { credentials: "include" });
@@ -102,7 +99,7 @@
     document.body.dataset.esBookExpanded = "1";
 
     if (errors.length) {
-      panel.textContent = `完了: ${totalPages - 1}ページ / エラー: ${errors.length}`;
+      panel.textContent = `完了: ${pagesToFetch}ページ / エラー: ${errors.length}`;
       console.warn("取得エラー", errors);
     } else {
       panel.textContent = "完了";
