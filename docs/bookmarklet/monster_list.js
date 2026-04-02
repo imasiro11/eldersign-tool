@@ -47,10 +47,33 @@
     return null;
   };
 
-  const getCurrentPage = () => {
-    const on = document.querySelector("a.on");
-    const value = on ? parseInt(on.textContent, 10) : 1;
-    return Number.isNaN(value) ? 1 : value;
+  const findPagerContainer = () => {
+    const footer = document.querySelector("footer");
+    if (footer) {
+      const pgBoxes = footer.querySelectorAll("div.pg");
+      if (pgBoxes.length && pgBoxes[0].parentElement) {
+        return pgBoxes[0].parentElement;
+      }
+      const nav = footer.querySelector("nav.pager");
+      if (nav) return nav;
+    }
+    return document.querySelector("nav.pager");
+  };
+
+  const getCurrentPage = (pagerContainer) => {
+    const currentLabel = pagerContainer?.querySelector("li.on a, a.on")?.textContent?.trim();
+    if (currentLabel && /^\d+$/.test(currentLabel)) {
+      const value = parseInt(currentLabel, 10);
+      return Number.isNaN(value) ? 1 : value;
+    }
+    try {
+      const url = new URL(location.href);
+      const raw = url.searchParams.get("pg");
+      const value = raw == null ? 1 : parseInt(raw, 10) + 1;
+      return Number.isNaN(value) || value < 1 ? 1 : value;
+    } catch (_) {
+      return 1;
+    }
   };
 
   const buildPageUrl = (pageNumber) => {
@@ -77,7 +100,8 @@
       return;
     }
 
-    const currentPage = getCurrentPage();
+    const pagerContainer = findPagerContainer();
+    const currentPage = getCurrentPage(pagerContainer);
     const ownedCount = parseOwnedCount();
     if (!ownedCount) {
       alert("枚数の取得に失敗しました。");
