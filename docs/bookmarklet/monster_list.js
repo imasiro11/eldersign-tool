@@ -14,9 +14,17 @@
       "background:rgba(0,0,0,.8);color:#fff;padding:10px 12px;" +
       "border-radius:8px;font-family:monospace;font-size:12px;" +
       "max-width:calc(100% - 20px);";
-    panel.textContent = "準備中...";
+    const status = document.createElement("div");
+    status.textContent = "準備中...";
+    const stopButton = document.createElement("button");
+    stopButton.type = "button";
+    stopButton.textContent = "停止";
+    stopButton.style.cssText =
+      "margin-top:8px;padding:4px 8px;border:0;border-radius:4px;" +
+      "background:#c33;color:#fff;cursor:pointer;font:inherit;";
+    panel.append(status, stopButton);
     document.body.appendChild(panel);
-    return panel;
+    return { panel, status, stopButton };
   };
 
   const parseOwnedCount = () => {
@@ -71,16 +79,30 @@
       return;
     }
 
-    const panel = buildPanel();
+    const { panel, status, stopButton } = buildPanel();
     const errors = [];
+    let isCanceled = false;
+    let currentController = null;
 
     const pagesToFetch = totalPages - currentPage;
+    stopButton.addEventListener("click", () => {
+      isCanceled = true;
+      currentController?.abort();
+      status.textContent = "停止中...";
+      stopButton.disabled = true;
+      stopButton.style.cursor = "default";
+    });
 
     for (let page = currentPage + 1; page <= totalPages; page += 1) {
-      panel.textContent = `取得中 ${page - currentPage}/${pagesToFetch} ページ`;
+      if (isCanceled) break;
+      status.textContent = `取得中 ${page - currentPage}/${pagesToFetch} ページ`;
       try {
         const url = buildPageUrl(page);
-        const response = await fetch(url, { credentials: "include" });
+        currentController = new AbortController();
+        const response = await fetch(url, {
+          credentials: "include",
+          signal: currentController.signal,
+        });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const html = await response.text();
         const items = extractListItems(html);
@@ -91,17 +113,29 @@
         items.forEach((item) => fragment.appendChild(document.importNode(item, true)));
         list.appendChild(fragment);
       } catch (err) {
+        if (isCanceled || err.name === "AbortError") {
+          break;
+        }
         errors.push(`${page}ページ目: ${err.message}`);
+      } finally {
+        currentController = null;
       }
+      if (isCanceled) break;
       await sleep(REQUEST_DELAY_MS);
     }
-    document.body.dataset.esBookExpanded = "1";
+    stopButton.remove();
 
-    if (errors.length) {
-      panel.textContent = `完了: ${pagesToFetch}ページ / エラー: ${errors.length}`;
-      console.warn("取得エラー", errors);
+    if (isCanceled) {
+      status.textContent = "停止しました";
     } else {
-      panel.textContent = "完了";
+      document.body.dataset.esBookExpanded = "1";
+    }
+
+    if (!isCanceled && errors.length) {
+      status.textContent = `完了: ${pagesToFetch}ページ / エラー: ${errors.length}`;
+      console.warn("取得エラー", errors);
+    } else if (!isCanceled) {
+      status.textContent = "完了";
     }
     setTimeout(() => panel.remove(), 5000);
   };
