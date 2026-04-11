@@ -2,6 +2,7 @@
   const PANEL_ID = "__es_skill_order_panel";
   const DEFAULT_LEFT = "左";
   const DEFAULT_RIGHT = "右";
+  const GLOBAL_API = "ElderSignSkillOrder";
 
   function normalizeName(name) {
     return name.replace(/^[\s\u3000]+|[\s\u3000]+$/g, "");
@@ -79,6 +80,7 @@
         level: m.level ?? null,
         status: m.status,
         turns: {},
+        turnDetails: {},
       });
     });
     return { order, map };
@@ -87,16 +89,22 @@
   function ensureMonster(mapInfo, name) {
     if (mapInfo.map.has(name)) return mapInfo.map.get(name);
     mapInfo.order.push(name);
-    const m = { name, level: null, status: "", turns: {} };
+    const m = { name, level: null, status: "", turns: {}, turnDetails: {} };
     mapInfo.map.set(name, m);
     return m;
   }
 
-  function addSkill(mapInfo, name, turn, skill) {
+  function addSkill(mapInfo, name, turn, skill, detail = {}) {
     if (!skill) return;
     const m = ensureMonster(mapInfo, name);
     if (!m.turns[turn]) m.turns[turn] = [];
     m.turns[turn].push(skill);
+    if (!m.turnDetails[turn]) m.turnDetails[turn] = [];
+    m.turnDetails[turn].push({
+      skill,
+      variant: detail.variant ?? null,
+      imageUrl: detail.imageUrl || "",
+    });
   }
 
   function parseTurnNumber(section) {
@@ -333,11 +341,11 @@
 
       const viewport = window.visualViewport;
       const viewportHeight = viewport ? viewport.height : window.innerHeight;
+      const narrow = window.innerWidth < 520;
       const fallbackBottom = !viewport && narrow ? 64 : 0;
       const topOffset = Number.parseInt(box.style.top, 10) || boxTop;
       const maxHeight = Math.max(0, viewportHeight - topOffset - 32 - fallbackBottom);
       box.style.maxHeight = `${Math.floor(maxHeight)}px`;
-      const narrow = window.innerWidth < 520;
       const needsAccordion = row.scrollHeight + 24 > maxHeight;
       const useAccordion = narrow || needsAccordion;
       panels.forEach((item) => {
@@ -424,8 +432,8 @@
     return lines.join("\n");
   }
 
-  function getPartyTitles() {
-    const h1 = document.querySelector("section.btl header.btl h1");
+  function getPartyTitles(doc = document) {
+    const h1 = doc.querySelector("section.btl header.btl h1");
     if (!h1) return { left: DEFAULT_LEFT, right: DEFAULT_RIGHT };
     const parts = h1.textContent.split("vs");
     if (parts.length < 2) return { left: DEFAULT_LEFT, right: DEFAULT_RIGHT };
@@ -447,24 +455,42 @@
     return names;
   }
 
-  try {
-    const turnSections = Array.from(document.querySelectorAll("section.turn"));
+  function extractVariantNumber(src) {
+    if (!src) return null;
+    const m = String(src).match(/_(\d+)g\d+\.png/i);
+    if (!m) return null;
+    const value = parseInt(m[1], 10);
+    return Number.isNaN(value) ? null : value;
+  }
+
+  function getImageFromRound(roundEl) {
+    let node = roundEl.previousElementSibling;
+    while (node) {
+      if (node.tagName === "H5") {
+        const img = node.querySelector("img");
+        return img?.src || "";
+      }
+      if (node.tagName === "HEADER") break;
+      node = node.previousElementSibling;
+    }
+    return "";
+  }
+
+  function parseBattleDocument(doc = document) {
+    const turnSections = Array.from(doc.querySelectorAll("section.turn"));
     if (!turnSections.length) {
-      alert("バトル結果ページで使用してください");
-      return;
+      throw new Error("バトル結果ページで使用してください");
     }
 
     const firstTurn = turnSections[0];
     const partyTable = firstTurn.querySelector("table.party");
     if (!partyTable) {
-      alert("初期陣営情報が見つかりません");
-      return;
+      throw new Error("初期陣営情報が見つかりません");
     }
 
     const partyCells = partyTable.querySelectorAll("tbody tr td");
     if (partyCells.length < 2) {
-      alert("陣営情報の取得に失敗しました");
-      return;
+      throw new Error("陣営情報の取得に失敗しました");
     }
 
     const leftMonsters = parsePartyCell(partyCells[0]);
@@ -485,7 +511,7 @@
     presentLeftByTurn[0] = new Set(leftMonsters.map((m) => m.name));
     presentRightByTurn[0] = new Set(rightMonsters.map((m) => m.name));
 
-    const preTurnRounds = Array.from(document.querySelectorAll("p.round")).filter(
+    const preTurnRounds = Array.from(doc.querySelectorAll("p.round")).filter(
       (p) => !p.closest("section.turn")
     );
     preTurnRounds.forEach((p) => {
@@ -527,6 +553,8 @@
 
       const rounds = section.querySelectorAll("p.round");
       rounds.forEach((p) => {
+        const imageUrl = getImageFromRound(p);
+        const variant = extractVariantNumber(imageUrl);
         const ems = p.querySelectorAll("em");
         let parsed = null;
         for (const em of ems) {
@@ -537,17 +565,48 @@
         if (!parsed.skill) return;
 
         if (leftInfo.map.has(parsed.actor)) {
-          addSkill(leftInfo, parsed.actor, turn, parsed.skill);
+          addSkill(leftInfo, parsed.actor, turn, parsed.skill, { variant, imageUrl });
         } else if (rightInfo.map.has(parsed.actor)) {
-          addSkill(rightInfo, parsed.actor, turn, parsed.skill);
+          addSkill(rightInfo, parsed.actor, turn, parsed.skill, { variant, imageUrl });
         }
       });
     });
 
-    const leftText = buildOutputText(leftInfo, maxTurn, presentLeftByTurn);
-    const rightText = buildOutputText(rightInfo, maxTurn, presentRightByTurn);
-    const titles = getPartyTitles();
-    renderPanel(titles.left, titles.right, leftText, rightText);
+    return {
+      leftInfo,
+      rightInfo,
+      maxTurn,
+      presentLeftByTurn,
+      presentRightByTurn,
+      titles: getPartyTitles(doc),
+    };
+  }
+
+  function parseBattleHtml(html) {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return parseBattleDocument(doc);
+  }
+
+  function run(doc = document) {
+    const result = parseBattleDocument(doc);
+    const leftText = buildOutputText(result.leftInfo, result.maxTurn, result.presentLeftByTurn);
+    const rightText = buildOutputText(result.rightInfo, result.maxTurn, result.presentRightByTurn);
+    renderPanel(result.titles.left, result.titles.right, leftText, rightText);
+    return result;
+  }
+
+  window[GLOBAL_API] = {
+    parseBattleDocument,
+    parseBattleHtml,
+    buildOutputText,
+    run,
+    normalizeName,
+  };
+
+  if (window.__ES_SKILL_ORDER_NO_AUTO_RUN) return;
+
+  try {
+    run(document);
   } catch (e) {
     alert("エラー: " + e.message);
   }

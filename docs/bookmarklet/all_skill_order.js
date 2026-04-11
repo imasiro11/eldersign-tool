@@ -3,6 +3,10 @@
   const DELAY_MS = 700;
   // 進捗表示パネルのID
   const PANEL_ID = "__es_all_skill_order_panel";
+  const SKILL_ORDER_API = "ElderSignSkillOrder";
+  const SCRIPT_BASE_URL = document.currentScript?.src
+    ? new URL(".", document.currentScript.src).toString()
+    : "https://yuki-kamikita.github.io/eldersign-tool/bookmarklet/";
 
   // 全角/半角スペースを含む前後の空白を除去
   const normalizeName = (name) => name.replace(/^[\s\u3000]+|[\s\u3000]+$/g, "");
@@ -16,39 +20,6 @@
     } catch (err) {
       return href;
     }
-  };
-
-  // <br> 区切りを保持したテキスト配列を抽出
-  const getLinesFromElement = (el) => {
-    const lines = [];
-    let current = "";
-
-    const flush = () => {
-      const text = current.trim();
-      if (text) lines.push(text);
-      current = "";
-    };
-
-    el.childNodes.forEach((node) => {
-      if (node.nodeType === Node.TEXT_NODE) {
-        current += node.textContent || "";
-        return;
-      }
-      if (node.nodeName === "BR") {
-        flush();
-        return;
-      }
-      current += node.textContent || "";
-    });
-
-    flush();
-    return lines;
-  };
-
-  // "名前 LvX" から名前だけを抜き出す
-  const parseNameLine = (line) => {
-    const nameMatch = line.match(/^(.*)\s+Lv\d+/);
-    return normalizeName(nameMatch ? nameMatch[1] : line);
   };
 
   // 末尾の識別アルファベット(A〜H)を削除した名前
@@ -66,41 +37,11 @@
     return String.fromCharCode(c.charCodeAt(0) & 0xffdf);
   };
 
-  // 画像URLから個体番号を取得(_0g4.png の "0")
-  const extractVariantNumber = (src) => {
-    if (!src) return null;
-    const m = String(src).match(/_(\d+)g\d+\.png/i);
-    if (!m) return null;
-    const value = parseInt(m[1], 10);
-    return Number.isNaN(value) ? null : value;
-  };
-
   // 個体番号を表示名に変換
   const getVariantLabel = (value) => {
     if (value == null) return "";
     if (value === 0) return "原";
     return `亜${value}`;
-  };
-
-  // "LvX" からレベルを抽出
-  const parseLevel = (line) => {
-    const m = line.match(/Lv\s*(\d+)/i);
-    return m ? parseInt(m[1], 10) : null;
-  };
-
-  // 陣営のセルからモンスター一覧を取得
-  const parsePartyCell = (td) => {
-    const rows = [];
-    const ps = td.querySelectorAll("p");
-    ps.forEach((p) => {
-      const lines = getLinesFromElement(p);
-      if (!lines.length) return;
-      const nameLine = lines[0];
-      const rawName = parseNameLine(nameLine);
-      const baseName = getBaseMonsterName(rawName);
-      rows.push({ rawName, baseName, level: parseLevel(nameLine) });
-    });
-    return rows;
   };
 
   const buildDupSet = (rows) => {
@@ -113,35 +54,6 @@
       if (count >= 2) dupSet.add(baseName);
     });
     return dupSet;
-  };
-
-  const buildPartyMonsters = (rows, dupSet) => {
-    return rows.map((row) => {
-      const suffix = extractSuffixLetter(row.rawName);
-      if (dupSet.has(row.baseName)) {
-        return { name: row.baseName, suffix, level: row.level };
-      }
-      return { name: normalizeName(row.rawName), suffix: null, level: row.level };
-    });
-  };
-
-  // モンスター名をキーにしたMapを作成
-  const buildMonsterMap = (list) => {
-    const map = new Map();
-    list.forEach((m) => {
-      if (!m.name) return;
-      const key = `${m.name}__${m.suffix || ""}`;
-      map.set(key, {
-        name: m.name,
-        suffix: m.suffix,
-        variant: null,
-        level: m.level ?? null,
-        imageUrl: null,
-        p0Skills: new Set(),
-        actionSkills: new Set(),
-      });
-    });
-    return map;
   };
 
   // モンスターが未登録なら追加して返す
@@ -178,186 +90,98 @@
     }
   };
 
-  // "○○の攻撃！スキル名" などから行動者とスキルを抽出
-  const extractSkillFromEm = (text) => {
-    const t = text.trim();
-    const attackMatch = t.match(/^(.+?)の攻撃！(.*)$/);
-    if (attackMatch) {
-      const actor = normalizeName(attackMatch[1]);
-      const suffix = extractSuffixLetter(attackMatch[1]);
-      let skill = attackMatch[2].trim();
-      if (skill.endsWith("！")) skill = skill.slice(0, -1).trim();
-      if (!skill) return { actor, suffix, skill: null };
-      return { actor, suffix, skill };
-    }
-    const generalMatch = t.match(/^(.+?)の.+?！(.*)$/);
-    if (generalMatch) {
-      const actor = normalizeName(generalMatch[1]);
-      const suffix = extractSuffixLetter(generalMatch[1]);
-      let skill = generalMatch[2].trim();
-      if (skill.endsWith("！")) skill = skill.slice(0, -1).trim();
-      if (!skill) return { actor, suffix, skill: null };
-      return { actor, suffix, skill };
-    }
-    return null;
+  const loadSkillOrderApi = () => {
+    if (window[SKILL_ORDER_API]) return Promise.resolve(window[SKILL_ORDER_API]);
+    if (window.__ES_SKILL_ORDER_LOADING) return window.__ES_SKILL_ORDER_LOADING;
+
+    window.__ES_SKILL_ORDER_NO_AUTO_RUN = true;
+    window.__ES_SKILL_ORDER_LOADING = new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = new URL("skill_order.js", SCRIPT_BASE_URL).toString();
+      script.onload = () => {
+        delete window.__ES_SKILL_ORDER_NO_AUTO_RUN;
+        if (window[SKILL_ORDER_API]) {
+          resolve(window[SKILL_ORDER_API]);
+          return;
+        }
+        reject(new Error("skill_order.js の読み込みに失敗しました。"));
+      };
+      script.onerror = () => {
+        delete window.__ES_SKILL_ORDER_NO_AUTO_RUN;
+        reject(new Error("skill_order.js の読み込みに失敗しました。"));
+      };
+      document.head.appendChild(script);
+    });
+    return window.__ES_SKILL_ORDER_LOADING;
   };
 
-  // 支援系のスキル名を抽出
-  const extractSupportSkill = (text) => {
-    const t = text.trim();
-    const m = t.match(/！([^！]+)！/);
-    if (m) return m[1].trim();
-    const parts = t.split("！");
-    if (parts.length >= 2) return parts[1].trim();
-    return null;
+  const getRowsFromInfo = (info) => {
+    return info.order
+      .map((name) => info.map.get(name))
+      .filter(Boolean)
+      .map((m) => ({
+        rawName: m.name,
+        baseName: getBaseMonsterName(m.name),
+        level: m.level,
+      }));
   };
 
-  // 支援効果っぽい行だけを判定
-  const isSupportEffectLine = (line) => {
-    if (!line) return false;
-    if (!line.includes("は")) return false;
-    if (/(効果が無かった|抵抗した|回避した|なんともない|倒れた|解けた)/.test(line))
-      return false;
-    if (/ダメージ！/.test(line)) return false;
-    return /！$/.test(line);
-  };
+  const convertSkillOrderInfo = (info, dupSet, maxTurn) => {
+    const map = new Map();
+    info.order.forEach((rawName) => {
+      const source = info.map.get(rawName);
+      if (!source) return;
+      const baseName = getBaseMonsterName(source.name);
+      const suffix = extractSuffixLetter(source.name);
+      const name = dupSet.has(baseName) ? baseName : source.name;
+      const useSuffix = dupSet.has(baseName) ? suffix : null;
+      const target = ensureMonster(map, name, useSuffix);
+      if (source.level != null) target.level = source.level;
 
-  // "A vs B" から左右のプレイヤー名を取得
-  const getPartyTitles = (doc) => {
-    const h1 = doc.querySelector("section.btl header.btl h1");
-    if (!h1) return { left: "", right: "" };
-    const parts = h1.textContent.split("vs");
-    if (parts.length < 2) return { left: "", right: "" };
-    return {
-      left: normalizeName(parts[0]),
-      right: normalizeName(parts[1]),
-    };
+      const p0Details =
+        source.turnDetails?.[0] || (source.turns?.[0] || []).map((skill) => ({ skill }));
+      p0Details.forEach((detail) => {
+        addSkill(map, name, useSuffix, null, detail.skill, true, null);
+      });
+
+      for (let turn = 1; turn <= maxTurn; turn += 1) {
+        const details =
+          source.turnDetails?.[turn] || (source.turns?.[turn] || []).map((skill) => ({ skill }));
+        details.forEach((detail) => {
+          addSkill(
+            map,
+            name,
+            useSuffix,
+            detail.variant ?? null,
+            detail.skill,
+            false,
+            detail.imageUrl || null,
+          );
+        });
+      }
+    });
+    return map;
   };
 
   // 戦闘結果HTMLを解析して左右のモンスター情報を返す
   const parseBattle = (html) => {
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    const turnSections = Array.from(doc.querySelectorAll("section.turn"));
-    if (!turnSections.length) return null;
+    const api = window[SKILL_ORDER_API];
+    if (!api) throw new Error("skill_order.js が読み込まれていません。");
 
-    const firstTurn = turnSections[0];
-    const partyTable = firstTurn.querySelector("table.party");
-    if (!partyTable) return null;
-
-    const partyCells = partyTable.querySelectorAll("tbody tr td");
-    if (partyCells.length < 2) return null;
-
-    const leftRows = parsePartyCell(partyCells[0]);
-    const rightRows = parsePartyCell(partyCells[1]);
-    const dupSet = buildDupSet([...leftRows, ...rightRows]);
-    const leftMonsters = buildPartyMonsters(leftRows, dupSet);
-    const rightMonsters = buildPartyMonsters(rightRows, dupSet);
-    const leftMap = buildMonsterMap(leftMonsters);
-    const rightMap = buildMonsterMap(rightMonsters);
-
-    const getVariantFromRound = (roundEl) => {
-      let node = roundEl.previousElementSibling;
-      while (node) {
-        if (node.tagName === "H5") {
-          const img = node.querySelector("img");
-          return extractVariantNumber(img?.src || "");
-        }
-        if (node.tagName === "HEADER") break;
-        node = node.previousElementSibling;
-      }
+    let parsed;
+    try {
+      parsed = api.parseBattleHtml(html);
+    } catch (err) {
       return null;
-    };
+    }
 
-    const getImageFromRound = (roundEl) => {
-      let node = roundEl.previousElementSibling;
-      while (node) {
-        if (node.tagName === "H5") {
-          const img = node.querySelector("img");
-          return img?.src || "";
-        }
-        if (node.tagName === "HEADER") break;
-        node = node.previousElementSibling;
-      }
-      return "";
-    };
-
-    // 開幕前の支援スキルを抽出
-    const preTurnRounds = Array.from(doc.querySelectorAll("p.round")).filter(
-      (p) => !p.closest("section.turn"),
-    );
-    preTurnRounds.forEach((p) => {
-      const em = p.querySelector("em");
-      if (!em) return;
-      const skill = extractSupportSkill(em.textContent);
-      if (!skill) return;
-
-      const lines = getLinesFromElement(p);
-      const added = new Set();
-      lines.forEach((line) => {
-        if (!isSupportEffectLine(line)) return;
-        const m = line.match(/^(.+?)は(.+?)！$/);
-        if (!m) return;
-        const rawTarget = normalizeName(m[1]);
-        const baseTarget = getBaseMonsterName(rawTarget);
-        const suffix = extractSuffixLetter(rawTarget);
-        const leftKey = dupSet.has(baseTarget)
-          ? `${baseTarget}__${suffix || ""}`
-          : `${rawTarget}__`;
-        const rightKey = dupSet.has(baseTarget)
-          ? `${baseTarget}__${suffix || ""}`
-          : `${rawTarget}__`;
-        const targetKey = leftMap.has(leftKey) ? leftKey : rightKey;
-        if (added.has(targetKey)) return;
-        if (leftMap.has(targetKey)) {
-          const name = dupSet.has(baseTarget) ? baseTarget : rawTarget;
-          const useSuffix = dupSet.has(baseTarget) ? suffix : null;
-          addSkill(leftMap, name, useSuffix, null, skill, true, null);
-          added.add(targetKey);
-        } else if (rightMap.has(targetKey)) {
-          const name = dupSet.has(baseTarget) ? baseTarget : rawTarget;
-          const useSuffix = dupSet.has(baseTarget) ? suffix : null;
-          addSkill(rightMap, name, useSuffix, null, skill, true, null);
-          added.add(targetKey);
-        }
-      });
-    });
-
-    // 各ターンの行動ログからスキルを抽出
-    turnSections.forEach((section) => {
-      const rounds = section.querySelectorAll("p.round");
-      rounds.forEach((p) => {
-        const variant = getVariantFromRound(p);
-        const imageUrl = getImageFromRound(p);
-        const ems = p.querySelectorAll("em");
-        let parsed = null;
-        for (const em of ems) {
-          parsed = extractSkillFromEm(em.textContent);
-          if (parsed) break;
-        }
-        if (!parsed || !parsed.actor || !parsed.skill) return;
-        const baseActor = getBaseMonsterName(parsed.actor);
-        const leftKey = dupSet.has(baseActor)
-          ? `${baseActor}__${parsed.suffix || ""}`
-          : `${parsed.actor}__`;
-        const rightKey = dupSet.has(baseActor)
-          ? `${baseActor}__${parsed.suffix || ""}`
-          : `${parsed.actor}__`;
-        const key = leftMap.has(leftKey) ? leftKey : rightKey;
-        if (leftMap.has(key)) {
-          const name = dupSet.has(baseActor) ? baseActor : parsed.actor;
-          const useSuffix = dupSet.has(baseActor) ? parsed.suffix : null;
-          addSkill(leftMap, name, useSuffix, variant, parsed.skill, false, imageUrl);
-        } else if (rightMap.has(key)) {
-          const name = dupSet.has(baseActor) ? baseActor : parsed.actor;
-          const useSuffix = dupSet.has(baseActor) ? parsed.suffix : null;
-          addSkill(rightMap, name, useSuffix, variant, parsed.skill, false, imageUrl);
-        }
-      });
-    });
+    const leftRows = getRowsFromInfo(parsed.leftInfo);
+    const rightRows = getRowsFromInfo(parsed.rightInfo);
+    const dupSet = buildDupSet([...leftRows, ...rightRows]);
 
     return {
-      leftMap,
-      rightMap,
+      leftMap: convertSkillOrderInfo(parsed.leftInfo, dupSet, parsed.maxTurn),
+      rightMap: convertSkillOrderInfo(parsed.rightInfo, dupSet, parsed.maxTurn),
     };
   };
 
@@ -427,12 +251,6 @@
         if (!memberOrder.includes(name)) memberOrder.push(name);
       });
     }
-
-    // 名前の揺れを吸収するための参照Map
-    const nameLookup = new Map();
-    memberOrder.forEach((name) => {
-      nameLookup.set(normalizeName(name), name);
-    });
 
     // 対戦表のヘッダ(A〜L)を取得
     const headerRow = matchTable.querySelector("tr");
@@ -604,6 +422,8 @@
     };
 
     (async () => {
+      await loadSkillOrderApi();
+
       // 66試合を順次取得
       for (let i = 0; i < matches.length; i += 1) {
         const match = matches[i];
@@ -699,7 +519,10 @@
         console.warn("取得エラー", errors);
       }
       setTimeout(() => panel.remove(), 5000);
-    })();
+    })().catch((err) => {
+      panel.textContent = `エラー: ${err.message}`;
+      alert("エラー: " + err.message);
+    });
   } catch (err) {
     alert("エラー: " + err.message);
   }
