@@ -1,0 +1,468 @@
+{
+  "phase": 16,
+  "group": "A2",
+  "matches": {
+    "A-L": {
+      "round": 11,
+      "leftLetter": "A",
+      "rightLetter": "L",
+      "leftName": "シアン",
+      "rightName": "savekimo"
+    },
+    "B-L": {
+      "round": 6,
+      "leftLetter": "B",
+      "rightLetter": "L",
+      "leftName": "煌龍",
+      "rightName": "savekimo"
+    },
+    "C-L": {
+      "round": 1,
+      "leftLetter": "C",
+      "rightLetter": "L",
+      "leftName": "dq",
+      "rightName": "savekimo"
+    },
+    "D-L": {
+      "round": 7,
+      "leftLetter": "D",
+      "rightLetter": "L",
+      "leftName": "緋月",
+      "rightName": "savekimo"
+    },
+    "E-L": {
+      "round": 2,
+      "leftLetter": "E",
+      "rightLetter": "L",
+      "leftName": "禁書",
+      "rightName": "savekimo"
+    },
+    "F-L": {
+      "round": 8,
+      "leftLetter": "F",
+      "rightLetter": "L",
+      "leftName": "シマシマ",
+      "rightName": "savekimo"
+    },
+    "G-L": {
+      "round": 3,
+      "leftLetter": "G",
+      "rightLetter": "L",
+      "leftName": "koganei",
+      "rightName": "savekimo"
+    },
+    "H-L": {
+      "round": 9,
+      "leftLetter": "H",
+      "rightLetter": "L",
+      "leftName": "レミルガー",
+      "rightName": "savekimo"
+    },
+    "I-L": {
+      "round": 4,
+      "leftLetter": "I",
+      "rightLetter": "L",
+      "leftName": "赤い酒",
+      "rightName": "savekimo"
+    },
+    "J-L": {
+      "round": 10,
+      "leftLetter": "J",
+      "rightLetter": "L",
+      "leftName": "ルゲ",
+      "rightName": "savekimo"
+    },
+    "K-L": {
+      "round": 5,
+      "leftLetter": "K",
+      "rightLetter": "L",
+      "leftName": "あがさ",
+      "rightName": "savekimo"
+    },
+    "A-H": {
+      "round": 7,
+      "leftLetter": "A",
+      "rightLetter": "H",
+      "leftName": "シアン",
+      "rightName": "レミルガー"
+    },
+    "B-H": {
+      "round": 4,
+      "leftLetter": "B",
+      "rightLetter": "H",
+      "leftName": "煌龍",
+      "rightName": "レミルガー"
+    },
+    "C-H": {
+      "round": 10,
+      "leftLetter": "C",
+      "rightLetter": "H",
+      "leftName": "dq",
+      "rightName": "レミルガー"
+    },
+    "D-H": {
+      "round": 5,
+      "leftLetter": "D",
+      "rightLetter": "H",
+      "leftName": "緋月",
+      "rightName": "レミルガー"
+    },
+    "E-H": {
+      "round": 11,
+      "leftLetter": "E",
+      "rightLetter": "H",
+      "leftName": "禁書",
+      "rightName": "レミルガー"
+    },
+    "F-H": {
+      "round": 6,
+      "leftLetter": "F",
+      "rightLetter": "H",
+      "leftName": "シマシマ",
+      "rightName": "レミルガー"
+    },
+    "G-H": {
+      "round": 1,
+      "leftLetter": "G",
+      "rightLetter": "H",
+      "leftName": "koganei",
+      "rightName": "レミルガー"
+    },
+    "H-I": {
+      "round": 2,
+      "leftLetter": "H",
+      "rightLetter": "I",
+      "leftName": "レミルガー",
+      "rightName": "赤い酒"
+    },
+    "H-J": {
+      "round": 8,
+      "leftLetter": "H",
+      "rightLetter": "J",
+      "leftName": "レミルガー",
+      "rightName": "ルゲ"
+    },
+    "H-K": {
+      "round": 3,
+      "leftLetter": "H",
+      "rightLetter": "K",
+      "leftName": "レミルガー",
+      "rightName": "あがさ"
+    },
+    "A-F": {
+      "round": 5,
+      "leftLetter": "A",
+      "rightLetter": "F",
+      "leftName": "シアン",
+      "rightName": "シマシマ"
+    },
+    "B-F": {
+      "round": 3,
+      "leftLetter": "B",
+      "rightLetter": "F",
+      "leftName": "煌龍",
+      "rightName": "シマシマ"
+    },
+    "C-F": {
+      "round": 9,
+      "leftLetter": "C",
+      "rightLetter": "F",
+      "leftName": "dq",
+      "rightName": "シマシマ"
+    },
+    "D-F": {
+      "round": 4,
+      "leftLetter": "D",
+      "rightLetter": "F",
+      "leftName": "緋月",
+      "rightName": "シマシマ"
+    },
+    "E-F": {
+      "round": 10,
+      "leftLetter": "E",
+      "rightLetter": "F",
+      "leftName": "禁書",
+      "rightName": "シマシマ"
+    },
+    "F-G": {
+      "round": 11,
+      "leftLetter": "F",
+      "rightLetter": "G",
+      "leftName": "シマシマ",
+      "rightName": "koganei"
+    },
+    "F-I": {
+      "round": 1,
+      "leftLetter": "F",
+      "rightLetter": "I",
+      "leftName": "シマシマ",
+      "rightName": "赤い酒"
+    },
+    "F-J": {
+      "round": 7,
+      "leftLetter": "F",
+      "rightLetter": "J",
+      "leftName": "シマシマ",
+      "rightName": "ルゲ"
+    },
+    "F-K": {
+      "round": 2,
+      "leftLetter": "F",
+      "rightLetter": "K",
+      "leftName": "シマシマ",
+      "rightName": "あがさ"
+    },
+    "A-J": {
+      "round": 9,
+      "leftLetter": "A",
+      "rightLetter": "J",
+      "leftName": "シアン",
+      "rightName": "ルゲ"
+    },
+    "B-J": {
+      "round": 5,
+      "leftLetter": "B",
+      "rightLetter": "J",
+      "leftName": "煌龍",
+      "rightName": "ルゲ"
+    },
+    "C-J": {
+      "round": 11,
+      "leftLetter": "C",
+      "rightLetter": "J",
+      "leftName": "dq",
+      "rightName": "ルゲ"
+    },
+    "D-J": {
+      "round": 6,
+      "leftLetter": "D",
+      "rightLetter": "J",
+      "leftName": "緋月",
+      "rightName": "ルゲ"
+    },
+    "E-J": {
+      "round": 1,
+      "leftLetter": "E",
+      "rightLetter": "J",
+      "leftName": "禁書",
+      "rightName": "ルゲ"
+    },
+    "G-J": {
+      "round": 2,
+      "leftLetter": "G",
+      "rightLetter": "J",
+      "leftName": "koganei",
+      "rightName": "ルゲ"
+    },
+    "I-J": {
+      "round": 3,
+      "leftLetter": "I",
+      "rightLetter": "J",
+      "leftName": "赤い酒",
+      "rightName": "ルゲ"
+    },
+    "J-K": {
+      "round": 4,
+      "leftLetter": "J",
+      "rightLetter": "K",
+      "leftName": "ルゲ",
+      "rightName": "あがさ"
+    },
+    "A-B": {
+      "round": 1,
+      "leftLetter": "A",
+      "rightLetter": "B",
+      "leftName": "シアン",
+      "rightName": "煌龍"
+    },
+    "B-D": {
+      "round": 2,
+      "leftLetter": "B",
+      "rightLetter": "D",
+      "leftName": "煌龍",
+      "rightName": "緋月"
+    },
+    "B-C": {
+      "round": 7,
+      "leftLetter": "B",
+      "rightLetter": "C",
+      "leftName": "煌龍",
+      "rightName": "dq"
+    },
+    "B-E": {
+      "round": 8,
+      "leftLetter": "B",
+      "rightLetter": "E",
+      "leftName": "煌龍",
+      "rightName": "禁書"
+    },
+    "B-G": {
+      "round": 9,
+      "leftLetter": "B",
+      "rightLetter": "G",
+      "leftName": "煌龍",
+      "rightName": "koganei"
+    },
+    "B-I": {
+      "round": 10,
+      "leftLetter": "B",
+      "rightLetter": "I",
+      "leftName": "煌龍",
+      "rightName": "赤い酒"
+    },
+    "B-K": {
+      "round": 11,
+      "leftLetter": "B",
+      "rightLetter": "K",
+      "leftName": "煌龍",
+      "rightName": "あがさ"
+    },
+    "A-E": {
+      "round": 4,
+      "leftLetter": "A",
+      "rightLetter": "E",
+      "leftName": "シアン",
+      "rightName": "禁書"
+    },
+    "C-E": {
+      "round": 3,
+      "leftLetter": "C",
+      "rightLetter": "E",
+      "leftName": "dq",
+      "rightName": "禁書"
+    },
+    "D-E": {
+      "round": 9,
+      "leftLetter": "D",
+      "rightLetter": "E",
+      "leftName": "緋月",
+      "rightName": "禁書"
+    },
+    "E-G": {
+      "round": 5,
+      "leftLetter": "E",
+      "rightLetter": "G",
+      "leftName": "禁書",
+      "rightName": "koganei"
+    },
+    "E-I": {
+      "round": 6,
+      "leftLetter": "E",
+      "rightLetter": "I",
+      "leftName": "禁書",
+      "rightName": "赤い酒"
+    },
+    "E-K": {
+      "round": 7,
+      "leftLetter": "E",
+      "rightLetter": "K",
+      "leftName": "禁書",
+      "rightName": "あがさ"
+    },
+    "A-I": {
+      "round": 8,
+      "leftLetter": "A",
+      "rightLetter": "I",
+      "leftName": "シアン",
+      "rightName": "赤い酒"
+    },
+    "C-I": {
+      "round": 5,
+      "leftLetter": "C",
+      "rightLetter": "I",
+      "leftName": "dq",
+      "rightName": "赤い酒"
+    },
+    "D-I": {
+      "round": 11,
+      "leftLetter": "D",
+      "rightLetter": "I",
+      "leftName": "緋月",
+      "rightName": "赤い酒"
+    },
+    "G-I": {
+      "round": 7,
+      "leftLetter": "G",
+      "rightLetter": "I",
+      "leftName": "koganei",
+      "rightName": "赤い酒"
+    },
+    "I-K": {
+      "round": 9,
+      "leftLetter": "I",
+      "rightLetter": "K",
+      "leftName": "赤い酒",
+      "rightName": "あがさ"
+    },
+    "A-C": {
+      "round": 2,
+      "leftLetter": "A",
+      "rightLetter": "C",
+      "leftName": "シアン",
+      "rightName": "dq"
+    },
+    "A-D": {
+      "round": 3,
+      "leftLetter": "A",
+      "rightLetter": "D",
+      "leftName": "シアン",
+      "rightName": "緋月"
+    },
+    "A-G": {
+      "round": 6,
+      "leftLetter": "A",
+      "rightLetter": "G",
+      "leftName": "シアン",
+      "rightName": "koganei"
+    },
+    "A-K": {
+      "round": 10,
+      "leftLetter": "A",
+      "rightLetter": "K",
+      "leftName": "シアン",
+      "rightName": "あがさ"
+    },
+    "C-K": {
+      "round": 6,
+      "leftLetter": "C",
+      "rightLetter": "K",
+      "leftName": "dq",
+      "rightName": "あがさ"
+    },
+    "D-K": {
+      "round": 1,
+      "leftLetter": "D",
+      "rightLetter": "K",
+      "leftName": "緋月",
+      "rightName": "あがさ"
+    },
+    "G-K": {
+      "round": 8,
+      "leftLetter": "G",
+      "rightLetter": "K",
+      "leftName": "koganei",
+      "rightName": "あがさ"
+    },
+    "C-D": {
+      "round": 8,
+      "leftLetter": "C",
+      "rightLetter": "D",
+      "leftName": "dq",
+      "rightName": "緋月"
+    },
+    "D-G": {
+      "round": 10,
+      "leftLetter": "D",
+      "rightLetter": "G",
+      "leftName": "緋月",
+      "rightName": "koganei"
+    },
+    "C-G": {
+      "round": 4,
+      "leftLetter": "C",
+      "rightLetter": "G",
+      "leftName": "dq",
+      "rightName": "koganei"
+    }
+  }
+}

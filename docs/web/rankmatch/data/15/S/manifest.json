@@ -1,0 +1,468 @@
+{
+  "phase": 15,
+  "group": "S",
+  "matches": {
+    "A-F": {
+      "round": 5,
+      "leftLetter": "A",
+      "rightLetter": "F",
+      "leftName": "ハイジ",
+      "rightName": "カリスト"
+    },
+    "B-F": {
+      "round": 3,
+      "leftLetter": "B",
+      "rightLetter": "F",
+      "leftName": "☆新九郎☆",
+      "rightName": "カリスト"
+    },
+    "C-F": {
+      "round": 9,
+      "leftLetter": "C",
+      "rightLetter": "F",
+      "leftName": "タカヤマン",
+      "rightName": "カリスト"
+    },
+    "D-F": {
+      "round": 4,
+      "leftLetter": "D",
+      "rightLetter": "F",
+      "leftName": "センカ",
+      "rightName": "カリスト"
+    },
+    "F-G": {
+      "round": 11,
+      "leftLetter": "F",
+      "rightLetter": "G",
+      "leftName": "カリスト",
+      "rightName": "白"
+    },
+    "F-H": {
+      "round": 6,
+      "leftLetter": "F",
+      "rightLetter": "H",
+      "leftName": "カリスト",
+      "rightName": "ClayClay"
+    },
+    "F-J": {
+      "round": 7,
+      "leftLetter": "F",
+      "rightLetter": "J",
+      "leftName": "カリスト",
+      "rightName": "pmg"
+    },
+    "F-L": {
+      "round": 8,
+      "leftLetter": "F",
+      "rightLetter": "L",
+      "leftName": "カリスト",
+      "rightName": "イマクロ"
+    },
+    "E-F": {
+      "round": 10,
+      "leftLetter": "E",
+      "rightLetter": "F",
+      "leftName": "ユウア",
+      "rightName": "カリスト"
+    },
+    "F-I": {
+      "round": 1,
+      "leftLetter": "F",
+      "rightLetter": "I",
+      "leftName": "カリスト",
+      "rightName": "Ｄｒ．ウェスト"
+    },
+    "F-K": {
+      "round": 2,
+      "leftLetter": "F",
+      "rightLetter": "K",
+      "leftName": "カリスト",
+      "rightName": "Lollypop"
+    },
+    "A-H": {
+      "round": 7,
+      "leftLetter": "A",
+      "rightLetter": "H",
+      "leftName": "ハイジ",
+      "rightName": "ClayClay"
+    },
+    "B-H": {
+      "round": 4,
+      "leftLetter": "B",
+      "rightLetter": "H",
+      "leftName": "☆新九郎☆",
+      "rightName": "ClayClay"
+    },
+    "C-H": {
+      "round": 10,
+      "leftLetter": "C",
+      "rightLetter": "H",
+      "leftName": "タカヤマン",
+      "rightName": "ClayClay"
+    },
+    "D-H": {
+      "round": 5,
+      "leftLetter": "D",
+      "rightLetter": "H",
+      "leftName": "センカ",
+      "rightName": "ClayClay"
+    },
+    "G-H": {
+      "round": 1,
+      "leftLetter": "G",
+      "rightLetter": "H",
+      "leftName": "白",
+      "rightName": "ClayClay"
+    },
+    "H-J": {
+      "round": 8,
+      "leftLetter": "H",
+      "rightLetter": "J",
+      "leftName": "ClayClay",
+      "rightName": "pmg"
+    },
+    "H-K": {
+      "round": 3,
+      "leftLetter": "H",
+      "rightLetter": "K",
+      "leftName": "ClayClay",
+      "rightName": "Lollypop"
+    },
+    "H-L": {
+      "round": 9,
+      "leftLetter": "H",
+      "rightLetter": "L",
+      "leftName": "ClayClay",
+      "rightName": "イマクロ"
+    },
+    "E-H": {
+      "round": 11,
+      "leftLetter": "E",
+      "rightLetter": "H",
+      "leftName": "ユウア",
+      "rightName": "ClayClay"
+    },
+    "H-I": {
+      "round": 2,
+      "leftLetter": "H",
+      "rightLetter": "I",
+      "leftName": "ClayClay",
+      "rightName": "Ｄｒ．ウェスト"
+    },
+    "A-K": {
+      "round": 10,
+      "leftLetter": "A",
+      "rightLetter": "K",
+      "leftName": "ハイジ",
+      "rightName": "Lollypop"
+    },
+    "B-K": {
+      "round": 11,
+      "leftLetter": "B",
+      "rightLetter": "K",
+      "leftName": "☆新九郎☆",
+      "rightName": "Lollypop"
+    },
+    "C-K": {
+      "round": 6,
+      "leftLetter": "C",
+      "rightLetter": "K",
+      "leftName": "タカヤマン",
+      "rightName": "Lollypop"
+    },
+    "D-K": {
+      "round": 1,
+      "leftLetter": "D",
+      "rightLetter": "K",
+      "leftName": "センカ",
+      "rightName": "Lollypop"
+    },
+    "G-K": {
+      "round": 8,
+      "leftLetter": "G",
+      "rightLetter": "K",
+      "leftName": "白",
+      "rightName": "Lollypop"
+    },
+    "I-K": {
+      "round": 9,
+      "leftLetter": "I",
+      "rightLetter": "K",
+      "leftName": "Ｄｒ．ウェスト",
+      "rightName": "Lollypop"
+    },
+    "J-K": {
+      "round": 4,
+      "leftLetter": "J",
+      "rightLetter": "K",
+      "leftName": "pmg",
+      "rightName": "Lollypop"
+    },
+    "E-K": {
+      "round": 7,
+      "leftLetter": "E",
+      "rightLetter": "K",
+      "leftName": "ユウア",
+      "rightName": "Lollypop"
+    },
+    "K-L": {
+      "round": 5,
+      "leftLetter": "K",
+      "rightLetter": "L",
+      "leftName": "Lollypop",
+      "rightName": "イマクロ"
+    },
+    "A-J": {
+      "round": 9,
+      "leftLetter": "A",
+      "rightLetter": "J",
+      "leftName": "ハイジ",
+      "rightName": "pmg"
+    },
+    "D-J": {
+      "round": 6,
+      "leftLetter": "D",
+      "rightLetter": "J",
+      "leftName": "センカ",
+      "rightName": "pmg"
+    },
+    "I-J": {
+      "round": 3,
+      "leftLetter": "I",
+      "rightLetter": "J",
+      "leftName": "Ｄｒ．ウェスト",
+      "rightName": "pmg"
+    },
+    "B-J": {
+      "round": 5,
+      "leftLetter": "B",
+      "rightLetter": "J",
+      "leftName": "☆新九郎☆",
+      "rightName": "pmg"
+    },
+    "C-J": {
+      "round": 11,
+      "leftLetter": "C",
+      "rightLetter": "J",
+      "leftName": "タカヤマン",
+      "rightName": "pmg"
+    },
+    "E-J": {
+      "round": 1,
+      "leftLetter": "E",
+      "rightLetter": "J",
+      "leftName": "ユウア",
+      "rightName": "pmg"
+    },
+    "G-J": {
+      "round": 2,
+      "leftLetter": "G",
+      "rightLetter": "J",
+      "leftName": "白",
+      "rightName": "pmg"
+    },
+    "J-L": {
+      "round": 10,
+      "leftLetter": "J",
+      "rightLetter": "L",
+      "leftName": "pmg",
+      "rightName": "イマクロ"
+    },
+    "A-L": {
+      "round": 11,
+      "leftLetter": "A",
+      "rightLetter": "L",
+      "leftName": "ハイジ",
+      "rightName": "イマクロ"
+    },
+    "I-L": {
+      "round": 4,
+      "leftLetter": "I",
+      "rightLetter": "L",
+      "leftName": "Ｄｒ．ウェスト",
+      "rightName": "イマクロ"
+    },
+    "B-L": {
+      "round": 6,
+      "leftLetter": "B",
+      "rightLetter": "L",
+      "leftName": "☆新九郎☆",
+      "rightName": "イマクロ"
+    },
+    "E-L": {
+      "round": 2,
+      "leftLetter": "E",
+      "rightLetter": "L",
+      "leftName": "ユウア",
+      "rightName": "イマクロ"
+    },
+    "G-L": {
+      "round": 3,
+      "leftLetter": "G",
+      "rightLetter": "L",
+      "leftName": "白",
+      "rightName": "イマクロ"
+    },
+    "C-L": {
+      "round": 1,
+      "leftLetter": "C",
+      "rightLetter": "L",
+      "leftName": "タカヤマン",
+      "rightName": "イマクロ"
+    },
+    "D-L": {
+      "round": 7,
+      "leftLetter": "D",
+      "rightLetter": "L",
+      "leftName": "センカ",
+      "rightName": "イマクロ"
+    },
+    "A-E": {
+      "round": 4,
+      "leftLetter": "A",
+      "rightLetter": "E",
+      "leftName": "ハイジ",
+      "rightName": "ユウア"
+    },
+    "B-E": {
+      "round": 8,
+      "leftLetter": "B",
+      "rightLetter": "E",
+      "leftName": "☆新九郎☆",
+      "rightName": "ユウア"
+    },
+    "C-E": {
+      "round": 3,
+      "leftLetter": "C",
+      "rightLetter": "E",
+      "leftName": "タカヤマン",
+      "rightName": "ユウア"
+    },
+    "E-G": {
+      "round": 5,
+      "leftLetter": "E",
+      "rightLetter": "G",
+      "leftName": "ユウア",
+      "rightName": "白"
+    },
+    "E-I": {
+      "round": 6,
+      "leftLetter": "E",
+      "rightLetter": "I",
+      "leftName": "ユウア",
+      "rightName": "Ｄｒ．ウェスト"
+    },
+    "D-E": {
+      "round": 9,
+      "leftLetter": "D",
+      "rightLetter": "E",
+      "leftName": "センカ",
+      "rightName": "ユウア"
+    },
+    "A-C": {
+      "round": 2,
+      "leftLetter": "A",
+      "rightLetter": "C",
+      "leftName": "ハイジ",
+      "rightName": "タカヤマン"
+    },
+    "C-D": {
+      "round": 8,
+      "leftLetter": "C",
+      "rightLetter": "D",
+      "leftName": "タカヤマン",
+      "rightName": "センカ"
+    },
+    "C-G": {
+      "round": 4,
+      "leftLetter": "C",
+      "rightLetter": "G",
+      "leftName": "タカヤマン",
+      "rightName": "白"
+    },
+    "B-C": {
+      "round": 7,
+      "leftLetter": "B",
+      "rightLetter": "C",
+      "leftName": "☆新九郎☆",
+      "rightName": "タカヤマン"
+    },
+    "C-I": {
+      "round": 5,
+      "leftLetter": "C",
+      "rightLetter": "I",
+      "leftName": "タカヤマン",
+      "rightName": "Ｄｒ．ウェスト"
+    },
+    "A-I": {
+      "round": 8,
+      "leftLetter": "A",
+      "rightLetter": "I",
+      "leftName": "ハイジ",
+      "rightName": "Ｄｒ．ウェスト"
+    },
+    "B-I": {
+      "round": 10,
+      "leftLetter": "B",
+      "rightLetter": "I",
+      "leftName": "☆新九郎☆",
+      "rightName": "Ｄｒ．ウェスト"
+    },
+    "G-I": {
+      "round": 7,
+      "leftLetter": "G",
+      "rightLetter": "I",
+      "leftName": "白",
+      "rightName": "Ｄｒ．ウェスト"
+    },
+    "D-I": {
+      "round": 11,
+      "leftLetter": "D",
+      "rightLetter": "I",
+      "leftName": "センカ",
+      "rightName": "Ｄｒ．ウェスト"
+    },
+    "A-B": {
+      "round": 1,
+      "leftLetter": "A",
+      "rightLetter": "B",
+      "leftName": "ハイジ",
+      "rightName": "☆新九郎☆"
+    },
+    "A-D": {
+      "round": 3,
+      "leftLetter": "A",
+      "rightLetter": "D",
+      "leftName": "ハイジ",
+      "rightName": "センカ"
+    },
+    "A-G": {
+      "round": 6,
+      "leftLetter": "A",
+      "rightLetter": "G",
+      "leftName": "ハイジ",
+      "rightName": "白"
+    },
+    "B-D": {
+      "round": 2,
+      "leftLetter": "B",
+      "rightLetter": "D",
+      "leftName": "☆新九郎☆",
+      "rightName": "センカ"
+    },
+    "D-G": {
+      "round": 10,
+      "leftLetter": "D",
+      "rightLetter": "G",
+      "leftName": "センカ",
+      "rightName": "白"
+    },
+    "B-G": {
+      "round": 9,
+      "leftLetter": "B",
+      "rightLetter": "G",
+      "leftName": "☆新九郎☆",
+      "rightName": "白"
+    }
+  }
+}

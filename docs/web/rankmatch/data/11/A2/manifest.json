@@ -1,0 +1,468 @@
+{
+  "phase": 11,
+  "group": "A2",
+  "matches": {
+    "A-L": {
+      "round": 11,
+      "leftLetter": "A",
+      "rightLetter": "L",
+      "leftName": "禁書",
+      "rightName": "savekimo"
+    },
+    "B-L": {
+      "round": 6,
+      "leftLetter": "B",
+      "rightLetter": "L",
+      "leftName": "暇つぶし2025年",
+      "rightName": "savekimo"
+    },
+    "C-L": {
+      "round": 1,
+      "leftLetter": "C",
+      "rightLetter": "L",
+      "leftName": "はやて",
+      "rightName": "savekimo"
+    },
+    "D-L": {
+      "round": 7,
+      "leftLetter": "D",
+      "rightLetter": "L",
+      "leftName": "りふと",
+      "rightName": "savekimo"
+    },
+    "E-L": {
+      "round": 2,
+      "leftLetter": "E",
+      "rightLetter": "L",
+      "leftName": "pipe",
+      "rightName": "savekimo"
+    },
+    "F-L": {
+      "round": 8,
+      "leftLetter": "F",
+      "rightLetter": "L",
+      "leftName": "ヤクルト1000",
+      "rightName": "savekimo"
+    },
+    "G-L": {
+      "round": 3,
+      "leftLetter": "G",
+      "rightLetter": "L",
+      "leftName": "ノクターン",
+      "rightName": "savekimo"
+    },
+    "H-L": {
+      "round": 9,
+      "leftLetter": "H",
+      "rightLetter": "L",
+      "leftName": "シュトラッサー",
+      "rightName": "savekimo"
+    },
+    "I-L": {
+      "round": 4,
+      "leftLetter": "I",
+      "rightLetter": "L",
+      "leftName": "まる",
+      "rightName": "savekimo"
+    },
+    "J-L": {
+      "round": 10,
+      "leftLetter": "J",
+      "rightLetter": "L",
+      "leftName": "ゆばゆば極限",
+      "rightName": "savekimo"
+    },
+    "K-L": {
+      "round": 5,
+      "leftLetter": "K",
+      "rightLetter": "L",
+      "leftName": "ひのこ",
+      "rightName": "savekimo"
+    },
+    "A-I": {
+      "round": 8,
+      "leftLetter": "A",
+      "rightLetter": "I",
+      "leftName": "禁書",
+      "rightName": "まる"
+    },
+    "B-I": {
+      "round": 10,
+      "leftLetter": "B",
+      "rightLetter": "I",
+      "leftName": "暇つぶし2025年",
+      "rightName": "まる"
+    },
+    "C-I": {
+      "round": 5,
+      "leftLetter": "C",
+      "rightLetter": "I",
+      "leftName": "はやて",
+      "rightName": "まる"
+    },
+    "D-I": {
+      "round": 11,
+      "leftLetter": "D",
+      "rightLetter": "I",
+      "leftName": "りふと",
+      "rightName": "まる"
+    },
+    "E-I": {
+      "round": 6,
+      "leftLetter": "E",
+      "rightLetter": "I",
+      "leftName": "pipe",
+      "rightName": "まる"
+    },
+    "F-I": {
+      "round": 1,
+      "leftLetter": "F",
+      "rightLetter": "I",
+      "leftName": "ヤクルト1000",
+      "rightName": "まる"
+    },
+    "G-I": {
+      "round": 7,
+      "leftLetter": "G",
+      "rightLetter": "I",
+      "leftName": "ノクターン",
+      "rightName": "まる"
+    },
+    "H-I": {
+      "round": 2,
+      "leftLetter": "H",
+      "rightLetter": "I",
+      "leftName": "シュトラッサー",
+      "rightName": "まる"
+    },
+    "I-J": {
+      "round": 3,
+      "leftLetter": "I",
+      "rightLetter": "J",
+      "leftName": "まる",
+      "rightName": "ゆばゆば極限"
+    },
+    "I-K": {
+      "round": 9,
+      "leftLetter": "I",
+      "rightLetter": "K",
+      "leftName": "まる",
+      "rightName": "ひのこ"
+    },
+    "A-D": {
+      "round": 3,
+      "leftLetter": "A",
+      "rightLetter": "D",
+      "leftName": "禁書",
+      "rightName": "りふと"
+    },
+    "B-D": {
+      "round": 2,
+      "leftLetter": "B",
+      "rightLetter": "D",
+      "leftName": "暇つぶし2025年",
+      "rightName": "りふと"
+    },
+    "C-D": {
+      "round": 8,
+      "leftLetter": "C",
+      "rightLetter": "D",
+      "leftName": "はやて",
+      "rightName": "りふと"
+    },
+    "D-E": {
+      "round": 9,
+      "leftLetter": "D",
+      "rightLetter": "E",
+      "leftName": "りふと",
+      "rightName": "pipe"
+    },
+    "D-F": {
+      "round": 4,
+      "leftLetter": "D",
+      "rightLetter": "F",
+      "leftName": "りふと",
+      "rightName": "ヤクルト1000"
+    },
+    "D-G": {
+      "round": 10,
+      "leftLetter": "D",
+      "rightLetter": "G",
+      "leftName": "りふと",
+      "rightName": "ノクターン"
+    },
+    "D-H": {
+      "round": 5,
+      "leftLetter": "D",
+      "rightLetter": "H",
+      "leftName": "りふと",
+      "rightName": "シュトラッサー"
+    },
+    "D-J": {
+      "round": 6,
+      "leftLetter": "D",
+      "rightLetter": "J",
+      "leftName": "りふと",
+      "rightName": "ゆばゆば極限"
+    },
+    "D-K": {
+      "round": 1,
+      "leftLetter": "D",
+      "rightLetter": "K",
+      "leftName": "りふと",
+      "rightName": "ひのこ"
+    },
+    "A-C": {
+      "round": 2,
+      "leftLetter": "A",
+      "rightLetter": "C",
+      "leftName": "禁書",
+      "rightName": "はやて"
+    },
+    "C-F": {
+      "round": 9,
+      "leftLetter": "C",
+      "rightLetter": "F",
+      "leftName": "はやて",
+      "rightName": "ヤクルト1000"
+    },
+    "B-C": {
+      "round": 7,
+      "leftLetter": "B",
+      "rightLetter": "C",
+      "leftName": "暇つぶし2025年",
+      "rightName": "はやて"
+    },
+    "C-E": {
+      "round": 3,
+      "leftLetter": "C",
+      "rightLetter": "E",
+      "leftName": "はやて",
+      "rightName": "pipe"
+    },
+    "C-G": {
+      "round": 4,
+      "leftLetter": "C",
+      "rightLetter": "G",
+      "leftName": "はやて",
+      "rightName": "ノクターン"
+    },
+    "C-H": {
+      "round": 10,
+      "leftLetter": "C",
+      "rightLetter": "H",
+      "leftName": "はやて",
+      "rightName": "シュトラッサー"
+    },
+    "C-J": {
+      "round": 11,
+      "leftLetter": "C",
+      "rightLetter": "J",
+      "leftName": "はやて",
+      "rightName": "ゆばゆば極限"
+    },
+    "C-K": {
+      "round": 6,
+      "leftLetter": "C",
+      "rightLetter": "K",
+      "leftName": "はやて",
+      "rightName": "ひのこ"
+    },
+    "A-J": {
+      "round": 9,
+      "leftLetter": "A",
+      "rightLetter": "J",
+      "leftName": "禁書",
+      "rightName": "ゆばゆば極限"
+    },
+    "F-J": {
+      "round": 7,
+      "leftLetter": "F",
+      "rightLetter": "J",
+      "leftName": "ヤクルト1000",
+      "rightName": "ゆばゆば極限"
+    },
+    "H-J": {
+      "round": 8,
+      "leftLetter": "H",
+      "rightLetter": "J",
+      "leftName": "シュトラッサー",
+      "rightName": "ゆばゆば極限"
+    },
+    "B-J": {
+      "round": 5,
+      "leftLetter": "B",
+      "rightLetter": "J",
+      "leftName": "暇つぶし2025年",
+      "rightName": "ゆばゆば極限"
+    },
+    "E-J": {
+      "round": 1,
+      "leftLetter": "E",
+      "rightLetter": "J",
+      "leftName": "pipe",
+      "rightName": "ゆばゆば極限"
+    },
+    "J-K": {
+      "round": 4,
+      "leftLetter": "J",
+      "rightLetter": "K",
+      "leftName": "ゆばゆば極限",
+      "rightName": "ひのこ"
+    },
+    "G-J": {
+      "round": 2,
+      "leftLetter": "G",
+      "rightLetter": "J",
+      "leftName": "ノクターン",
+      "rightName": "ゆばゆば極限"
+    },
+    "A-H": {
+      "round": 7,
+      "leftLetter": "A",
+      "rightLetter": "H",
+      "leftName": "禁書",
+      "rightName": "シュトラッサー"
+    },
+    "B-H": {
+      "round": 4,
+      "leftLetter": "B",
+      "rightLetter": "H",
+      "leftName": "暇つぶし2025年",
+      "rightName": "シュトラッサー"
+    },
+    "E-H": {
+      "round": 11,
+      "leftLetter": "E",
+      "rightLetter": "H",
+      "leftName": "pipe",
+      "rightName": "シュトラッサー"
+    },
+    "F-H": {
+      "round": 6,
+      "leftLetter": "F",
+      "rightLetter": "H",
+      "leftName": "ヤクルト1000",
+      "rightName": "シュトラッサー"
+    },
+    "G-H": {
+      "round": 1,
+      "leftLetter": "G",
+      "rightLetter": "H",
+      "leftName": "ノクターン",
+      "rightName": "シュトラッサー"
+    },
+    "H-K": {
+      "round": 3,
+      "leftLetter": "H",
+      "rightLetter": "K",
+      "leftName": "シュトラッサー",
+      "rightName": "ひのこ"
+    },
+    "A-E": {
+      "round": 4,
+      "leftLetter": "A",
+      "rightLetter": "E",
+      "leftName": "禁書",
+      "rightName": "pipe"
+    },
+    "B-E": {
+      "round": 8,
+      "leftLetter": "B",
+      "rightLetter": "E",
+      "leftName": "暇つぶし2025年",
+      "rightName": "pipe"
+    },
+    "E-F": {
+      "round": 10,
+      "leftLetter": "E",
+      "rightLetter": "F",
+      "leftName": "pipe",
+      "rightName": "ヤクルト1000"
+    },
+    "E-G": {
+      "round": 5,
+      "leftLetter": "E",
+      "rightLetter": "G",
+      "leftName": "pipe",
+      "rightName": "ノクターン"
+    },
+    "E-K": {
+      "round": 7,
+      "leftLetter": "E",
+      "rightLetter": "K",
+      "leftName": "pipe",
+      "rightName": "ひのこ"
+    },
+    "A-F": {
+      "round": 5,
+      "leftLetter": "A",
+      "rightLetter": "F",
+      "leftName": "禁書",
+      "rightName": "ヤクルト1000"
+    },
+    "B-F": {
+      "round": 3,
+      "leftLetter": "B",
+      "rightLetter": "F",
+      "leftName": "暇つぶし2025年",
+      "rightName": "ヤクルト1000"
+    },
+    "F-G": {
+      "round": 11,
+      "leftLetter": "F",
+      "rightLetter": "G",
+      "leftName": "ヤクルト1000",
+      "rightName": "ノクターン"
+    },
+    "F-K": {
+      "round": 2,
+      "leftLetter": "F",
+      "rightLetter": "K",
+      "leftName": "ヤクルト1000",
+      "rightName": "ひのこ"
+    },
+    "A-K": {
+      "round": 10,
+      "leftLetter": "A",
+      "rightLetter": "K",
+      "leftName": "禁書",
+      "rightName": "ひのこ"
+    },
+    "B-K": {
+      "round": 11,
+      "leftLetter": "B",
+      "rightLetter": "K",
+      "leftName": "暇つぶし2025年",
+      "rightName": "ひのこ"
+    },
+    "G-K": {
+      "round": 8,
+      "leftLetter": "G",
+      "rightLetter": "K",
+      "leftName": "ノクターン",
+      "rightName": "ひのこ"
+    },
+    "A-B": {
+      "round": 1,
+      "leftLetter": "A",
+      "rightLetter": "B",
+      "leftName": "禁書",
+      "rightName": "暇つぶし2025年"
+    },
+    "B-G": {
+      "round": 9,
+      "leftLetter": "B",
+      "rightLetter": "G",
+      "leftName": "暇つぶし2025年",
+      "rightName": "ノクターン"
+    },
+    "A-G": {
+      "round": 6,
+      "leftLetter": "A",
+      "rightLetter": "G",
+      "leftName": "禁書",
+      "rightName": "ノクターン"
+    }
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "phase": 15,
+  "group": "A1",
+  "matches": {
+    "A-L": {
+      "round": 11,
+      "leftLetter": "A",
+      "rightLetter": "L",
+      "leftName": "ゆばゆば極限",
+      "rightName": "ポリープ"
+    },
+    "B-L": {
+      "round": 6,
+      "leftLetter": "B",
+      "rightLetter": "L",
+      "leftName": "なまはる",
+      "rightName": "ポリープ"
+    },
+    "D-L": {
+      "round": 7,
+      "leftLetter": "D",
+      "rightLetter": "L",
+      "leftName": "ショーンマイケル",
+      "rightName": "ポリープ"
+    },
+    "E-L": {
+      "round": 2,
+      "leftLetter": "E",
+      "rightLetter": "L",
+      "leftName": "いも",
+      "rightName": "ポリープ"
+    },
+    "F-L": {
+      "round": 8,
+      "leftLetter": "F",
+      "rightLetter": "L",
+      "leftName": "シマシマ",
+      "rightName": "ポリープ"
+    },
+    "G-L": {
+      "round": 3,
+      "leftLetter": "G",
+      "rightLetter": "L",
+      "leftName": "けけけけ",
+      "rightName": "ポリープ"
+    },
+    "H-L": {
+      "round": 9,
+      "leftLetter": "H",
+      "rightLetter": "L",
+      "leftName": "酒と泪",
+      "rightName": "ポリープ"
+    },
+    "J-L": {
+      "round": 10,
+      "leftLetter": "J",
+      "rightLetter": "L",
+      "leftName": "つくよみ",
+      "rightName": "ポリープ"
+    },
+    "K-L": {
+      "round": 5,
+      "leftLetter": "K",
+      "rightLetter": "L",
+      "leftName": "ハチ",
+      "rightName": "ポリープ"
+    },
+    "C-L": {
+      "round": 1,
+      "leftLetter": "C",
+      "rightLetter": "L",
+      "leftName": "♡やわもち♡",
+      "rightName": "ポリープ"
+    },
+    "I-L": {
+      "round": 4,
+      "leftLetter": "I",
+      "rightLetter": "L",
+      "leftName": "savekimo",
+      "rightName": "ポリープ"
+    },
+    "A-H": {
+      "round": 7,
+      "leftLetter": "A",
+      "rightLetter": "H",
+      "leftName": "ゆばゆば極限",
+      "rightName": "酒と泪"
+    },
+    "B-H": {
+      "round": 4,
+      "leftLetter": "B",
+      "rightLetter": "H",
+      "leftName": "なまはる",
+      "rightName": "酒と泪"
+    },
+    "C-H": {
+      "round": 10,
+      "leftLetter": "C",
+      "rightLetter": "H",
+      "leftName": "♡やわもち♡",
+      "rightName": "酒と泪"
+    },
+    "D-H": {
+      "round": 5,
+      "leftLetter": "D",
+      "rightLetter": "H",
+      "leftName": "ショーンマイケル",
+      "rightName": "酒と泪"
+    },
+    "E-H": {
+      "round": 11,
+      "leftLetter": "E",
+      "rightLetter": "H",
+      "leftName": "いも",
+      "rightName": "酒と泪"
+    },
+    "F-H": {
+      "round": 6,
+      "leftLetter": "F",
+      "rightLetter": "H",
+      "leftName": "シマシマ",
+      "rightName": "酒と泪"
+    },
+    "G-H": {
+      "round": 1,
+      "leftLetter": "G",
+      "rightLetter": "H",
+      "leftName": "けけけけ",
+      "rightName": "酒と泪"
+    },
+    "H-I": {
+      "round": 2,
+      "leftLetter": "H",
+      "rightLetter": "I",
+      "leftName": "酒と泪",
+      "rightName": "savekimo"
+    },
+    "H-J": {
+      "round": 8,
+      "leftLetter": "H",
+      "rightLetter": "J",
+      "leftName": "酒と泪",
+      "rightName": "つくよみ"
+    },
+    "H-K": {
+      "round": 3,
+      "leftLetter": "H",
+      "rightLetter": "K",
+      "leftName": "酒と泪",
+      "rightName": "ハチ"
+    },
+    "A-D": {
+      "round": 3,
+      "leftLetter": "A",
+      "rightLetter": "D",
+      "leftName": "ゆばゆば極限",
+      "rightName": "ショーンマイケル"
+    },
+    "B-D": {
+      "round": 2,
+      "leftLetter": "B",
+      "rightLetter": "D",
+      "leftName": "なまはる",
+      "rightName": "ショーンマイケル"
+    },
+    "D-E": {
+      "round": 9,
+      "leftLetter": "D",
+      "rightLetter": "E",
+      "leftName": "ショーンマイケル",
+      "rightName": "いも"
+    },
+    "D-F": {
+      "round": 4,
+      "leftLetter": "D",
+      "rightLetter": "F",
+      "leftName": "ショーンマイケル",
+      "rightName": "シマシマ"
+    },
+    "D-G": {
+      "round": 10,
+      "leftLetter": "D",
+      "rightLetter": "G",
+      "leftName": "ショーンマイケル",
+      "rightName": "けけけけ"
+    },
+    "D-I": {
+      "round": 11,
+      "leftLetter": "D",
+      "rightLetter": "I",
+      "leftName": "ショーンマイケル",
+      "rightName": "savekimo"
+    },
+    "D-J": {
+      "round": 6,
+      "leftLetter": "D",
+      "rightLetter": "J",
+      "leftName": "ショーンマイケル",
+      "rightName": "つくよみ"
+    },
+    "D-K": {
+      "round": 1,
+      "leftLetter": "D",
+      "rightLetter": "K",
+      "leftName": "ショーンマイケル",
+      "rightName": "ハチ"
+    },
+    "C-D": {
+      "round": 8,
+      "leftLetter": "C",
+      "rightLetter": "D",
+      "leftName": "♡やわもち♡",
+      "rightName": "ショーンマイケル"
+    },
+    "A-G": {
+      "round": 6,
+      "leftLetter": "A",
+      "rightLetter": "G",
+      "leftName": "ゆばゆば極限",
+      "rightName": "けけけけ"
+    },
+    "B-G": {
+      "round": 9,
+      "leftLetter": "B",
+      "rightLetter": "G",
+      "leftName": "なまはる",
+      "rightName": "けけけけ"
+    },
+    "C-G": {
+      "round": 4,
+      "leftLetter": "C",
+      "rightLetter": "G",
+      "leftName": "♡やわもち♡",
+      "rightName": "けけけけ"
+    },
+    "E-G": {
+      "round": 5,
+      "leftLetter": "E",
+      "rightLetter": "G",
+      "leftName": "いも",
+      "rightName": "けけけけ"
+    },
+    "F-G": {
+      "round": 11,
+      "leftLetter": "F",
+      "rightLetter": "G",
+      "leftName": "シマシマ",
+      "rightName": "けけけけ"
+    },
+    "G-I": {
+      "round": 7,
+      "leftLetter": "G",
+      "rightLetter": "I",
+      "leftName": "けけけけ",
+      "rightName": "savekimo"
+    },
+    "G-J": {
+      "round": 2,
+      "leftLetter": "G",
+      "rightLetter": "J",
+      "leftName": "けけけけ",
+      "rightName": "つくよみ"
+    },
+    "G-K": {
+      "round": 8,
+      "leftLetter": "G",
+      "rightLetter": "K",
+      "leftName": "けけけけ",
+      "rightName": "ハチ"
+    },
+    "A-B": {
+      "round": 1,
+      "leftLetter": "A",
+      "rightLetter": "B",
+      "leftName": "ゆばゆば極限",
+      "rightName": "なまはる"
+    },
+    "B-K": {
+      "round": 11,
+      "leftLetter": "B",
+      "rightLetter": "K",
+      "leftName": "なまはる",
+      "rightName": "ハチ"
+    },
+    "B-C": {
+      "round": 7,
+      "leftLetter": "B",
+      "rightLetter": "C",
+      "leftName": "なまはる",
+      "rightName": "♡やわもち♡"
+    },
+    "B-E": {
+      "round": 8,
+      "leftLetter": "B",
+      "rightLetter": "E",
+      "leftName": "なまはる",
+      "rightName": "いも"
+    },
+    "B-F": {
+      "round": 3,
+      "leftLetter": "B",
+      "rightLetter": "F",
+      "leftName": "なまはる",
+      "rightName": "シマシマ"
+    },
+    "B-I": {
+      "round": 10,
+      "leftLetter": "B",
+      "rightLetter": "I",
+      "leftName": "なまはる",
+      "rightName": "savekimo"
+    },
+    "B-J": {
+      "round": 5,
+      "leftLetter": "B",
+      "rightLetter": "J",
+      "leftName": "なまはる",
+      "rightName": "つくよみ"
+    },
+    "A-E": {
+      "round": 4,
+      "leftLetter": "A",
+      "rightLetter": "E",
+      "leftName": "ゆばゆば極限",
+      "rightName": "いも"
+    },
+    "C-E": {
+      "round": 3,
+      "leftLetter": "C",
+      "rightLetter": "E",
+      "leftName": "♡やわもち♡",
+      "rightName": "いも"
+    },
+    "E-I": {
+      "round": 6,
+      "leftLetter": "E",
+      "rightLetter": "I",
+      "leftName": "いも",
+      "rightName": "savekimo"
+    },
+    "E-K": {
+      "round": 7,
+      "leftLetter": "E",
+      "rightLetter": "K",
+      "leftName": "いも",
+      "rightName": "ハチ"
+    },
+    "E-J": {
+      "round": 1,
+      "leftLetter": "E",
+      "rightLetter": "J",
+      "leftName": "いも",
+      "rightName": "つくよみ"
+    },
+    "E-F": {
+      "round": 10,
+      "leftLetter": "E",
+      "rightLetter": "F",
+      "leftName": "いも",
+      "rightName": "シマシマ"
+    },
+    "A-J": {
+      "round": 9,
+      "leftLetter": "A",
+      "rightLetter": "J",
+      "leftName": "ゆばゆば極限",
+      "rightName": "つくよみ"
+    },
+    "C-J": {
+      "round": 11,
+      "leftLetter": "C",
+      "rightLetter": "J",
+      "leftName": "♡やわもち♡",
+      "rightName": "つくよみ"
+    },
+    "F-J": {
+      "round": 7,
+      "leftLetter": "F",
+      "rightLetter": "J",
+      "leftName": "シマシマ",
+      "rightName": "つくよみ"
+    },
+    "I-J": {
+      "round": 3,
+      "leftLetter": "I",
+      "rightLetter": "J",
+      "leftName": "savekimo",
+      "rightName": "つくよみ"
+    },
+    "J-K": {
+      "round": 4,
+      "leftLetter": "J",
+      "rightLetter": "K",
+      "leftName": "つくよみ",
+      "rightName": "ハチ"
+    },
+    "A-F": {
+      "round": 5,
+      "leftLetter": "A",
+      "rightLetter": "F",
+      "leftName": "ゆばゆば極限",
+      "rightName": "シマシマ"
+    },
+    "C-F": {
+      "round": 9,
+      "leftLetter": "C",
+      "rightLetter": "F",
+      "leftName": "♡やわもち♡",
+      "rightName": "シマシマ"
+    },
+    "F-I": {
+      "round": 1,
+      "leftLetter": "F",
+      "rightLetter": "I",
+      "leftName": "シマシマ",
+      "rightName": "savekimo"
+    },
+    "F-K": {
+      "round": 2,
+      "leftLetter": "F",
+      "rightLetter": "K",
+      "leftName": "シマシマ",
+      "rightName": "ハチ"
+    },
+    "A-K": {
+      "round": 10,
+      "leftLetter": "A",
+      "rightLetter": "K",
+      "leftName": "ゆばゆば極限",
+      "rightName": "ハチ"
+    },
+    "C-K": {
+      "round": 6,
+      "leftLetter": "C",
+      "rightLetter": "K",
+      "leftName": "♡やわもち♡",
+      "rightName": "ハチ"
+    },
+    "I-K": {
+      "round": 9,
+      "leftLetter": "I",
+      "rightLetter": "K",
+      "leftName": "savekimo",
+      "rightName": "ハチ"
+    },
+    "A-I": {
+      "round": 8,
+      "leftLetter": "A",
+      "rightLetter": "I",
+      "leftName": "ゆばゆば極限",
+      "rightName": "savekimo"
+    },
+    "C-I": {
+      "round": 5,
+      "leftLetter": "C",
+      "rightLetter": "I",
+      "leftName": "♡やわもち♡",
+      "rightName": "savekimo"
+    },
+    "A-C": {
+      "round": 2,
+      "leftLetter": "A",
+      "rightLetter": "C",
+      "leftName": "ゆばゆば極限",
+      "rightName": "♡やわもち♡"
+    }
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "phase": 10,
+  "group": "S",
+  "matches": {
+    "A-B": {
+      "round": 1,
+      "leftLetter": "A",
+      "rightLetter": "B",
+      "leftName": "イマクロ",
+      "rightName": "カリスト"
+    },
+    "A-C": {
+      "round": 2,
+      "leftLetter": "A",
+      "rightLetter": "C",
+      "leftName": "イマクロ",
+      "rightName": "緋月"
+    },
+    "A-G": {
+      "round": 6,
+      "leftLetter": "A",
+      "rightLetter": "G",
+      "leftName": "イマクロ",
+      "rightName": "けけけけ"
+    },
+    "A-H": {
+      "round": 7,
+      "leftLetter": "A",
+      "rightLetter": "H",
+      "leftName": "イマクロ",
+      "rightName": "タカヤマン"
+    },
+    "A-J": {
+      "round": 9,
+      "leftLetter": "A",
+      "rightLetter": "J",
+      "leftName": "イマクロ",
+      "rightName": "ハイジ"
+    },
+    "A-K": {
+      "round": 10,
+      "leftLetter": "A",
+      "rightLetter": "K",
+      "leftName": "イマクロ",
+      "rightName": "酒と泪"
+    },
+    "A-D": {
+      "round": 3,
+      "leftLetter": "A",
+      "rightLetter": "D",
+      "leftName": "イマクロ",
+      "rightName": "ClayClay"
+    },
+    "A-E": {
+      "round": 4,
+      "leftLetter": "A",
+      "rightLetter": "E",
+      "leftName": "イマクロ",
+      "rightName": "ゆき"
+    },
+    "A-F": {
+      "round": 5,
+      "leftLetter": "A",
+      "rightLetter": "F",
+      "leftName": "イマクロ",
+      "rightName": "savekimo"
+    },
+    "A-I": {
+      "round": 8,
+      "leftLetter": "A",
+      "rightLetter": "I",
+      "leftName": "イマクロ",
+      "rightName": "ユウア"
+    },
+    "A-L": {
+      "round": 11,
+      "leftLetter": "A",
+      "rightLetter": "L",
+      "leftName": "イマクロ",
+      "rightName": "Lollypop"
+    },
+    "B-C": {
+      "round": 7,
+      "leftLetter": "B",
+      "rightLetter": "C",
+      "leftName": "カリスト",
+      "rightName": "緋月"
+    },
+    "B-E": {
+      "round": 8,
+      "leftLetter": "B",
+      "rightLetter": "E",
+      "leftName": "カリスト",
+      "rightName": "ゆき"
+    },
+    "B-F": {
+      "round": 3,
+      "leftLetter": "B",
+      "rightLetter": "F",
+      "leftName": "カリスト",
+      "rightName": "savekimo"
+    },
+    "B-G": {
+      "round": 9,
+      "leftLetter": "B",
+      "rightLetter": "G",
+      "leftName": "カリスト",
+      "rightName": "けけけけ"
+    },
+    "B-I": {
+      "round": 10,
+      "leftLetter": "B",
+      "rightLetter": "I",
+      "leftName": "カリスト",
+      "rightName": "ユウア"
+    },
+    "B-J": {
+      "round": 5,
+      "leftLetter": "B",
+      "rightLetter": "J",
+      "leftName": "カリスト",
+      "rightName": "ハイジ"
+    },
+    "B-K": {
+      "round": 11,
+      "leftLetter": "B",
+      "rightLetter": "K",
+      "leftName": "カリスト",
+      "rightName": "酒と泪"
+    },
+    "B-L": {
+      "round": 6,
+      "leftLetter": "B",
+      "rightLetter": "L",
+      "leftName": "カリスト",
+      "rightName": "Lollypop"
+    },
+    "B-D": {
+      "round": 2,
+      "leftLetter": "B",
+      "rightLetter": "D",
+      "leftName": "カリスト",
+      "rightName": "ClayClay"
+    },
+    "B-H": {
+      "round": 4,
+      "leftLetter": "B",
+      "rightLetter": "H",
+      "leftName": "カリスト",
+      "rightName": "タカヤマン"
+    },
+    "C-D": {
+      "round": 8,
+      "leftLetter": "C",
+      "rightLetter": "D",
+      "leftName": "緋月",
+      "rightName": "ClayClay"
+    },
+    "D-I": {
+      "round": 11,
+      "leftLetter": "D",
+      "rightLetter": "I",
+      "leftName": "ClayClay",
+      "rightName": "ユウア"
+    },
+    "D-F": {
+      "round": 4,
+      "leftLetter": "D",
+      "rightLetter": "F",
+      "leftName": "ClayClay",
+      "rightName": "savekimo"
+    },
+    "D-K": {
+      "round": 1,
+      "leftLetter": "D",
+      "rightLetter": "K",
+      "leftName": "ClayClay",
+      "rightName": "酒と泪"
+    },
+    "D-L": {
+      "round": 7,
+      "leftLetter": "D",
+      "rightLetter": "L",
+      "leftName": "ClayClay",
+      "rightName": "Lollypop"
+    },
+    "D-J": {
+      "round": 6,
+      "leftLetter": "D",
+      "rightLetter": "J",
+      "leftName": "ClayClay",
+      "rightName": "ハイジ"
+    },
+    "D-H": {
+      "round": 5,
+      "leftLetter": "D",
+      "rightLetter": "H",
+      "leftName": "ClayClay",
+      "rightName": "タカヤマン"
+    },
+    "D-E": {
+      "round": 9,
+      "leftLetter": "D",
+      "rightLetter": "E",
+      "leftName": "ClayClay",
+      "rightName": "ゆき"
+    },
+    "D-G": {
+      "round": 10,
+      "leftLetter": "D",
+      "rightLetter": "G",
+      "leftName": "ClayClay",
+      "rightName": "けけけけ"
+    },
+    "C-H": {
+      "round": 10,
+      "leftLetter": "C",
+      "rightLetter": "H",
+      "leftName": "緋月",
+      "rightName": "タカヤマン"
+    },
+    "G-H": {
+      "round": 1,
+      "leftLetter": "G",
+      "rightLetter": "H",
+      "leftName": "けけけけ",
+      "rightName": "タカヤマン"
+    },
+    "H-J": {
+      "round": 8,
+      "leftLetter": "H",
+      "rightLetter": "J",
+      "leftName": "タカヤマン",
+      "rightName": "ハイジ"
+    },
+    "F-H": {
+      "round": 6,
+      "leftLetter": "F",
+      "rightLetter": "H",
+      "leftName": "savekimo",
+      "rightName": "タカヤマン"
+    },
+    "H-L": {
+      "round": 9,
+      "leftLetter": "H",
+      "rightLetter": "L",
+      "leftName": "タカヤマン",
+      "rightName": "Lollypop"
+    },
+    "E-H": {
+      "round": 11,
+      "leftLetter": "E",
+      "rightLetter": "H",
+      "leftName": "ゆき",
+      "rightName": "タカヤマン"
+    },
+    "H-I": {
+      "round": 2,
+      "leftLetter": "H",
+      "rightLetter": "I",
+      "leftName": "タカヤマン",
+      "rightName": "ユウア"
+    },
+    "H-K": {
+      "round": 3,
+      "leftLetter": "H",
+      "rightLetter": "K",
+      "leftName": "タカヤマン",
+      "rightName": "酒と泪"
+    },
+    "C-I": {
+      "round": 5,
+      "leftLetter": "C",
+      "rightLetter": "I",
+      "leftName": "緋月",
+      "rightName": "ユウア"
+    },
+    "E-I": {
+      "round": 6,
+      "leftLetter": "E",
+      "rightLetter": "I",
+      "leftName": "ゆき",
+      "rightName": "ユウア"
+    },
+    "G-I": {
+      "round": 7,
+      "leftLetter": "G",
+      "rightLetter": "I",
+      "leftName": "けけけけ",
+      "rightName": "ユウア"
+    },
+    "I-J": {
+      "round": 3,
+      "leftLetter": "I",
+      "rightLetter": "J",
+      "leftName": "ユウア",
+      "rightName": "ハイジ"
+    },
+    "F-I": {
+      "round": 1,
+      "leftLetter": "F",
+      "rightLetter": "I",
+      "leftName": "savekimo",
+      "rightName": "ユウア"
+    },
+    "I-K": {
+      "round": 9,
+      "leftLetter": "I",
+      "rightLetter": "K",
+      "leftName": "ユウア",
+      "rightName": "酒と泪"
+    },
+    "I-L": {
+      "round": 4,
+      "leftLetter": "I",
+      "rightLetter": "L",
+      "leftName": "ユウア",
+      "rightName": "Lollypop"
+    },
+    "C-L": {
+      "round": 1,
+      "leftLetter": "C",
+      "rightLetter": "L",
+      "leftName": "緋月",
+      "rightName": "Lollypop"
+    },
+    "E-L": {
+      "round": 2,
+      "leftLetter": "E",
+      "rightLetter": "L",
+      "leftName": "ゆき",
+      "rightName": "Lollypop"
+    },
+    "F-L": {
+      "round": 8,
+      "leftLetter": "F",
+      "rightLetter": "L",
+      "leftName": "savekimo",
+      "rightName": "Lollypop"
+    },
+    "G-L": {
+      "round": 3,
+      "leftLetter": "G",
+      "rightLetter": "L",
+      "leftName": "けけけけ",
+      "rightName": "Lollypop"
+    },
+    "J-L": {
+      "round": 10,
+      "leftLetter": "J",
+      "rightLetter": "L",
+      "leftName": "ハイジ",
+      "rightName": "Lollypop"
+    },
+    "K-L": {
+      "round": 5,
+      "leftLetter": "K",
+      "rightLetter": "L",
+      "leftName": "酒と泪",
+      "rightName": "Lollypop"
+    },
+    "C-K": {
+      "round": 6,
+      "leftLetter": "C",
+      "rightLetter": "K",
+      "leftName": "緋月",
+      "rightName": "酒と泪"
+    },
+    "E-K": {
+      "round": 7,
+      "leftLetter": "E",
+      "rightLetter": "K",
+      "leftName": "ゆき",
+      "rightName": "酒と泪"
+    },
+    "F-K": {
+      "round": 2,
+      "leftLetter": "F",
+      "rightLetter": "K",
+      "leftName": "savekimo",
+      "rightName": "酒と泪"
+    },
+    "G-K": {
+      "round": 8,
+      "leftLetter": "G",
+      "rightLetter": "K",
+      "leftName": "けけけけ",
+      "rightName": "酒と泪"
+    },
+    "J-K": {
+      "round": 4,
+      "leftLetter": "J",
+      "rightLetter": "K",
+      "leftName": "ハイジ",
+      "rightName": "酒と泪"
+    },
+    "C-G": {
+      "round": 4,
+      "leftLetter": "C",
+      "rightLetter": "G",
+      "leftName": "緋月",
+      "rightName": "けけけけ"
+    },
+    "E-G": {
+      "round": 5,
+      "leftLetter": "E",
+      "rightLetter": "G",
+      "leftName": "ゆき",
+      "rightName": "けけけけ"
+    },
+    "F-G": {
+      "round": 11,
+      "leftLetter": "F",
+      "rightLetter": "G",
+      "leftName": "savekimo",
+      "rightName": "けけけけ"
+    },
+    "G-J": {
+      "round": 2,
+      "leftLetter": "G",
+      "rightLetter": "J",
+      "leftName": "けけけけ",
+      "rightName": "ハイジ"
+    },
+    "C-E": {
+      "round": 3,
+      "leftLetter": "C",
+      "rightLetter": "E",
+      "leftName": "緋月",
+      "rightName": "ゆき"
+    },
+    "E-F": {
+      "round": 10,
+      "leftLetter": "E",
+      "rightLetter": "F",
+      "leftName": "ゆき",
+      "rightName": "savekimo"
+    },
+    "E-J": {
+      "round": 1,
+      "leftLetter": "E",
+      "rightLetter": "J",
+      "leftName": "ゆき",
+      "rightName": "ハイジ"
+    },
+    "C-J": {
+      "round": 11,
+      "leftLetter": "C",
+      "rightLetter": "J",
+      "leftName": "緋月",
+      "rightName": "ハイジ"
+    },
+    "F-J": {
+      "round": 7,
+      "leftLetter": "F",
+      "rightLetter": "J",
+      "leftName": "savekimo",
+      "rightName": "ハイジ"
+    },
+    "C-F": {
+      "round": 9,
+      "leftLetter": "C",
+      "rightLetter": "F",
+      "leftName": "緋月",
+      "rightName": "savekimo"
+    }
+  }
+}

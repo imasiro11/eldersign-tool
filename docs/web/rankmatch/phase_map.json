@@ -1,147 +1,307 @@
 {
   "phases": [
-       {
+    {
       "id": "phase18",
       "label": "18期",
+      "number": 18,
       "groups": {
-        "S": "./18S.csv",
-        "A1": "./18A1.csv",
-        "A2": "./18A2.csv"
+        "S": {
+          "csv": "./data/18/S/skill_list.csv",
+          "manifest": "./data/18/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/18/A1/skill_list.csv",
+          "manifest": "./data/18/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/18/A2/skill_list.csv",
+          "manifest": "./data/18/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase17",
       "label": "17期",
+      "number": 17,
       "groups": {
-        "S": "./17S.csv",
-        "A1": "./17A1.csv",
-        "A2": "./17A2.csv"
+        "S": {
+          "csv": "./data/17/S/skill_list.csv",
+          "manifest": "./data/17/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/17/A1/skill_list.csv",
+          "manifest": "./data/17/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/17/A2/skill_list.csv",
+          "manifest": "./data/17/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase16",
       "label": "16期",
+      "number": 16,
       "groups": {
-        "S": "./16S.csv",
-        "A1": "./16A1.csv",
-        "A2": "./16A2.csv"
+        "S": {
+          "csv": "./data/16/S/skill_list.csv",
+          "manifest": "./data/16/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/16/A1/skill_list.csv",
+          "manifest": "./data/16/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/16/A2/skill_list.csv",
+          "manifest": "./data/16/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase15",
       "label": "15期",
+      "number": 15,
       "groups": {
-        "S": "./15S.csv",
-        "A1": "./15A1.csv",
-        "A2": "./15A2.csv"
+        "S": {
+          "csv": "./data/15/S/skill_list.csv",
+          "manifest": "./data/15/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/15/A1/skill_list.csv",
+          "manifest": "./data/15/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/15/A2/skill_list.csv",
+          "manifest": "./data/15/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase14",
       "label": "14期",
+      "number": 14,
       "groups": {
-        "S": "./14S.csv",
-        "A1": "./14A1.csv",
-        "A2": "./14A2.csv"
+        "S": {
+          "csv": "./data/14/S/skill_list.csv",
+          "manifest": "./data/14/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/14/A1/skill_list.csv",
+          "manifest": "./data/14/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/14/A2/skill_list.csv",
+          "manifest": "./data/14/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase13",
       "label": "13期",
+      "number": 13,
       "groups": {
-        "S": "./13S.csv",
-        "A1": "./13A1.csv",
-        "A2": "./13A2.csv"
+        "S": {
+          "csv": "./data/13/S/skill_list.csv",
+          "manifest": "./data/13/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/13/A1/skill_list.csv",
+          "manifest": "./data/13/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/13/A2/skill_list.csv",
+          "manifest": "./data/13/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase12",
       "label": "12期",
+      "number": 12,
       "groups": {
-        "S": "./12S.csv",
-        "A1": "./12A1.csv",
-        "A2": "./12A2.csv"
+        "S": {
+          "csv": "./data/12/S/skill_list.csv",
+          "manifest": "./data/12/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/12/A1/skill_list.csv",
+          "manifest": "./data/12/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/12/A2/skill_list.csv",
+          "manifest": "./data/12/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase11",
       "label": "11期",
+      "number": 11,
       "groups": {
-        "S": "./11S.csv",
-        "A1": "./11A1.csv",
-        "A2": "./11A2.csv"
+        "S": {
+          "csv": "./data/11/S/skill_list.csv",
+          "manifest": "./data/11/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/11/A1/skill_list.csv",
+          "manifest": "./data/11/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/11/A2/skill_list.csv",
+          "manifest": "./data/11/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase10",
       "label": "10期",
+      "number": 10,
       "groups": {
-        "S": "./10S.csv",
-        "A1": "./10A1.csv",
-        "A2": "./10A2.csv"
+        "S": {
+          "csv": "./data/10/S/skill_list.csv",
+          "manifest": "./data/10/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/10/A1/skill_list.csv",
+          "manifest": "./data/10/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/10/A2/skill_list.csv",
+          "manifest": "./data/10/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase9",
       "label": "9期",
+      "number": 9,
       "groups": {
-        "S": "./9S.csv",
-        "A1": "./9A1.csv",
-        "A2": "./9A2.csv"
+        "S": {
+          "csv": "./data/9/S/skill_list.csv",
+          "manifest": "./data/9/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/9/A1/skill_list.csv",
+          "manifest": "./data/9/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/9/A2/skill_list.csv",
+          "manifest": "./data/9/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase8",
       "label": "8期",
+      "number": 8,
       "groups": {
-        "S": "./8S.csv",
-        "A1": "./8A1.csv",
-        "A2": "./8A2.csv"
+        "S": {
+          "csv": "./data/8/S/skill_list.csv",
+          "manifest": "./data/8/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/8/A1/skill_list.csv",
+          "manifest": "./data/8/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/8/A2/skill_list.csv",
+          "manifest": "./data/8/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase7",
       "label": "7期",
+      "number": 7,
       "groups": {
-        "S": "./7S.csv",
-        "A1": "./7A1.csv",
-        "A2": "./7A2.csv"
+        "S": {
+          "csv": "./data/7/S/skill_list.csv",
+          "manifest": "./data/7/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/7/A1/skill_list.csv",
+          "manifest": "./data/7/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/7/A2/skill_list.csv",
+          "manifest": "./data/7/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase6",
       "label": "6期",
+      "number": 6,
       "groups": {
-        "S": "./6S.csv",
-        "A1": "./6A1.csv",
-        "A2": "./6A2.csv"
+        "S": {
+          "csv": "./data/6/S/skill_list.csv",
+          "manifest": "./data/6/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/6/A1/skill_list.csv",
+          "manifest": "./data/6/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/6/A2/skill_list.csv",
+          "manifest": "./data/6/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase5",
       "label": "5期",
+      "number": 5,
       "groups": {
-        "S": "./5S.csv",
-        "A1": "./5A1.csv",
-        "A2": "./5A2.csv"
+        "S": {
+          "csv": "./data/5/S/skill_list.csv",
+          "manifest": "./data/5/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/5/A1/skill_list.csv",
+          "manifest": "./data/5/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/5/A2/skill_list.csv",
+          "manifest": "./data/5/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase4",
       "label": "4期",
+      "number": 4,
       "groups": {
-        "S": "./4S.csv",
-        "A1": "./4A1.csv",
-        "A2": "./4A2.csv"
+        "S": {
+          "csv": "./data/4/S/skill_list.csv",
+          "manifest": "./data/4/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/4/A1/skill_list.csv",
+          "manifest": "./data/4/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/4/A2/skill_list.csv",
+          "manifest": "./data/4/A2/manifest.json"
+        }
       }
     },
     {
       "id": "phase3",
       "label": "3期",
+      "number": 3,
       "groups": {
-        "S": "./3S.csv",
-        "A1": "./3A1.csv",
-        "A2": "./3A2.csv"
+        "S": {
+          "csv": "./data/3/S/skill_list.csv",
+          "manifest": "./data/3/S/manifest.json"
+        },
+        "A1": {
+          "csv": "./data/3/A1/skill_list.csv",
+          "manifest": "./data/3/A1/manifest.json"
+        },
+        "A2": {
+          "csv": "./data/3/A2/skill_list.csv",
+          "manifest": "./data/3/A2/manifest.json"
+        }
       }
     }
   ]

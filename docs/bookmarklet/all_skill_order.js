@@ -30,6 +30,46 @@
   // 全角/半角スペースを含む前後の空白を除去
   const normalizeName = (name) => name.replace(/^[\s\u3000]+|[\s\u3000]+$/g, "");
 
+  const buildSchedule = (letters) => {
+    if (letters.length < 2) return {};
+    const anchor = letters[0];
+    const rest = letters.slice(1).reverse();
+    const circle = [anchor, ...rest];
+    const rounds = letters.length - 1;
+    const schedule = {};
+    letters.forEach((letter) => {
+      schedule[letter] = [];
+    });
+
+    let current = circle.slice();
+    for (let r = 0; r < rounds; r += 1) {
+      for (let i = 0; i < letters.length / 2; i += 1) {
+        const left = current[i];
+        const right = current[current.length - 1 - i];
+        schedule[left].push(right);
+        schedule[right].push(left);
+      }
+      const fixed = current[0];
+      const rotating = current.slice(1);
+      const last = rotating.pop();
+      current = [fixed, last, ...rotating];
+    }
+
+    return schedule;
+  };
+
+  const buildRoundMap = (letters) => {
+    const schedule = buildSchedule(letters);
+    const roundMap = new Map();
+    letters.forEach((letter) => {
+      schedule[letter].forEach((opponent, index) => {
+        const key = letter < opponent ? `${letter}-${opponent}` : `${opponent}-${letter}`;
+        if (!roundMap.has(key)) roundMap.set(key, index + 1);
+      });
+    });
+    return roundMap;
+  };
+
   // URLにクエリを追加/更新
   const appendParam = (href, key, value) => {
     try {
@@ -314,10 +354,121 @@
     return text;
   };
 
-  // CSVをダウンロード
-  const downloadCsv = (rows, filename) => {
-    const csv = rows.map((row) => row.map(csvEscape).join(",")).join("\n");
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+  const rowsToCsv = (rows) => rows.map((row) => row.map(csvEscape).join(",")).join("\n");
+
+  const crcTable = (() => {
+    const table = [];
+    for (let i = 0; i < 256; i += 1) {
+      let c = i;
+      for (let j = 0; j < 8; j += 1) {
+        c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+      }
+      table[i] = c >>> 0;
+    }
+    return table;
+  })();
+
+  const crc32 = (bytes) => {
+    let crc = 0xffffffff;
+    bytes.forEach((byte) => {
+      crc = crcTable[(crc ^ byte) & 0xff] ^ (crc >>> 8);
+    });
+    return (crc ^ 0xffffffff) >>> 0;
+  };
+
+  const uint16 = (value) => {
+    const bytes = new Uint8Array(2);
+    const view = new DataView(bytes.buffer);
+    view.setUint16(0, value, true);
+    return bytes;
+  };
+
+  const uint32 = (value) => {
+    const bytes = new Uint8Array(4);
+    const view = new DataView(bytes.buffer);
+    view.setUint32(0, value >>> 0, true);
+    return bytes;
+  };
+
+  const getDosDateTime = (date) => {
+    const year = Math.max(1980, date.getFullYear());
+    const dosTime =
+      (date.getHours() << 11) | (date.getMinutes() << 5) | Math.floor(date.getSeconds() / 2);
+    const dosDate = ((year - 1980) << 9) | ((date.getMonth() + 1) << 5) | date.getDate();
+    return { dosTime, dosDate };
+  };
+
+  const createZipBlob = (files) => {
+    const encoder = new TextEncoder();
+    const now = new Date();
+    const { dosTime, dosDate } = getDosDateTime(now);
+    const parts = [];
+    const centralParts = [];
+    let offset = 0;
+
+    files.forEach((file) => {
+      const nameBytes = encoder.encode(file.path.replace(/\\/g, "/"));
+      const dataBytes = typeof file.content === "string" ? encoder.encode(file.content) : file.content;
+      const crc = crc32(dataBytes);
+      const localHeader = [
+        uint32(0x04034b50),
+        uint16(20),
+        uint16(0x0800),
+        uint16(0),
+        uint16(dosTime),
+        uint16(dosDate),
+        uint32(crc),
+        uint32(dataBytes.length),
+        uint32(dataBytes.length),
+        uint16(nameBytes.length),
+        uint16(0),
+        nameBytes,
+      ];
+      localHeader.forEach((part) => parts.push(part));
+      parts.push(dataBytes);
+
+      const centralHeader = [
+        uint32(0x02014b50),
+        uint16(20),
+        uint16(20),
+        uint16(0x0800),
+        uint16(0),
+        uint16(dosTime),
+        uint16(dosDate),
+        uint32(crc),
+        uint32(dataBytes.length),
+        uint32(dataBytes.length),
+        uint16(nameBytes.length),
+        uint16(0),
+        uint16(0),
+        uint16(0),
+        uint16(0),
+        uint32(0),
+        uint32(offset),
+        nameBytes,
+      ];
+      centralHeader.forEach((part) => centralParts.push(part));
+      offset += localHeader.reduce((sum, part) => sum + part.length, 0) + dataBytes.length;
+    });
+
+    const centralOffset = offset;
+    const centralSize = centralParts.reduce((sum, part) => sum + part.length, 0);
+    centralParts.forEach((part) => parts.push(part));
+    parts.push(
+      uint32(0x06054b50),
+      uint16(0),
+      uint16(0),
+      uint16(files.length),
+      uint16(files.length),
+      uint32(centralSize),
+      uint32(centralOffset),
+      uint16(0),
+    );
+
+    return new Blob(parts, { type: "application/zip" });
+  };
+
+  const downloadBlob = (blob, filename) => {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
@@ -326,6 +477,81 @@
     anchor.click();
     anchor.remove();
     URL.revokeObjectURL(url);
+  };
+
+  const normalizeGroup = (value) => {
+    const text = String(value || "")
+      .trim()
+      .normalize("NFKC")
+      .toUpperCase()
+      .replace(/\s+/g, "");
+    return text === "S" || text === "A1" || text === "A2" ? text : "";
+  };
+
+  const extractPhaseFromDocument = () => {
+    const chr = document.querySelector("section.chr");
+    const sources = [
+      chr?.querySelector("h1")?.textContent,
+      chr?.textContent,
+      document.body?.textContent,
+    ];
+    for (const source of sources) {
+      const m = String(source || "").match(/シーズン\s*(\d+)/);
+      if (m) return m[1];
+    }
+    return "";
+  };
+
+  const extractGroupFromDocument = () => {
+    const sources = [
+      ...Array.from(document.querySelectorAll(".yc")).map((el) => el.textContent),
+      document.querySelector("section.chr")?.textContent,
+    ];
+    for (const source of sources) {
+      const text = String(source || "").normalize("NFKC");
+      const ownClass = text.match(/あなたのクラス\s*[:：]\s*(S|A1|A2)/i);
+      if (ownClass) return normalizeGroup(ownClass[1]);
+      const a1NumberedClass = text.match(/A1\s*クラス\s*[\(（]\s*([12])\s*[\)）]/i);
+      if (a1NumberedClass) return a1NumberedClass[1] === "2" ? "A2" : "A1";
+      const classText = text.match(/\b(S|A1|A2)\s*クラス/i);
+      if (classText) return normalizeGroup(classText[1]);
+    }
+    return "";
+  };
+
+  const getExportConfig = () => {
+    const params = new URLSearchParams(location.search);
+    const detectedPhase = extractPhaseFromDocument();
+    const defaultPhase =
+      detectedPhase ||
+      params.get("se") ||
+      localStorage.getItem("es_rankmatch_export_phase") ||
+      "";
+    let phase = String(defaultPhase).trim().replace(/[^\d]/g, "");
+    if (!phase) {
+      const phaseInput = prompt("保存する期を入力してください", defaultPhase);
+      if (phaseInput == null) return null;
+      phase = String(phaseInput).trim().replace(/[^\d]/g, "");
+    }
+    if (!phase) throw new Error("期が未入力です。");
+
+    const detectedGroup = extractGroupFromDocument();
+    const defaultGroup =
+      detectedGroup ||
+      normalizeGroup(params.get("group")) ||
+      normalizeGroup(localStorage.getItem("es_rankmatch_export_group")) ||
+      "A1";
+    let group = normalizeGroup(defaultGroup);
+    if (!group) {
+      const groupInput = prompt("保存するグループを入力してください (S / A1 / A2)", defaultGroup);
+      if (groupInput == null) return null;
+      group = normalizeGroup(groupInput);
+    }
+    if (!group) throw new Error("グループは S / A1 / A2 のいずれかで入力してください。");
+
+    localStorage.setItem("es_rankmatch_export_phase", phase);
+    localStorage.setItem("es_rankmatch_export_group", group);
+    return { phase, group, basePath: `data/${phase}/${group}` };
   };
 
   try {
@@ -363,6 +589,7 @@
     headerLetters.forEach((letter, idx) => {
       if (letter) letterIndex.set(letter, idx);
     });
+    const roundMap = buildRoundMap(headerLetters);
 
     // 対戦リンクを集める(重複を除いた66戦)
     const rows = Array.from(matchTable.querySelectorAll("tr")).slice(1);
@@ -388,8 +615,10 @@
         if (seen.has(key)) return;
         seen.add(key);
         matches.push({
+          key,
           leftLetter: rowLetter,
           rightLetter: colLetter,
+          round: roundMap.get(key) || null,
           url: appendParam(link.href, "t", "1"),
         });
       });
@@ -400,10 +629,14 @@
       return;
     }
 
+    const exportConfig = getExportConfig();
+    if (!exportConfig) return;
+
     // 進捗パネルと結果格納
     const panel = buildPanel();
     const total = matches.length;
     const errors = [];
+    const htmlByMatchKey = new Map();
     // playerName -> Map(monsterName -> {levels, skills})
     const results = new Map();
 
@@ -444,7 +677,7 @@
     };
 
     // 戦闘結果のモンスター情報をプレイヤーに統合
-    const mergePlayerMap = (playerName, map, matchIndex, matchUrl) => {
+    const mergePlayerMap = (playerName, map, matchIndex, matchKey) => {
       const player = ensurePlayer(playerName);
       map.forEach((m) => {
         const key = m.name;
@@ -463,7 +696,7 @@
           actionSkills: new Set(m.actionSkills),
           lastLevel: m.level ?? null,
           lastSeen: matchIndex,
-          url: matchUrl,
+          matchKey,
         };
 
         let merged = false;
@@ -471,8 +704,8 @@
           if (!isSameInstance(inst, incoming, matchIndex)) continue;
           incoming.p0Skills.forEach((skill) => inst.p0Skills.add(skill));
           incoming.actionSkills.forEach((skill) => inst.actionSkills.add(skill));
-          if (!inst.urls) inst.urls = new Set();
-          if (incoming.url) inst.urls.add(incoming.url);
+          if (!inst.matchKeys) inst.matchKeys = new Set();
+          if (incoming.matchKey) inst.matchKeys.add(incoming.matchKey);
           if (incoming.level != null) {
             inst.maxLevel =
               inst.maxLevel == null ? incoming.level : Math.max(inst.maxLevel, incoming.level);
@@ -510,7 +743,7 @@
             maxLevel: incoming.level ?? null,
             lastLevel: incoming.level ?? null,
             lastSeen: matchIndex,
-            urls: incoming.url ? new Set([incoming.url]) : new Set(),
+            matchKeys: incoming.matchKey ? new Set([incoming.matchKey]) : new Set(),
           });
         }
       });
@@ -527,6 +760,7 @@
           const response = await fetch(match.url, { credentials: "include" });
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const html = await response.text();
+          htmlByMatchKey.set(match.key, html);
           const parsed = parseBattle(html);
           if (!parsed) {
             errors.push(`${match.leftLetter}-${match.rightLetter}: 未完了`);
@@ -534,8 +768,8 @@
             // 左右はA〜Lの若い順で固定する
             const leftKey = nameByLetter.get(match.leftLetter) || match.leftLetter;
             const rightKey = nameByLetter.get(match.rightLetter) || match.rightLetter;
-            mergePlayerMap(rightKey, parsed.leftMap, i, match.url);
-            mergePlayerMap(leftKey, parsed.rightMap, i, match.url);
+            mergePlayerMap(rightKey, parsed.leftMap, i, match.key);
+            mergePlayerMap(leftKey, parsed.rightMap, i, match.key);
           }
         } catch (err) {
           errors.push(`${match.leftLetter}-${match.rightLetter}: ${err.message}`);
@@ -544,12 +778,12 @@
       }
 
       // CSV形式で出力
-      const urlHeaders = [];
+      const matchHeaders = [];
       for (let i = 1; i <= 11; i += 1) {
-        urlHeaders.push(`url${String(i).padStart(2, "0")}`);
+        matchHeaders.push(`match${String(i).padStart(2, "0")}`);
       }
       const rows = [
-        ["player", "letter", "出場回数", "monster", "level", "variant", "image", "A(アクティブ)", "P(コンパニオン)", ...urlHeaders],
+        ["player", "letter", "出場回数", "monster", "level", "variant", "image", "A(アクティブ)", "P(コンパニオン)", ...matchHeaders],
       ];
       const playerNames = memberOrder.length ? memberOrder.slice() : [];
       // 結果ページからしか取れなかったプレイヤーも含める
@@ -573,11 +807,11 @@
             const p0 = Array.from(monster.p0Skills).sort().join(" / ");
             const action = Array.from(monster.actionSkills).sort().join(" / ");
             const imageCell = monster.imageUrl ? monster.imageUrl : "";
-            const urlList = Array.from(monster.urls || []);
-            const appearances = urlList.length;
-            const urlColumns = [];
+            const matchKeyList = Array.from(monster.matchKeys || []);
+            const appearances = matchKeyList.length;
+            const matchColumns = [];
             for (let i = 0; i < 11; i += 1) {
-              urlColumns.push(urlList[i] || "");
+              matchColumns.push(matchKeyList[i] || "");
             }
             rows.push([
               playerName,
@@ -589,11 +823,32 @@
               imageCell,
               action,
               p0,
-              ...urlColumns,
+              ...matchColumns,
             ]);
           });
         });
       });
+
+      const matchEntries = {};
+      matches.forEach((match) => {
+        const entry = {
+          round: match.round,
+          leftLetter: match.leftLetter,
+          rightLetter: match.rightLetter,
+          leftName: nameByLetter.get(match.leftLetter) || match.leftLetter,
+          rightName: nameByLetter.get(match.rightLetter) || match.rightLetter,
+          sourceUrl: match.url,
+        };
+        if (htmlByMatchKey.has(match.key)) {
+          entry.html = `./matches/${match.key}.html`;
+        }
+        matchEntries[match.key] = entry;
+      });
+      const manifest = {
+        phase: Number(exportConfig.phase),
+        group: exportConfig.group,
+        matches: matchEntries,
+      };
 
       // ファイル名に日時を付与
       const now = new Date();
@@ -606,7 +861,24 @@
         String(now.getMinutes()).padStart(2, "0"),
         String(now.getSeconds()).padStart(2, "0"),
       ].join("");
-      downloadCsv(rows, `rankmatch_skill_list_${stamp}.csv`);
+      const files = [
+        {
+          path: `${exportConfig.basePath}/skill_list.csv`,
+          content: rowsToCsv(rows),
+        },
+        {
+          path: `${exportConfig.basePath}/manifest.json`,
+          content: JSON.stringify(manifest, null, 2) + "\n",
+        },
+      ];
+      htmlByMatchKey.forEach((html, key) => {
+        files.push({
+          path: `${exportConfig.basePath}/matches/${key}.html`,
+          content: html,
+        });
+      });
+      const zipBlob = createZipBlob(files);
+      downloadBlob(zipBlob, `rankmatch_${exportConfig.phase}_${exportConfig.group}_${stamp}.zip`);
 
       // 完了通知
       panel.textContent = `完了: ${total}件 / エラー: ${errors.length}`;

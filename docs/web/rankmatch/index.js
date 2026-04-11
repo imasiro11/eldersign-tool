@@ -124,33 +124,21 @@ let PHASES = [];
 
       const ROUND_MAP = buildRoundMap(LETTERS);
 
-      const getMatchLettersFromUrl = (href) => {
-        if (!href) return null;
-        try {
-          const url = new URL(href, location.href);
-          const vValue = parseInt(url.searchParams.get("v") || "", 10);
-          if (Number.isNaN(vValue)) return null;
-          const rowIndex = Math.floor(vValue / 32);
-          const colIndex = vValue % 32;
-          if (rowIndex < 0 || rowIndex >= LETTERS.length) return null;
-          if (colIndex < 0 || colIndex >= LETTERS.length) return null;
-          const rowLetter = LETTERS[rowIndex];
-          const colLetter = LETTERS[colIndex];
-          if (!rowLetter || !colLetter || rowLetter === colLetter) return null;
-          return { rowLetter, colLetter };
-        } catch (err) {
-          return null;
-        }
+      const getMatchLettersFromKey = (key) => {
+        if (!key) return null;
+        const match = String(key).trim().match(/^([A-L])-([A-L])$/);
+        if (!match) return null;
+        return { rowLetter: match[1], colLetter: match[2] };
       };
 
-      const getRoundNumberFromUrl = (href) => {
-        const match = getMatchLettersFromUrl(href);
+      const getRoundNumberFromKey = (key) => {
+        const match = getMatchLettersFromKey(key);
         if (!match) return null;
-        const key =
+        const normalized =
           match.rowLetter < match.colLetter
             ? `${match.rowLetter}-${match.colLetter}`
             : `${match.colLetter}-${match.rowLetter}`;
-        return ROUND_MAP.get(key) ?? null;
+        return ROUND_MAP.get(normalized) ?? null;
       };
 
       const parseCsv = (text) => {
@@ -244,9 +232,31 @@ let PHASES = [];
         return { letterToName, nameToLetter };
       };
 
-      const buildLinks = (row) => {
-        const linkKeys = Object.keys(row).filter((key) => key.startsWith("url"));
+      const buildMatchKeys = (row) => {
+        const linkKeys = Object.keys(row).filter((key) => key.startsWith("match"));
         return linkKeys.map((key) => row[key]).filter(Boolean);
+      };
+
+      const resolveManifestHref = (manifestPath, href) => {
+        if (!manifestPath || !href) return "";
+        try {
+          const manifestUrl = new URL(manifestPath, location.href);
+          return new URL(href, manifestUrl).toString();
+        } catch (err) {
+          return href;
+        }
+      };
+
+      const loadManifest = async (manifestPath) => {
+        if (!manifestPath) return null;
+        try {
+          const response = await fetch(manifestPath, { cache: "no-store" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return await response.json();
+        } catch (err) {
+          console.warn("manifest.jsonの読み込みに失敗しました。", err);
+          return null;
+        }
       };
 
       const extractMonsterSlug = (imageUrl) => {
@@ -300,10 +310,12 @@ let PHASES = [];
         return fields.some((value) => normalizeSearchText(value).includes(q));
       };
 
-      const buildGroupCard = async (groupLabel, csvPath, query) => {
+      const buildGroupCard = async (groupLabel, groupConfig, query) => {
         const card = document.createElement("article");
         card.className = "group-card";
         let hitCount = 0;
+        const csvPath = groupConfig?.csv || "";
+        const manifestPath = groupConfig?.manifest || "";
 
         const header = document.createElement("div");
         header.className = "group-header";
@@ -341,6 +353,8 @@ let PHASES = [];
         try {
           const response = await fetch(csvPath);
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const manifest = await loadManifest(manifestPath);
+          const manifestMatches = manifest?.matches || {};
           const text = await response.text();
           const rows = parseCsv(text);
           const data = rowsToObjects(rows);
@@ -500,22 +514,21 @@ let PHASES = [];
               const appear = document.createElement("td");
               appear.className = "appear-cell";
               const appearCount = row["出場回数"] || "";
-              const links = buildLinks(row);
-              if (links.length) {
+              const matchKeys = buildMatchKeys(row);
+              if (matchKeys.length) {
                 const details = document.createElement("details");
                 details.className = "appear-toggle";
                 const summary = document.createElement("summary");
-                summary.textContent = appearCount || String(links.length);
+                summary.textContent = appearCount || String(matchKeys.length);
                 const linkList = document.createElement("div");
                 linkList.className = "link-list";
-                links.forEach((href, index) => {
-                  const link = document.createElement("a");
-                  link.href = href;
-                  link.target = "_blank";
-                  link.rel = "noopener";
-                  const match = getMatchLettersFromUrl(href);
-                  const roundNumber = getRoundNumberFromUrl(href);
-                  let label = roundNumber ? `${roundNumber}戦目` : `リンク${index + 1}`;
+                matchKeys.forEach((matchKey, index) => {
+                  const entry = manifestMatches[matchKey] || null;
+                  const match = entry
+                    ? { rowLetter: entry.leftLetter, colLetter: entry.rightLetter }
+                    : getMatchLettersFromKey(matchKey);
+                  const roundNumber = entry?.round || getRoundNumberFromKey(matchKey);
+                  let label = roundNumber ? `${roundNumber}戦目` : `対戦${index + 1}`;
                   if (
                     hasLetters &&
                     match &&
@@ -530,8 +543,19 @@ let PHASES = [];
                       label = `${roundIndex + 1}.${opponentName}戦`;
                     }
                   }
-                  link.textContent = label;
-                  linkList.appendChild(link);
+                  const href = entry?.html ? resolveManifestHref(manifestPath, entry.html) : "";
+                  if (href) {
+                    const link = document.createElement("a");
+                    link.href = href;
+                    link.target = "_blank";
+                    link.rel = "noopener";
+                    link.textContent = label;
+                    linkList.appendChild(link);
+                  } else {
+                    const text = document.createElement("span");
+                    text.textContent = label;
+                    linkList.appendChild(text);
+                  }
                 });
                 details.append(summary, linkList);
                 appear.appendChild(details);
