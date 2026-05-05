@@ -1,0 +1,168 @@
+{
+  "phase": 22,
+  "group": "S",
+  "matches": {
+    "A-B": {
+      "round": 1,
+      "leftLetter": "A",
+      "rightLetter": "B",
+      "leftName": "キャスさん",
+      "rightName": "ゆき",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=1&se=22&t=1",
+      "html": "./matches/A-B.html"
+    },
+    "A-C": {
+      "round": 2,
+      "leftLetter": "A",
+      "rightLetter": "C",
+      "leftName": "キャスさん",
+      "rightName": "タカヤマン",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=2&se=22&t=1",
+      "html": "./matches/A-C.html"
+    },
+    "A-D": {
+      "round": 3,
+      "leftLetter": "A",
+      "rightLetter": "D",
+      "leftName": "キャスさん",
+      "rightName": "ユウア",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=3&se=22&t=1",
+      "html": "./matches/A-D.html"
+    },
+    "B-D": {
+      "round": 2,
+      "leftLetter": "B",
+      "rightLetter": "D",
+      "leftName": "ゆき",
+      "rightName": "ユウア",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=35&se=22&t=1",
+      "html": "./matches/B-D.html"
+    },
+    "B-F": {
+      "round": 3,
+      "leftLetter": "B",
+      "rightLetter": "F",
+      "leftName": "ゆき",
+      "rightName": "savekimo",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=37&se=22&t=1",
+      "html": "./matches/B-F.html"
+    },
+    "C-E": {
+      "round": 3,
+      "leftLetter": "C",
+      "rightLetter": "E",
+      "leftName": "タカヤマン",
+      "rightName": "センカ",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=68&se=22&t=1",
+      "html": "./matches/C-E.html"
+    },
+    "C-L": {
+      "round": 1,
+      "leftLetter": "C",
+      "rightLetter": "L",
+      "leftName": "タカヤマン",
+      "rightName": "なまはる",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=75&se=22&t=1",
+      "html": "./matches/C-L.html"
+    },
+    "D-K": {
+      "round": 1,
+      "leftLetter": "D",
+      "rightLetter": "K",
+      "leftName": "ユウア",
+      "rightName": "カリスト",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=106&se=22&t=1",
+      "html": "./matches/D-K.html"
+    },
+    "E-J": {
+      "round": 1,
+      "leftLetter": "E",
+      "rightLetter": "J",
+      "leftName": "センカ",
+      "rightName": "イマクロ",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=137&se=22&t=1",
+      "html": "./matches/E-J.html"
+    },
+    "E-L": {
+      "round": 2,
+      "leftLetter": "E",
+      "rightLetter": "L",
+      "leftName": "センカ",
+      "rightName": "なまはる",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=139&se=22&t=1",
+      "html": "./matches/E-L.html"
+    },
+    "F-I": {
+      "round": 1,
+      "leftLetter": "F",
+      "rightLetter": "I",
+      "leftName": "savekimo",
+      "rightName": "ClayClay",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=168&se=22&t=1",
+      "html": "./matches/F-I.html"
+    },
+    "F-K": {
+      "round": 2,
+      "leftLetter": "F",
+      "rightLetter": "K",
+      "leftName": "savekimo",
+      "rightName": "カリスト",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=170&se=22&t=1",
+      "html": "./matches/F-K.html"
+    },
+    "G-H": {
+      "round": 1,
+      "leftLetter": "G",
+      "rightLetter": "H",
+      "leftName": "pmg",
+      "rightName": "ポリープ",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=199&se=22&t=1",
+      "html": "./matches/G-H.html"
+    },
+    "G-J": {
+      "round": 2,
+      "leftLetter": "G",
+      "rightLetter": "J",
+      "leftName": "pmg",
+      "rightName": "イマクロ",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=201&se=22&t=1",
+      "html": "./matches/G-J.html"
+    },
+    "G-L": {
+      "round": 3,
+      "leftLetter": "G",
+      "rightLetter": "L",
+      "leftName": "pmg",
+      "rightName": "なまはる",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=203&se=22&t=1",
+      "html": "./matches/G-L.html"
+    },
+    "H-I": {
+      "round": 2,
+      "leftLetter": "H",
+      "rightLetter": "I",
+      "leftName": "ポリープ",
+      "rightName": "ClayClay",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=232&se=22&t=1",
+      "html": "./matches/H-I.html"
+    },
+    "H-K": {
+      "round": 3,
+      "leftLetter": "H",
+      "rightLetter": "K",
+      "leftName": "ポリープ",
+      "rightName": "カリスト",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=234&se=22&t=1",
+      "html": "./matches/H-K.html"
+    },
+    "I-J": {
+      "round": 3,
+      "leftLetter": "I",
+      "rightLetter": "J",
+      "leftName": "ClayClay",
+      "rightName": "イマクロ",
+      "sourceUrl": "https://eldersign.jp/rankmatch?cmd=v&rk=0&v=265&se=22&t=1",
+      "html": "./matches/I-J.html"
+    }
+  }
+}
