@@ -252,6 +252,7 @@ import {
       let pendingInit = null;
       let hasAppliedIncoming = false;
       let anonSignInTimer = null;
+      let collapsedPartyIds = new Set();
       const ensureParty = (partyId) => {
         if (!store.parties[partyId]) {
           store.parties[partyId] = buildParty();
@@ -458,6 +459,12 @@ import {
         }
         delete store.parties[targetId];
         delete store.partyNames[String(targetId)];
+        const nextCollapsedPartyIds = new Set();
+        collapsedPartyIds.forEach((id) => {
+          if (id < targetId) nextCollapsedPartyIds.add(id);
+          if (id > targetId) nextCollapsedPartyIds.add(id - 1);
+        });
+        collapsedPartyIds = nextCollapsedPartyIds;
         for (let id = targetId + 1; id <= store.partyCount; id += 1) {
           if (store.parties[id]) {
             store.parties[id - 1] = store.parties[id];
@@ -487,6 +494,7 @@ import {
             id,
             entries: getPartyEntries(id).map((entry) => normalizeEntry(entry)),
             name: store.partyNames[String(id)] || "",
+            collapsed: collapsedPartyIds.has(id),
           });
         }
 
@@ -498,11 +506,15 @@ import {
 
         store.parties = {};
         store.partyNames = {};
+        collapsedPartyIds = new Set();
         ordered.forEach((party, index) => {
           const nextId = index + 1;
           store.parties[nextId] = party.entries;
           if (party.name) {
             store.partyNames[String(nextId)] = party.name;
+          }
+          if (party.collapsed) {
+            collapsedPartyIds.add(nextId);
           }
         });
         store.partyCount = ordered.length;
@@ -520,6 +532,7 @@ import {
       const addParty = () => {
         const nextPartyId = store.partyCount + 1;
         ensurePartyCount(nextPartyId);
+        collapsedPartyIds.delete(nextPartyId);
         saveStore(store);
         renderAll();
         setStatus(`PT${nextPartyId}を追加しました`);
@@ -895,6 +908,9 @@ import {
       const renderAll = () => {
         partyList.innerHTML = "";
         Object.keys(slotRefs).forEach((key) => delete slotRefs[key]);
+        collapsedPartyIds = new Set(
+          [...collapsedPartyIds].filter((partyId) => partyId >= 1 && partyId <= store.partyCount)
+        );
         for (let partyId = 1; partyId <= store.partyCount; partyId += 1) {
           const entries = getPartyEntries(partyId);
           const clone = partyTemplate.content.cloneNode(true);
@@ -907,7 +923,7 @@ import {
           const defaultPartyName = `PT ${partyId}`;
           if (section) {
             section.dataset.party = String(partyId);
-            section.classList.remove("is-collapsed");
+            section.classList.toggle("is-collapsed", collapsedPartyIds.has(partyId));
             section.addEventListener("dragover", (event) => {
               if (dragState.type !== "party") return;
               event.preventDefault();
@@ -932,11 +948,16 @@ import {
             });
           }
           if (header) {
-            header.setAttribute("aria-expanded", "true");
+            header.setAttribute("aria-expanded", collapsedPartyIds.has(partyId) ? "false" : "true");
             const toggleSection = () => {
               if (!section) return;
               const nextCollapsed = !section.classList.contains("is-collapsed");
               section.classList.toggle("is-collapsed", nextCollapsed);
+              if (nextCollapsed) {
+                collapsedPartyIds.add(partyId);
+              } else {
+                collapsedPartyIds.delete(partyId);
+              }
               header.setAttribute("aria-expanded", nextCollapsed ? "false" : "true");
             };
             header.setAttribute("draggable", "true");
