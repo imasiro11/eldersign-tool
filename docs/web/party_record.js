@@ -44,7 +44,7 @@ import {
         skills: Array.from({ length: SKILL_COUNT }, () => ""),
       });
 
-      const normalizeText = (text) => (text || "").replace(/\s+/g, " ").trim();
+      const normalizeText = (text) => String(text ?? "").replace(/\s+/g, " ").trim();
 
       const normalizeEntry = (entry) => {
         const skills = Array.from({ length: SKILL_COUNT }, (_, skillIndex) =>
@@ -104,6 +104,8 @@ import {
         );
       };
 
+      const canWriteStore = (store) => !isStoreEmpty(store);
+
       const readLocalCache = (uid, { isAnonymous = false } = {}) => {
         if (!window.EldersignLegacyStorage) return null;
         return window.EldersignLegacyStorage.readLegacyStore(uid, {
@@ -135,8 +137,17 @@ import {
       let saveTimer = null;
 
       const saveStore = (store, { immediate = false } = {}) => {
+        const targetUid = storeOwnerUid || currentUid;
+        if (!canWriteStore(store)) {
+          if (saveTimer) {
+            clearTimeout(saveTimer);
+            saveTimer = null;
+          }
+          return;
+        }
+
         if (window.EldersignLegacyStorage) {
-          window.EldersignLegacyStorage.writeLegacyCache(currentUid, store);
+          window.EldersignLegacyStorage.writeLegacyCache(targetUid, store);
         }
 
         if (saveTimer) {
@@ -145,9 +156,9 @@ import {
         }
 
         const runSave = async () => {
-          if (!currentUid) return;
+          if (!targetUid || !canWriteStore(store)) return;
           try {
-            await saveFirestoreDoc([FIRESTORE_COLLECTION, currentUid], {
+            await saveFirestoreDoc([FIRESTORE_COLLECTION, targetUid], {
               store,
               updatedAt: serverTimestamp(),
               env: firebaseEnv,
@@ -235,6 +246,7 @@ import {
       };
 
       let store = buildDefaultStore();
+      let storeOwnerUid = null;
       let currentUid = null;
       let currentUser = null;
       let pendingInit = null;
@@ -871,6 +883,7 @@ import {
         setStatus("Firestoreから読み込み中...");
         const { store: loadedStore, source } = await loadStore(uid, { isAnonymous });
         store = loadedStore;
+        storeOwnerUid = uid;
         if (!Number.isFinite(store.partyCount) || store.partyCount < 1) {
           store.partyCount = DEFAULT_PARTY_COUNT;
         }
@@ -892,6 +905,7 @@ import {
 
       const initLocalStore = () => {
         store = readLocalCache(null, { isAnonymous: true }) || buildDefaultStore();
+        storeOwnerUid = null;
         if (!Number.isFinite(store.partyCount) || store.partyCount < 1) {
           store.partyCount = DEFAULT_PARTY_COUNT;
         }
@@ -911,7 +925,7 @@ import {
       const migrateIfNeeded = async (fromUid, toUid) => {
         if (!fromUid || !toUid || fromUid === toUid) return;
         const fromCache = readLocalCache(fromUid, { isAnonymous: true });
-        if (!fromCache) return;
+        if (!fromCache || !canWriteStore(fromCache)) return;
         const remote = await loadStore(toUid, { isAnonymous: false });
         if (remote && remote.store && remote.source === "firestore") return;
         try {
@@ -1098,6 +1112,9 @@ import {
 
       observeAuth(async (user) => {
         if (!user) {
+          currentUser = null;
+          currentUid = null;
+          storeOwnerUid = null;
           if (anonSignInTimer) {
             clearTimeout(anonSignInTimer);
           }
