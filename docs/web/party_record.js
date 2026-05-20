@@ -593,6 +593,127 @@ import {
         clearDragTarget();
       };
 
+      let suppressPreviewClick = false;
+      const longPressSlotDrag = {
+        timer: null,
+        active: false,
+        pointerId: null,
+        sourceCard: null,
+        sourcePartyId: null,
+        sourceIndex: null,
+        targetCard: null,
+        targetPartyId: null,
+        targetIndex: null,
+        startX: 0,
+        startY: 0,
+      };
+
+      const clearLongPressTimer = () => {
+        if (!longPressSlotDrag.timer) return;
+        clearTimeout(longPressSlotDrag.timer);
+        longPressSlotDrag.timer = null;
+      };
+
+      const resetLongPressSlotDrag = ({ suppressClick = false } = {}) => {
+        clearLongPressTimer();
+        if (longPressSlotDrag.sourceCard) {
+          longPressSlotDrag.sourceCard.classList.remove("is-dragging");
+        }
+        if (longPressSlotDrag.targetCard) {
+          longPressSlotDrag.targetCard.classList.remove("drag-target");
+        }
+        longPressSlotDrag.active = false;
+        longPressSlotDrag.pointerId = null;
+        longPressSlotDrag.sourceCard = null;
+        longPressSlotDrag.sourcePartyId = null;
+        longPressSlotDrag.sourceIndex = null;
+        longPressSlotDrag.targetCard = null;
+        longPressSlotDrag.targetPartyId = null;
+        longPressSlotDrag.targetIndex = null;
+        if (suppressClick) {
+          suppressPreviewClick = true;
+          setTimeout(() => {
+            suppressPreviewClick = false;
+          }, 0);
+        }
+      };
+
+      const setLongPressDropTarget = (card) => {
+        if (longPressSlotDrag.targetCard === card) return;
+        if (longPressSlotDrag.targetCard) {
+          longPressSlotDrag.targetCard.classList.remove("drag-target");
+        }
+        longPressSlotDrag.targetCard = card || null;
+        longPressSlotDrag.targetPartyId = card ? Number.parseInt(card.dataset.party, 10) : null;
+        longPressSlotDrag.targetIndex = card ? Number.parseInt(card.dataset.index, 10) : null;
+        if (card) {
+          card.classList.add("drag-target");
+        }
+      };
+
+      const findSlotCardAt = (clientX, clientY) => {
+        const target = document.elementFromPoint(clientX, clientY);
+        return target ? target.closest(".slot-card") : null;
+      };
+
+      const startLongPressSlotDrag = (card, partyId, index, event) => {
+        if (!event.isPrimary || (event.pointerType !== "touch" && event.pointerType !== "pen")) return;
+        if (event.target.closest("input, textarea, select, button, label, .field")) return;
+        resetLongPressSlotDrag();
+        longPressSlotDrag.pointerId = event.pointerId;
+        longPressSlotDrag.sourceCard = card;
+        longPressSlotDrag.sourcePartyId = partyId;
+        longPressSlotDrag.sourceIndex = index;
+        longPressSlotDrag.startX = event.clientX;
+        longPressSlotDrag.startY = event.clientY;
+        longPressSlotDrag.timer = setTimeout(() => {
+          longPressSlotDrag.timer = null;
+          longPressSlotDrag.active = true;
+          dragState.type = "slot";
+          dragState.partyId = partyId;
+          dragState.slotIndex = index;
+          dragState.skillIndex = null;
+          card.classList.add("is-dragging");
+          setLongPressDropTarget(card);
+        }, 450);
+      };
+
+      const moveLongPressSlotDrag = (event) => {
+        if (event.pointerId !== longPressSlotDrag.pointerId) return;
+        const movedX = Math.abs(event.clientX - longPressSlotDrag.startX);
+        const movedY = Math.abs(event.clientY - longPressSlotDrag.startY);
+        if (!longPressSlotDrag.active && (movedX > 12 || movedY > 12)) {
+          resetLongPressSlotDrag();
+          return;
+        }
+        if (!longPressSlotDrag.active) return;
+        event.preventDefault();
+        setLongPressDropTarget(findSlotCardAt(event.clientX, event.clientY));
+      };
+
+      const endLongPressSlotDrag = (event) => {
+        if (event.pointerId !== longPressSlotDrag.pointerId) return;
+        const wasActive = longPressSlotDrag.active;
+        const fromPartyId = longPressSlotDrag.sourcePartyId;
+        const fromIndex = longPressSlotDrag.sourceIndex;
+        const toPartyId = longPressSlotDrag.targetPartyId;
+        const toIndex = longPressSlotDrag.targetIndex;
+        if (wasActive && Number.isFinite(toPartyId) && Number.isFinite(toIndex)) {
+          event.preventDefault();
+          swapSlots(fromPartyId, fromIndex, toPartyId, toIndex);
+        }
+        resetLongPressSlotDrag({ suppressClick: wasActive });
+        if (wasActive) onDragEnd();
+      };
+
+      document.addEventListener("pointermove", moveLongPressSlotDrag, { passive: false });
+      document.addEventListener("pointerup", endLongPressSlotDrag);
+      document.addEventListener("pointercancel", (event) => {
+        if (event.pointerId !== longPressSlotDrag.pointerId) return;
+        resetLongPressSlotDrag();
+        onDragEnd();
+      });
+
       const blockDrag = (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -642,7 +763,16 @@ import {
           duplicateButton.addEventListener("click", () => duplicateSlot(partyId, index));
         }
         clearButton.addEventListener("click", () => clearSlot(partyId, index));
-        preview.addEventListener("click", () => openImageEditor(partyId, index));
+        preview.addEventListener("click", (event) => {
+          if (suppressPreviewClick) {
+            event.preventDefault();
+            return;
+          }
+          openImageEditor(partyId, index);
+        });
+        preview.addEventListener("contextmenu", (event) => {
+          event.preventDefault();
+        });
         preview.addEventListener("keydown", (event) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
@@ -664,6 +794,9 @@ import {
         card.addEventListener("mousedown", allowCardDrag);
         card.addEventListener("mouseup", disableCardDrag);
         card.addEventListener("mouseleave", disableCardDrag);
+        card.addEventListener("pointerdown", (event) => {
+          startLongPressSlotDrag(card, partyId, index, event);
+        });
         card.addEventListener("dragstart", (event) => {
           if (event.target.closest("input, textarea, select, button, label, .field")) {
             event.preventDefault();
@@ -754,6 +887,7 @@ import {
           slotRefs[partyId] = [];
         }
         slotRefs[partyId].push(ref);
+        card.dataset.party = String(partyId);
         renderSlot(ref, entry, index);
         grid.appendChild(clone);
       };

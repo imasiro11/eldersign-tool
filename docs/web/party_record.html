@@ -415,6 +415,9 @@
       overflow: hidden;
       position: relative;
       cursor: pointer;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .slot-preview img {
@@ -422,6 +425,9 @@
       height: 100%;
       object-fit: cover;
       display: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-drag: none;
     }
 
     .slot-preview.has-image img {
@@ -639,7 +645,7 @@
   </template>
 
   <script src="./party_record_legacy_storage.js?v2" defer></script>
-  <script type="module" src="./party_record.js?v6"></script>
+  <script type="module" src="./party_record.js?v7"></script>
   <script src="../footer.js" defer></script>
 </body>
 
