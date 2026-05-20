@@ -318,30 +318,31 @@ import {
         const name = normalizeText(params.get("name"));
         const imageUrl = normalizeText(params.get("img"));
         const skillParam = params.get("skills");
-        let skills = [];
+        const skills = Array.from({ length: SKILL_COUNT }, () => "");
+        const assignSkillRange = (values, startIndex) => {
+          values.forEach((skill, index) => {
+            const targetIndex = startIndex + index;
+            if (targetIndex >= SKILL_COUNT) return;
+            const normalized = normalizeText(skill);
+            if (normalized) skills[targetIndex] = normalized;
+          });
+        };
 
         if (skillParam) {
-          skills = skillParam.split("|").map((skill) => normalizeText(skill));
+          assignSkillRange(skillParam.split("|"), 1);
         }
 
-        const skillList = params.getAll("skill").map((skill) => normalizeText(skill));
+        const skillList = params.getAll("skill");
         if (skillList.length) {
-          skills = skillList;
+          assignSkillRange(skillList, 1);
         }
 
-        const skillZero = normalizeText(params.get("skill0"));
-        if (skillZero) {
-          skills.push(skillZero);
-        }
-
-        for (let i = 1; i <= SKILL_COUNT; i += 1) {
+        for (let i = 0; i < SKILL_COUNT; i += 1) {
           const skillValue = normalizeText(params.get(`skill${i}`));
-          if (skillValue) skills.push(skillValue);
+          if (skillValue) skills[i] = skillValue;
         }
 
-        skills = skills.filter((skill) => skill).slice(0, SKILL_COUNT);
-
-        if (!name && !imageUrl && skills.length === 0) return null;
+        if (!name && !imageUrl && !skills.some((skill) => skill)) return null;
 
         const slotValue = Number.parseInt(params.get("slot"), 10);
         const requestedSlot = Number.isFinite(slotValue) ? slotValue - 1 : null;
