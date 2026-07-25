@@ -75,10 +75,54 @@
     return RARITY_BY_MAX_LEVEL[maxLevel] ?? RARITY.BRONZE;
   }
 
-  function getGrowth(level, maxLevel, rarity) {
+  function getSeraenoPromotion() {
+    const card = document.querySelector("img#card");
+    if (!card || !card.src) return null;
+
+    let pathname;
+    try {
+      pathname = new URL(card.src, window.location.href).pathname;
+    } catch (_) {
+      pathname = card.src.split(/[?#]/, 1)[0];
+    }
+
+    const match = pathname.match(/_[0-3]g\d+([gs])\.[a-z0-9]+$/i);
+    if (!match) return null;
+
+    if (match[1].toLowerCase() === "g") {
+      return { sourceRarity: RARITY.SILVER, sourceMaxLevel: 50 };
+    }
+    return { sourceRarity: RARITY.BRONZE, sourceMaxLevel: 30 };
+  }
+
+  function getGrowth(level, maxLevel, rarity, seraenoPromotion = null) {
     const rc = GROWTH_COEFF_BY_RARITY[rarity] ?? 1.0;
-    const t = Math.max(0, (level - 1) / (maxLevel - 1));
-    const G = 1 + rc * t;
+    let G;
+
+    if (
+      seraenoPromotion &&
+      seraenoPromotion.sourceMaxLevel > 1 &&
+      seraenoPromotion.sourceMaxLevel < maxLevel
+    ) {
+      const sourceRc =
+        GROWTH_COEFF_BY_RARITY[seraenoPromotion.sourceRarity] ?? 1.0;
+      if (level <= seraenoPromotion.sourceMaxLevel) {
+        const sourceT = Math.max(
+          0,
+          (level - 1) / (seraenoPromotion.sourceMaxLevel - 1)
+        );
+        G = 1 + sourceRc * sourceT;
+      } else {
+        const promotedT =
+          (level - seraenoPromotion.sourceMaxLevel) /
+          (maxLevel - seraenoPromotion.sourceMaxLevel);
+        G = 1 + sourceRc + (rc - sourceRc) * promotedT;
+      }
+    } else {
+      const t = Math.max(0, (level - 1) / (maxLevel - 1));
+      G = 1 + rc * t;
+    }
+
     return { G, sqrtG: Math.sqrt(G) };
   }
 
@@ -369,10 +413,13 @@
     return query ? `${GRADE_TOOL_URL}?${query}` : GRADE_TOOL_URL;
   }
 
-  function buildMaxLevelLines(statInfo, maxLevel, rarity) {
-    const rc = GROWTH_COEFF_BY_RARITY[rarity] ?? 1.0;
-    const Gmax = 1 + rc;
-    const sqrtGmax = Math.sqrt(Gmax);
+  function buildMaxLevelLines(statInfo, maxLevel, rarity, seraenoPromotion) {
+    const { G: Gmax, sqrtG: sqrtGmax } = getGrowth(
+      maxLevel,
+      maxLevel,
+      rarity,
+      seraenoPromotion
+    );
 
     const pad5 = (n) => " ".repeat(Math.max(0, 5 - String(n).length));
     const pad4 = (n) => " ".repeat(Math.max(0, 4 - String(n).length));
@@ -654,7 +701,13 @@
 
     const { level, maxLevel } = levelInfo;
     const rarity = getRarity(maxLevel);
-    const { G, sqrtG } = getGrowth(level, maxLevel, rarity);
+    const seraenoPromotion = getSeraenoPromotion();
+    const { G, sqrtG } = getGrowth(
+      level,
+      maxLevel,
+      rarity,
+      seraenoPromotion
+    );
     const expRarityFactor = EXP_COEFF_BY_RARITY[rarity] ?? 1;
     const monsterId = getMonsterId();
     const familyName = getMonsterFamilyName();
@@ -663,6 +716,9 @@
     if (!rows) return;
 
     const { lines, sumSq, statInfo } = collectStats(rows, level, G, sqrtG);
+    if (seraenoPromotion) {
+      lines.unshift("セラエノ断章済み");
+    }
     const evalValue = calcEval(sumSq);
     const grade = getGrade();
     const monsterName = getMonsterName();
@@ -714,7 +770,12 @@
     }
     lines.push(...currentStatusTailLines);
 
-    const maxLevelLines = buildMaxLevelLines(statInfo, maxLevel, rarity);
+    const maxLevelLines = buildMaxLevelLines(
+      statInfo,
+      maxLevel,
+      rarity,
+      seraenoPromotion
+    );
     const nextGradeLines = buildNextGradeLines(statInfo, evalValue);
     const combatMemoLines = buildCombatMemoLines();
     const moreLines = [...maxLevelLines, ...nextGradeLines, ...combatMemoLines];
