@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>ランクマッチ採用率推移</title>
+    <link rel="stylesheet" href="../../theme.css" />
+    <style>
+      .toolbar,
+      .trend-controls,
+      .type-tabs,
+      .item-picker,
+      .selected-items {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .toolbar {
+        margin-top: 16px;
+      }
+
+      .helper-note,
+      .loading-status,
+      .chart-note {
+        color: var(--md-sys-on-surface-variant);
+      }
+
+      .trend-panel {
+        margin-top: 24px;
+        padding: 18px;
+        border: 1px solid var(--md-sys-outline-variant);
+        border-radius: 20px;
+        background: color-mix(in srgb, var(--md-sys-surface) 88%, var(--md-sys-primary-container));
+        box-shadow: 0 10px 25px var(--md-sys-shadow);
+      }
+
+      .trend-controls {
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+
+      .type-tab,
+      .add-button,
+      .selected-chip {
+        border: 1px solid var(--md-sys-outline-variant);
+        border-radius: 999px;
+        cursor: pointer;
+        font: inherit;
+      }
+
+      .type-tab {
+        padding: 8px 16px;
+        color: var(--md-sys-on-surface);
+        background: var(--md-sys-surface);
+        font-weight: 600;
+      }
+
+      .type-tab.is-active {
+        border-color: transparent;
+        color: var(--md-sys-on-primary);
+        background: var(--md-sys-primary);
+      }
+
+      .item-picker {
+        flex: 1 1 360px;
+        justify-content: flex-end;
+      }
+
+      .item-input {
+        min-width: 220px;
+        flex: 1 1 260px;
+        max-width: 420px;
+        padding: 9px 14px;
+        border: 1px solid var(--md-sys-outline-variant);
+        border-radius: 999px;
+        outline: none;
+        color: var(--md-sys-on-surface);
+        background: var(--md-sys-surface);
+        font: inherit;
+      }
+
+      .add-button {
+        padding: 9px 18px;
+        border-color: transparent;
+        color: var(--md-sys-on-primary);
+        background: var(--md-sys-primary);
+      }
+
+      .selected-items {
+        min-height: 40px;
+        margin-top: 16px;
+      }
+
+      .selected-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        color: var(--md-sys-on-surface);
+        background: var(--md-sys-surface);
+      }
+
+      .selected-color {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .chart-wrap {
+        margin-top: 12px;
+        overflow-x: auto;
+        border-radius: 14px;
+        background: var(--md-sys-surface);
+      }
+
+      .trend-chart {
+        display: block;
+        width: 100%;
+        min-width: 760px;
+        height: auto;
+      }
+
+      .chart-grid {
+        stroke: var(--md-sys-outline-variant);
+        stroke-width: 1;
+      }
+
+      .chart-axis-label {
+        fill: var(--md-sys-on-surface-variant);
+        font-size: 12px;
+      }
+
+      .chart-line {
+        fill: none;
+        stroke-width: 3;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+      }
+
+      .chart-point {
+        stroke: var(--md-sys-surface);
+        stroke-width: 2;
+      }
+
+      .chart-note {
+        margin: 10px 0 0;
+        font-size: 0.85rem;
+      }
+
+      .empty {
+        padding: 28px;
+        text-align: center;
+        color: var(--md-sys-on-surface-variant);
+      }
+
+      @media (max-width: 700px) {
+        main {
+          padding: 24px 14px 48px;
+        }
+
+        .trend-panel {
+          padding: 14px;
+        }
+
+        .item-picker {
+          justify-content: stretch;
+        }
+
+        .item-input {
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="reveal">
+        <p class="subtitle">Rankmatch Adoption Trends</p>
+        <h1>ランクマッチ採用率推移</h1>
+        <p class="helper-note">
+          各期のS・A1・A2を合算し、全モンスター出場数に占める採用数の割合を表示します。
+        </p>
+        <div class="toolbar">
+          <a class="button secondary" href="./index.html">期別集計へ戻る</a>
+          <a class="button secondary" href="../../index.html">ツール集へ戻る</a>
+        </div>
+      </header>
+
+      <section class="trend-panel reveal">
+        <div class="trend-controls">
+          <div class="type-tabs" id="typeTabs" aria-label="集計種別">
+            <button class="type-tab is-active" type="button" data-type="monster">モンスター</button>
+            <button class="type-tab" type="button" data-type="action">Aスキル</button>
+            <button class="type-tab" type="button" data-type="passive">Pスキル</button>
+          </div>
+          <form class="item-picker" id="itemPicker">
+            <input
+              class="item-input"
+              id="itemInput"
+              type="search"
+              list="itemOptions"
+              placeholder="比較する項目を検索"
+              autocomplete="off"
+            />
+            <datalist id="itemOptions"></datalist>
+            <button class="add-button" type="submit">追加</button>
+          </form>
+        </div>
+
+        <p class="loading-status" id="loadingStatus">全期データを読み込んでいます…</p>
+        <div class="selected-items" id="selectedItems" aria-label="表示中の項目"></div>
+        <div class="chart-wrap" id="chartWrap" hidden>
+          <svg
+            class="trend-chart"
+            id="trendChart"
+            viewBox="0 0 1000 500"
+            role="img"
+            aria-label="期ごとの採用率推移"
+          ></svg>
+        </div>
+        <p class="chart-note" id="chartNote" hidden>
+          項目は5件まで比較できます。グラフ上の点にカーソルを合わせると数値を確認できます。
+        </p>
+      </section>
+    </main>
+
+    <script src="./trends.js?v1" defer></script>
+  </body>
+</html>
