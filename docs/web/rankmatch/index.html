@@ -225,6 +225,137 @@
         margin-top: 24px;
       }
 
+      .ranking-summary {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .ranking-summary[hidden] {
+        display: none;
+      }
+
+      .ranking-summary.is-search-result {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+      }
+
+      .ranking-card {
+        padding: 16px;
+        border-radius: 18px;
+        border: 1px solid var(--md-sys-outline-variant);
+        background: var(--md-sys-surface);
+        box-shadow: 0 8px 20px var(--md-sys-shadow);
+        container-type: inline-size;
+      }
+
+      .ranking-title {
+        margin: 0 0 10px;
+        font-size: 1rem;
+      }
+
+      .ranking-list {
+        margin: 0;
+        padding-left: 2rem;
+      }
+
+      .ranking-item {
+        padding: 4px 0;
+      }
+
+      .ranking-entry {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .ranking-search {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
+      .ranking-name {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+      }
+
+      .ranking-monster-image {
+        width: 40px;
+        height: 40px;
+        flex: 0 0 auto;
+        object-fit: contain;
+        border: 1px solid var(--md-sys-outline-variant);
+        background: var(--md-sys-surface-variant);
+      }
+
+      .ranking-count {
+        flex-shrink: 0;
+        color: var(--md-sys-on-surface-variant);
+        font-size: 0.8rem;
+        white-space: nowrap;
+      }
+
+      .ranking-card.has-chart {
+        display: grid;
+        gap: 14px;
+      }
+
+      .ranking-chart-layout {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .ranking-pie {
+        width: 132px;
+        aspect-ratio: 1;
+        flex: 0 0 auto;
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 1px var(--md-sys-outline-variant);
+      }
+
+      .ranking-chart-list {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding-left: 1.75rem;
+      }
+
+      .ranking-chart-entry {
+        display: grid;
+        grid-template-columns: 10px minmax(0, 1fr) auto;
+        align-items: baseline;
+        gap: 7px;
+      }
+
+      .ranking-color {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .ranking-other {
+        display: grid;
+        grid-template-columns: 10px minmax(0, 1fr) auto;
+        align-items: baseline;
+        gap: 7px;
+        margin: 6px 0 0 1.75rem;
+        font-size: 0.85rem;
+      }
+
+      @container (max-width: 500px) {
+        .ranking-chart-layout {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .ranking-chart-list {
+          width: 100%;
+        }
+      }
+
       .group-card {
         padding: 18px;
         border-radius: 20px;
@@ -511,6 +642,16 @@
         .skill-cell {
           min-width: 120px;
         }
+
+        .ranking-summary {
+          grid-template-columns: 1fr;
+          margin-left: 14px;
+          margin-right: 14px;
+        }
+
+        .ranking-chart-layout {
+          align-items: flex-start;
+        }
       }
 
       @media (max-width: 600px) {
@@ -618,11 +759,13 @@
         </div>
       </div>
 
+      <section class="ranking-summary" id="rankingSummary" aria-label="採用ランキング" hidden></section>
+
       <section class="reveal">
         <div class="group-grid" id="groupGrid"></div>
       </section>
     </main>
 
-    <script src="./index.js?v4" defer></script>
+    <script src="./index.js?v9" defer></script>
   </body>
 </html>

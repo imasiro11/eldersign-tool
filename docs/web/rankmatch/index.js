@@ -6,6 +6,7 @@ let PHASES = [];
       const groupGrid = document.getElementById("groupGrid");
       const searchInput = document.getElementById("searchInput");
       const searchStatus = document.getElementById("searchStatus");
+      const rankingSummary = document.getElementById("rankingSummary");
       const openAllPlayersButton = document.getElementById("openAllPlayers");
       const closeAllPlayersButton = document.getElementById("closeAllPlayers");
       const phaseJumpForm = document.getElementById("phaseJumpForm");
@@ -14,6 +15,7 @@ let PHASES = [];
       let currentQuery = "";
       let phaseMeta = [];
       let phaseByNumber = new Map();
+      let renderSequence = 0;
 
       const renderMessage = (text) => {
         groupGrid.innerHTML = "";
@@ -285,6 +287,322 @@ let PHASES = [];
           .filter(Boolean);
       };
 
+      const addRankingCount = (counts, name, count) => {
+        if (!name || count <= 0) return;
+        counts.set(name, (counts.get(name) || 0) + count);
+      };
+
+      const buildRankingMonsterImage = (imageUrl) => {
+        if (!imageUrl) return "";
+        return String(imageUrl).replace(/_\d+g\d+(?=\.[^./?#]+(?:[?#]|$))/i, "_2g7");
+      };
+
+      const isTargetMonsterImage = (imageUrl) => {
+        return /_2g7(?=\.[^./?#]+(?:[?#]|$))/i.test(String(imageUrl || ""));
+      };
+
+      const addRankingImageCandidate = (entry, imageUrl, prefer = false) => {
+        if (!imageUrl || entry.images.includes(imageUrl)) return;
+        if (prefer) {
+          entry.images.unshift(imageUrl);
+        } else {
+          entry.images.push(imageUrl);
+        }
+        entry.image = entry.images[0] || "";
+      };
+
+      const addMonsterRankingCount = (counts, row, count) => {
+        const name = extractMonsterSlug(row.image);
+        if (!name || count <= 0) return;
+        const image = buildRankingMonsterImage(row.image);
+        const current = counts.get(name);
+        if (current) {
+          current.count += count;
+          addRankingImageCandidate(current, image, isTargetMonsterImage(row.image));
+          return;
+        }
+        const entry = {
+          name,
+          count,
+          image: "",
+          images: [],
+        };
+        addRankingImageCandidate(entry, image, isTargetMonsterImage(row.image));
+        counts.set(name, entry);
+      };
+
+      const sortRankingEntries = (entries) => {
+        return entries.sort(
+          (a, b) => b.count - a.count || a.name.localeCompare(b.name, "ja")
+        );
+      };
+
+      const buildRanking = (rows, field) => {
+        const counts = new Map();
+        rows.forEach((row) => {
+          const appearanceCount = Number(row["出場回数"] || 0);
+          if (field === "monster") {
+            addMonsterRankingCount(counts, row, appearanceCount);
+            return;
+          }
+          buildSkillList(row[field]).forEach((skill) => {
+            addRankingCount(counts, skill, appearanceCount);
+          });
+        });
+        const entries =
+          field === "monster"
+            ? Array.from(counts.values())
+            : Array.from(counts, ([name, count]) => ({ name, count }));
+        return sortRankingEntries(entries).slice(0, 10);
+      };
+
+      const buildPointRanking = (rows, field) => {
+        const counts = new Map();
+        rows.forEach((row) => {
+          if (field === "monster") {
+            addMonsterRankingCount(counts, row, 1);
+            return;
+          }
+          new Set(buildSkillList(row[field])).forEach((skill) => {
+            addRankingCount(counts, skill, 1);
+          });
+        });
+        const entries =
+          field === "monster"
+            ? Array.from(counts.values())
+            : Array.from(counts, ([name, count]) => ({ name, count }));
+        return sortRankingEntries(entries);
+      };
+
+      const PIE_COLORS = ["#6750a4", "#386a20", "#984061", "#00639b", "#7d5700"];
+      const PIE_OTHER_COLOR = "#cac4d0";
+
+      const buildRankingImageCandidates = (entry) => {
+        const candidates = [];
+        const addCandidate = (url) => {
+          if (url && !candidates.includes(url)) candidates.push(url);
+        };
+        (entry.images || [entry.image]).forEach(addCandidate);
+        candidates.slice().forEach((url) => {
+          ["g", "p", "s", "b"].forEach((directory) => {
+            addCandidate(url.replace(/\/mi\/[bgps]\//i, `/mi/${directory}/`));
+          });
+        });
+        return candidates;
+      };
+
+      const createRankingName = (entry) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "search-link ranking-search ranking-name";
+        button.addEventListener("click", () => setSearch(entry.name));
+        if (entry.image) {
+          const imageCandidates = buildRankingImageCandidates(entry);
+          let imageIndex = 0;
+          const image = document.createElement("img");
+          image.className = "ranking-monster-image";
+          image.src = imageCandidates[imageIndex];
+          image.alt = entry.name;
+          image.loading = "lazy";
+          image.addEventListener("error", () => {
+            imageIndex += 1;
+            if (imageIndex < imageCandidates.length) {
+              image.src = imageCandidates[imageIndex];
+            } else {
+              image.hidden = true;
+            }
+          });
+          button.appendChild(image);
+        }
+        const label = document.createElement("span");
+        label.textContent = entry.name;
+        button.appendChild(label);
+        return button;
+      };
+
+      const appendChartRanking = (card, entries) => {
+        const topEntries = entries.slice(0, 5);
+        const total = entries.reduce((sum, entry) => sum + entry.count, 0);
+        if (!total) return;
+
+        const otherCount = entries.slice(5).reduce((sum, entry) => sum + entry.count, 0);
+        const slices = topEntries.map((entry, index) => ({
+          ...entry,
+          color: PIE_COLORS[index],
+        }));
+        if (otherCount) {
+          slices.push({ name: "その他", count: otherCount, color: PIE_OTHER_COLOR });
+        }
+
+        let currentPercent = 0;
+        const gradientParts = slices.map((slice) => {
+          const start = currentPercent;
+          currentPercent += (slice.count / total) * 100;
+          return `${slice.color} ${start}% ${currentPercent}%`;
+        });
+
+        const layout = document.createElement("div");
+        layout.className = "ranking-chart-layout";
+        const pie = document.createElement("div");
+        pie.className = "ranking-pie";
+        pie.style.background = `conic-gradient(${gradientParts.join(", ")})`;
+        pie.setAttribute("role", "img");
+        pie.setAttribute(
+          "aria-label",
+          slices
+            .map((slice) => `${slice.name} ${((slice.count / total) * 100).toFixed(1)}%`)
+            .join("、")
+        );
+
+        const list = document.createElement("ol");
+        list.className = "ranking-list ranking-chart-list";
+        topEntries.forEach((entry, index) => {
+          const item = document.createElement("li");
+          item.className = "ranking-item";
+          const content = document.createElement("div");
+          content.className = "ranking-chart-entry";
+          const color = document.createElement("span");
+          color.className = "ranking-color";
+          color.style.background = PIE_COLORS[index];
+          const name = createRankingName(entry);
+          const count = document.createElement("span");
+          count.className = "ranking-count";
+          count.textContent = `${entry.count}点・${((entry.count / total) * 100).toFixed(1)}%`;
+          content.append(color, name, count);
+          item.appendChild(content);
+          list.appendChild(item);
+        });
+        layout.append(pie, list);
+        card.appendChild(layout);
+
+        if (otherCount) {
+          const other = document.createElement("div");
+          other.className = "ranking-other";
+          const color = document.createElement("span");
+          color.className = "ranking-color";
+          color.style.background = PIE_OTHER_COLOR;
+          const name = document.createElement("span");
+          name.textContent = "その他";
+          const count = document.createElement("span");
+          count.className = "ranking-count";
+          count.textContent = `${otherCount}点・${((otherCount / total) * 100).toFixed(1)}%`;
+          other.append(color, name, count);
+          card.appendChild(other);
+        }
+      };
+
+      const getSearchAggregation = (rows, query) => {
+        const q = normalizeSearchText(query);
+        const monsterRows = rows.filter((row) => {
+          const values = [extractMonsterSlug(row.image), row.monster, row.image];
+          return values.some((value) => normalizeSearchText(value).includes(q));
+        });
+        const skillRows = rows.filter((row) => {
+          const skills = [
+            ...buildSkillList(row["A(アクティブ)"]),
+            ...buildSkillList(row["P(コンパニオン)"]),
+          ];
+          return skills.some((skill) => normalizeSearchText(skill).includes(q));
+        });
+        const exactMonster = monsterRows.some(
+          (row) =>
+            normalizeSearchText(extractMonsterSlug(row.image)) === q ||
+            normalizeSearchText(row.monster) === q
+        );
+        const exactSkill = skillRows.some((row) =>
+          [
+            ...buildSkillList(row["A(アクティブ)"]),
+            ...buildSkillList(row["P(コンパニオン)"]),
+          ].some((skill) => normalizeSearchText(skill) === q)
+        );
+
+        if (exactSkill && !exactMonster) return { kind: "skill", rows: skillRows };
+        if (exactMonster) return { kind: "monster", rows: monsterRows };
+        if (!monsterRows.length && skillRows.length) return { kind: "skill", rows: skillRows };
+        if (monsterRows.length && !skillRows.length) return { kind: "monster", rows: monsterRows };
+        if (skillRows.length >= monsterRows.length) return { kind: "skill", rows: skillRows };
+        if (monsterRows.length) return { kind: "monster", rows: monsterRows };
+        return { kind: "", rows: [] };
+      };
+
+      const appendChartCard = (titleText, entries) => {
+        if (!entries.length) return;
+        const card = document.createElement("article");
+        card.className = "ranking-card has-chart";
+        const title = document.createElement("h2");
+        title.className = "ranking-title";
+        title.textContent = titleText;
+        card.appendChild(title);
+        appendChartRanking(card, entries);
+        rankingSummary.appendChild(card);
+      };
+
+      const renderRankingSummary = (rows) => {
+        if (!rankingSummary) return;
+        rankingSummary.innerHTML = "";
+        rankingSummary.classList.toggle("is-search-result", Boolean(currentQuery));
+        if (!rows.length) {
+          rankingSummary.hidden = true;
+          return;
+        }
+
+        if (currentQuery) {
+          const aggregation = getSearchAggregation(rows, currentQuery);
+          if (aggregation.kind === "monster") {
+            appendChartCard(
+              `「${currentQuery}」のAスキル トップ5`,
+              buildPointRanking(aggregation.rows, "A(アクティブ)")
+            );
+            appendChartCard(
+              `「${currentQuery}」のPスキル トップ5`,
+              buildPointRanking(aggregation.rows, "P(コンパニオン)")
+            );
+          } else if (aggregation.kind === "skill") {
+            appendChartCard(
+              `「${currentQuery}」の採用モンスター トップ5`,
+              buildPointRanking(aggregation.rows, "monster")
+            );
+          }
+          rankingSummary.hidden = !rankingSummary.children.length;
+          return;
+        }
+
+        const rankings = [
+          ["採用モンスター", buildRanking(rows, "monster")],
+          ["Aスキル", buildRanking(rows, "A(アクティブ)")],
+          ["Pスキル", buildRanking(rows, "P(コンパニオン)")],
+        ];
+
+        rankings.forEach(([titleText, entries]) => {
+          const card = document.createElement("article");
+          card.className = "ranking-card";
+          const title = document.createElement("h2");
+          title.className = "ranking-title";
+          title.textContent = `${titleText} トップ10`;
+          const list = document.createElement("ol");
+          list.className = "ranking-list";
+
+          entries.forEach((entryData) => {
+            const { count } = entryData;
+            const item = document.createElement("li");
+            item.className = "ranking-item";
+            const entry = document.createElement("div");
+            entry.className = "ranking-entry";
+            const name = createRankingName(entryData);
+            const countText = document.createElement("span");
+            countText.className = "ranking-count";
+            countText.textContent = `${count}回`;
+            entry.append(name, countText);
+            item.appendChild(entry);
+            list.appendChild(item);
+          });
+
+          card.append(title, list);
+          rankingSummary.appendChild(card);
+        });
+        rankingSummary.hidden = false;
+      };
+
       const setSearch = (value) => {
         currentQuery = value;
         searchInput.value = value;
@@ -316,6 +634,7 @@ let PHASES = [];
         const card = document.createElement("article");
         card.className = "group-card";
         let hitCount = 0;
+        let data = [];
         const csvPath = groupConfig?.csv || "";
         const manifestPath = groupConfig?.manifest || "";
 
@@ -349,7 +668,7 @@ let PHASES = [];
           empty.className = "empty";
           empty.textContent = "CSVが設定されていません。";
           card.appendChild(empty);
-          return { card, hitCount };
+          return { card, hitCount, data };
         }
 
         try {
@@ -359,7 +678,7 @@ let PHASES = [];
           const manifestMatches = manifest?.matches || {};
           const text = await response.text();
           const rows = parseCsv(text);
-          const data = rowsToObjects(rows);
+          data = rowsToObjects(rows);
           const filtered = query ? data.filter((row) => rowMatchesQuery(row, query)) : data;
           hitCount = query ? filtered.length : 0;
           const { letterToName, nameToLetter } = buildLetterMaps(data);
@@ -370,7 +689,7 @@ let PHASES = [];
             empty.className = "empty";
             empty.textContent = "CSVの中身が空です。";
             card.appendChild(empty);
-            return { card, hitCount };
+            return { card, hitCount, data };
           }
 
           if (!filtered.length) {
@@ -378,7 +697,7 @@ let PHASES = [];
             empty.className = "empty";
             empty.textContent = "検索条件に一致するデータがありません。";
             card.appendChild(empty);
-            return { card, hitCount };
+            return { card, hitCount, data };
           }
 
           const players = groupByPlayer(filtered);
@@ -597,23 +916,29 @@ let PHASES = [];
           card.appendChild(empty);
         }
 
-        return { card, hitCount };
+        return { card, hitCount, data };
       };
 
       const renderPhase = async (phase) => {
+        const renderId = ++renderSequence;
         if (!phase || !phase.groups) {
           renderMessage("期の設定が不正です。phase_map.json を確認してください。");
           updateSearchStatus(0);
+          renderRankingSummary([]);
           return;
         }
         groupGrid.innerHTML = "";
-        let totalHits = 0;
-        for (const group of GROUP_ORDER) {
-          const { card, hitCount } = await buildGroupCard(group, phase.groups[group], currentQuery);
-          totalHits += hitCount;
-          groupGrid.appendChild(card);
-        }
+        if (rankingSummary) rankingSummary.hidden = true;
+        const query = currentQuery;
+        const results = await Promise.all(
+          GROUP_ORDER.map((group) => buildGroupCard(group, phase.groups[group], query))
+        );
+        if (renderId !== renderSequence) return;
+        const totalHits = results.reduce((total, result) => total + result.hitCount, 0);
+        const allRows = results.flatMap((result) => result.data);
+        results.forEach(({ card }) => groupGrid.appendChild(card));
         updateSearchStatus(totalHits);
+        renderRankingSummary(allRows);
       };
 
       const setupTabs = () => {
