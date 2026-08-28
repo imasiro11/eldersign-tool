@@ -1,0 +1,26 @@
+player,letter,出場回数,monster,level,variant,image,A(アクティブ),P(コンパニオン),match01,match02,match03,match04,match05,match06,match07,match08,match09,match10,match11
+闇に吠える者,G,11,ダークヤング,70,原,https://eldersign.jp/img/mi/g/f0/055_dark-young_0g4.png,インクリーズ / スタンピード / トランキリティ / ブラッドセイバー / ベノムスパイン,守りのミンネ / 戦いのエール,A-G,B-G,C-G,D-G,E-G,F-G,G-H,G-I,G-J,G-K,G-L
+闇に吠える者,G,11,ドール,79,亜2,https://eldersign.jp/img/mi/p/f0/056_dhole_2g7.png,アースクェイク / インクリーズ / カロウシブスピット / スタンピード / トライペック,守りのミンネ / 戦いのエール,A-G,B-G,C-G,D-G,E-G,F-G,G-H,G-I,G-J,G-K,G-L
+闇に吠える者,G,11,スターヴァンパイア,60,亜2,https://eldersign.jp/img/mi/p/f0/052_star-vampire_2g4.png,アンブッシュ / エンバール / ゼルハ / 光のベール / 光の楔,クィックオーダー / バナナフロート / ライトシギル / 防御ブースト,A-G,B-G,C-G,D-G,E-G,F-G,G-H,G-I,G-J,G-K,G-L
+闇に吠える者,G,11,アトラク＝ナクア,58,原,https://eldersign.jp/img/mi/g/f0/066_atlach-nacha_0g4.png,エルフショット / ゴッサマーチェイン / プロテクトディザスター / ミラーズ / ユロール,リジェネレイト / リフレクション,A-G,B-G,C-G,D-G,E-G,F-G,G-H,G-I,G-J,G-K,G-L
+Lotus,H,11,ダークヤング,63,原,https://eldersign.jp/img/mi/g/f0/055_dark-young_0g4.png,インクリーズ / イートアライブ / ガッシマ / チャージ,戦いのエール,A-H,B-H,C-H,D-H,E-H,F-H,G-H,H-I,H-J,H-K,H-L
+Lotus,H,11,ドール,61,原,https://eldersign.jp/img/mi/g/f0/056_dhole_0g1.png,アースクェイク / インクリーズ / チャージ,守りのミンネ,A-H,B-H,C-H,D-H,E-H,F-H,G-H,H-I,H-J,H-K,H-L
+Lotus,H,7,ハンティングホラー (1),64,原,https://eldersign.jp/img/mi/g/f1/100_hunting-horror_0g4.png,イーヴルフルート / ウラザイス / セメタリーゲート / 炎のベール / 闇の刻印,魔力ブースト,A-H,B-H,C-H,H-I,H-J,H-K,H-L,,,,
+Lotus,H,3,ハンティングホラー (2),63,原,https://eldersign.jp/img/mi/g/f1/100_hunting-horror_0g4.png,イーヴルフルート / ウラザイス / セメタリーゲート / ダークボルト / 闇の刻印,魔力ブースト,D-H,F-H,G-H,,,,,,,,
+Lotus,H,11,オールドワン,50,原,https://eldersign.jp/img/mi/g/f0/051_old-one_0g1.png,イーヴルフルート / セメタリーゲート / ミラーズ / ユロール,守りのミンネ,A-H,B-H,C-H,D-H,E-H,F-H,G-H,H-I,H-J,H-K,H-L
+Lotus,H,1,ワンプ,50,,,,魔力ブースト,E-H,,,,,,,,,,
+緋月,F,11,ドーノレ,70,原,https://eldersign.jp/img/mi/g/f0/056_dhole_0g4.png,アースクェイク / カロウシブスピット / ダブルアタック / チャージ,ハートオブオーシャン / リジェネレイト,A-F,B-F,C-F,D-F,E-F,F-G,F-H,F-I,F-J,F-K,F-L
+緋月,F,11,ψドール,70,原,https://eldersign.jp/img/mi/g/f0/056_dhole_0g7.png,アースクェイク / カロウシブスピット / ガッシマ / スキュアー / 光の刻印,リジェネレイト,A-F,B-F,C-F,D-F,E-F,F-G,F-H,F-I,F-J,F-K,F-L
+緋月,F,11,ψF.S.M.,56,原,https://eldersign.jp/img/mi/g/f0/053_fsm_0g7.png,セメタリーゲート / ダークウェーブ / ダークネビュラ / ハスタリーザ / フサリア,リジェネレイト / 魔力ブースト,A-F,B-F,C-F,D-F,E-F,F-G,F-H,F-I,F-J,F-K,F-L
+緋月,F,11,ψスターヴァンパイア,71,亜1,https://eldersign.jp/img/mi/p/f0/052_star-vampire_1g4.png,アンガドーリエラ / ダークボルト / ミラーズ / ユロール / 光のベール,リジェネレイト,A-F,B-F,C-F,D-F,E-F,F-G,F-H,F-I,F-J,F-K,F-L
+動白骨,J,11,藻,40,原,https://eldersign.jp/img/mi/g/f1/128_dark-sargassum_0g4.png,アフィリエイト / エンバール / バブルボム / フェアリーベイン / 光のベール,セントリー / ドルフィンフロート,A-J,B-J,C-J,D-J,E-J,F-J,G-J,H-J,I-J,J-K,J-L
+動白骨,J,11,ショゴス,35,亜2,https://eldersign.jp/img/mi/g/f0/034_shoggoth_2g4.png,エボイア / サンクンシティ / タングリング / フロート / 闇の刻印,リフレクション,A-J,B-J,C-J,D-J,E-J,F-J,G-J,H-J,I-J,J-K,J-L
+動白骨,J,11,アトラク＝ナクア,46,原,https://eldersign.jp/img/mi/g/f0/066_atlach-nacha_0g4.png,アイスランス / カラカス / ゴッサマーチェイン / ユロール,心の棘 / 魔力ブースト,A-J,B-J,C-J,D-J,E-J,F-J,G-J,H-J,I-J,J-K,J-L
+動白骨,J,11,ツァール,50,原,https://eldersign.jp/img/mi/s/f0/078_zhar_0g7.png,アイスランス / カラカス / ピース / ユロール,クィックオーダー,A-J,B-J,C-J,D-J,E-J,F-J,G-J,H-J,I-J,J-K,J-L
+トシ,D,8,初Ｐの子,76,亜1,https://eldersign.jp/img/mi/p/f0/056_dhole_1g4.png,アースクェイク / カロウシブスピット / ガッシマ,ポイズンブレイス / 夏の思い出 / 守りのミンネ / 戦いのエール,A-D,B-D,C-D,D-F,D-H,D-J,D-K,D-L,,,
+トシ,D,8,異形と人間体の共存ってめちゃくちゃエ,61,亜1,https://eldersign.jp/img/mi/p/f0/066_atlach-nacha_1g4.png,ゴッサマーチェイン / リフレッシュフィールド / 光のベール,エンジェリックウィング / セントリー / ハートオブオーシャン / 敏捷ブースト,A-D,B-D,C-D,D-F,D-H,D-J,D-K,D-L,,,
+トシ,D,8,なんだかんだスタメン2,68,原,https://eldersign.jp/img/mi/g/f1/100_hunting-horror_0g4.png,ウラザイス / ガティス / フォトケミカルスモッグ / ワインクラウド / 光のベール,魔力ブースト,A-D,B-D,C-D,D-F,D-H,D-J,D-K,D-L,,,
+トシ,D,4,なんだかんだスタメン1,70,原,https://eldersign.jp/img/mi/g/f1/100_hunting-horror_0g4.png,ウラザイス / ガティス / フォトケミカルスモッグ / メイルストロム / ワインクラウド,ハートオブウィンド / ハートオブオーシャン / ミラージュ,A-D,B-D,D-F,D-K,,,,,,,
+トシ,D,4,癖です,50,原,https://eldersign.jp/img/mi/g/f0/067_vulthoom_0g7.png,ごろ寝 / シュリンク / フウ・フォーレ / ミミッキング / レヴィテイト,ハートオブオーシャン / リジェネレイト,C-D,D-H,D-J,D-L,,,,,,,
+ヤクルト1000,C,11,ショゴス,57,亜2,https://eldersign.jp/img/mi/g/f0/034_shoggoth_2g4.png,アムネジア / テケリ・リ / テラーコール / ヒーリング,守りのミンネ / 防御ブースト,A-C,B-C,C-D,C-E,C-F,C-G,C-H,C-I,C-J,C-K,C-L
+ヤクルト1000,C,11,アークディスプレイサー,59,原,https://eldersign.jp/img/mi/g/f0/057_arch-displacers_0g1.png,ホロウワールド,命中ブースト / 守りのミンネ,A-C,B-C,C-D,C-E,C-F,C-G,C-H,C-I,C-J,C-K,C-L
