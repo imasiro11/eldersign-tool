@@ -1,7 +1,18 @@
+/**
+ * 通常一覧・詳細絞り込み一覧のカードを選択し、保管庫／ブックへ移動する。
+ * midリンクまたはitem_IDから個体を取得し、選択中は公式onclickによる遷移を止める。
+ * 絞り込みで隠れた選択は解除する。移動成功時はDOMとcardDataを削除して公式一覧を再計算する。
+ * 再実行・一括出品への切り替え・終了時はイベントと監視を解除する。
+ */
 (() => {
   const ACTION_PANEL_ID = "__es_book_action_panel";
   const STYLE_ID = "__es_book_select_style";
   const REQUEST_DELAY_MS = 500;
+  const listeners = new AbortController();
+  let selectionObserver;
+
+  /** 絞り込みで非表示になった行は、一括選択・送信の対象に含めない。 */
+  const isVisibleItem = (li) => !li.hidden && getComputedStyle(li).display !== "none";
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -151,7 +162,7 @@
   };
 
   const updateSelectedCount = (status) => {
-    const count = document.querySelectorAll("li.es-book-item.is-selected").length;
+    const count = collectSelected().length;
     status.textContent = `選択中: ${count}枚`;
   };
 
@@ -166,13 +177,14 @@
     updateSelectedCount(status);
   };
 
+  /** 通常リンクのmidと詳細一覧のitem_IDを扱い、カード全体のタップを選択操作へ切り替える。 */
   const setupSelectableList = (list, status, pageType) => {
     ensurePanelStyle();
     list.querySelectorAll("li").forEach((li) => {
       if (li.classList.contains("es-book-item")) return;
       const anchor = li.querySelector("a");
       if (!anchor) return;
-      const mid = parseMidFromHref(anchor.href);
+      const mid = parseMidFromHref(anchor.href) || li.id.match(/^item_(\d+)$/)?.[1];
       if (!mid) return;
       if (pageType === PAGE_TYPES.POST && !anchor.href.includes("stockbox?cmd=gmc")) return;
 
@@ -183,10 +195,10 @@
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.className = "es-book-check";
-      anchor.appendChild(checkbox);
+      li.appendChild(checkbox);
       checkbox.addEventListener("change", () => {
         updateSelectionState(li, checkbox, status);
-      });
+      }, { signal: listeners.signal });
     });
 
     if (!list.dataset.esBookSelectable) {
@@ -205,15 +217,17 @@
         if (target.closest("button")) return;
         const checkbox = li.querySelector("input.es-book-check");
         if (!checkbox) return;
+        event.stopImmediatePropagation();
         if (target === checkbox) return;
         event.preventDefault();
         toggleSelection(li, checkbox, status);
-      });
+      }, { capture: true, signal: listeners.signal });
     }
   };
 
   const collectSelected = () => {
     return Array.from(document.querySelectorAll("li.es-book-item.is-selected"))
+      .filter(isVisibleItem)
       .map((li) => {
         const mid = li.dataset.mid;
         if (!mid) return null;
@@ -223,6 +237,9 @@
   };
 
   const teardownSelectableList = (list) => {
+    listeners.abort();
+    selectionObserver?.disconnect();
+    if (window.__eldersignCardSelectionCleanup === cleanup) delete window.__eldersignCardSelectionCleanup;
     document.getElementById(ACTION_PANEL_ID)?.remove();
     document.getElementById(STYLE_ID)?.remove();
     list.querySelectorAll("li.es-book-item").forEach((li) => {
@@ -234,8 +251,9 @@
     delete list.dataset.esBookSelectable;
   };
 
+  /** 詳細一覧には非表示の状態アイコンも存在するため、表示中のアイコンだけで状態を判定する。 */
   const getItemFlags = (li) => {
-    const icons = Array.from(li.querySelectorAll("img.i"));
+    const icons = Array.from(li.querySelectorAll("img.i")).filter((icon) => getComputedStyle(icon).display !== "none");
     if (!icons.length) return { isOnSale: false, isProtected: false, isForming: false };
     const srcList = icons.map((icon) => icon.getAttribute("src") || "");
     return {
@@ -249,6 +267,7 @@
     const { skipOnSale = false, skipProtected = false, skipForming = false } = options;
     const items = document.querySelectorAll("li.es-book-item");
     items.forEach((li) => {
+      if (checked && !isVisibleItem(li)) return;
       if (checked && (skipOnSale || skipProtected || skipForming)) {
         const { isOnSale, isProtected, isForming } = getItemFlags(li);
         if (
@@ -320,7 +339,13 @@
             shouldStop = true;
           }
         } else {
+          // 公式ソートが移動済みカードのDOMを参照しないよう、一覧データも同期する。
+          if (listIsFilterScreen() && Array.isArray(window.cardData)) {
+            const index = window.cardData.findIndex((card) => String(card.uid) === mid);
+            if (index >= 0) window.cardData.splice(index, 1);
+          }
           li.remove();
+          if (listIsFilterScreen()) window.mcS?.SortFunc?.ApplySort();
           updateSelectedCount(status);
         }
       } catch (err) {
@@ -342,9 +367,16 @@
     }
   };
 
+  /** 公式の詳細一覧データを持つ画面か判定する。 */
+  const listIsFilterScreen = () => !!document.getElementById("mlist");
+  let cleanup;
+
   const init = async () => {
-    const list = document.querySelector("nav.block ul");
+    const list = document.querySelector("#mlist, nav.block ul");
     if (!list) return;
+    window.__eldersignCardSelectionCleanup?.();
+    cleanup = () => teardownSelectableList(list);
+    window.__eldersignCardSelectionCleanup = cleanup;
     const {
       storeButton,
       bookButton,
@@ -375,6 +407,18 @@
     }
     let nextSelectAll = true;
     setupSelectableList(list, status, pageType);
+    selectionObserver = new MutationObserver(() => {
+      let changed = false;
+      list.querySelectorAll("li.es-book-item.is-selected").forEach((li) => {
+        if (!isVisibleItem(li)) {
+          li.classList.remove("is-selected");
+          li.querySelector(".es-book-check").checked = false;
+          changed = true;
+        }
+      });
+      if (changed) updateSelectedCount(status);
+    });
+    selectionObserver.observe(list, { subtree: true, attributes: true, attributeFilter: ["style", "hidden"], childList: true });
     updateSelectedCount(status);
     storeButton.addEventListener("click", () =>
       runMove("storage", status, pageType, () => teardownSelectableList(list))

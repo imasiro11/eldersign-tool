@@ -1,7 +1,20 @@
+/**
+ * 通常ブック・詳細絞り込みブックで選択したモンスターを一括出品する。
+ * midリンクまたはitem_IDを利用し、非表示の状態アイコンを保護・編成判定へ含めない。
+ * 選択中は公式onclickの遷移を止め、絞り込みで隠れたカードは選択と送信対象から除外する。
+ * 再実行・保管操作への切り替え・終了時はイベントと監視を解除する。
+ * 価格計算・確認・送信間隔は共通で、詳細一覧の呼称・出品状態も成功した操作に合わせて同期する。
+ */
 (() => {
   const ACTION_PANEL_ID = "__es_bazaar_listing_panel";
   const STYLE_ID = "__es_bazaar_listing_style";
   const REQUEST_DELAY_MS = 500;
+  const listeners = new AbortController();
+  let selectionObserver;
+  let cleanup;
+
+  /** 絞り込みで隠れたカードは一括選択・出品の対象に含めない。 */
+  const isVisibleItem = (li) => !li.hidden && getComputedStyle(li).display !== "none";
   const MAX_PRICE_ANY = 100000000;
   const MULTIPLIER_STORAGE_KEY = "esBazaarBulkListingMultiplier";
   const TARGET_STATS = ["HP", "攻撃", "魔力", "防御", "命中", "敏捷"];
@@ -196,8 +209,9 @@
     }
   };
 
+  /** 詳細一覧の非表示アイコンを除外し、実際の保護・編成・出品状態を判定する。 */
   const getItemFlags = (li) => {
-    const sources = [...li.querySelectorAll("img.i")].map((image) => image.getAttribute("src") || "");
+    const sources = [...li.querySelectorAll("img.i")].filter((image) => getComputedStyle(image).display !== "none").map((image) => image.getAttribute("src") || "");
     return {
       isOnSale: sources.some((src) => src.includes("card_b")),
       isProtected: sources.some((src) => src.includes("card_l")),
@@ -217,7 +231,7 @@
   };
 
   const updateSelectedCount = (status) => {
-    const count = document.querySelectorAll("li.es-bazaar-item.is-selected").length;
+    const count = collectSelected().length;
     status.textContent = `選択中: ${count}枚`;
   };
 
@@ -226,38 +240,42 @@
     updateSelectedCount(status);
   };
 
+  /** 通常画面のmidリンクと詳細一覧のitem_IDに対応し、inline onclickより先に選択操作を処理する。 */
   const setupSelectableList = (list, status) => {
     list.querySelectorAll("li").forEach((li) => {
       const anchor = li.querySelector("a");
-      const monsterId = parseMonsterId(anchor?.href);
+      const monsterId = parseMonsterId(anchor?.href) || li.id.match(/^item_(\d+)$/)?.[1];
       if (!anchor || !monsterId) return;
 
       li.classList.add("es-bazaar-item");
       li.dataset.monsterId = monsterId;
-      li.dataset.detailUrl = anchor.href;
+      li.dataset.detailUrl = parseMonsterId(anchor.href)
+        ? anchor.href : new URL("/mcard_detail?mid=" + monsterId, location.origin).href;
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.className = "es-bazaar-check";
       checkbox.disabled = isUnavailable(li);
       checkbox.setAttribute("aria-label", `${li.querySelector("h1")?.textContent?.trim() || monsterId}を選択`);
-      anchor.appendChild(checkbox);
-      checkbox.addEventListener("change", () => updateSelection(li, checkbox, status));
+      li.appendChild(checkbox);
+      checkbox.addEventListener("change", () => updateSelection(li, checkbox, status), { signal: listeners.signal });
     });
 
     list.addEventListener("click", (event) => {
       const target = event.target instanceof Element ? event.target : event.target?.parentElement;
       const li = target?.closest("li.es-bazaar-item");
-      if (!li || !list.contains(li) || target === li.querySelector("input.es-bazaar-check")) return;
+      if (!li || !list.contains(li)) return;
+      event.stopImmediatePropagation();
+      if (target === li.querySelector("input.es-bazaar-check")) return;
       event.preventDefault();
       const checkbox = li.querySelector("input.es-bazaar-check");
       if (checkbox.disabled) return;
       checkbox.checked = !checkbox.checked;
       updateSelection(li, checkbox, status);
-    });
+    }, { capture: true, signal: listeners.signal });
   };
 
   const collectSelected = () =>
-    [...document.querySelectorAll("li.es-bazaar-item.is-selected")].map((li) => ({
+    [...document.querySelectorAll("li.es-bazaar-item.is-selected")].filter(isVisibleItem).map((li) => ({
       li,
       monsterId: li.dataset.monsterId,
       detailUrl: li.dataset.detailUrl,
@@ -268,12 +286,15 @@
     document.querySelectorAll("li.es-bazaar-item").forEach((li) => {
       const checkbox = li.querySelector("input.es-bazaar-check");
       if (!checkbox) return;
-      checkbox.checked = checked && !isUnavailable(li);
+      checkbox.checked = checked && isVisibleItem(li) && !isUnavailable(li);
       updateSelection(li, checkbox, status);
     });
   };
 
   const teardown = (list) => {
+    listeners.abort();
+    selectionObserver?.disconnect();
+    if (window.__eldersignCardSelectionCleanup === cleanup) delete window.__eldersignCardSelectionCleanup;
     document.getElementById(ACTION_PANEL_ID)?.remove();
     document.getElementById(STYLE_ID)?.remove();
     list.querySelectorAll("li.es-bazaar-item").forEach((li) => {
@@ -504,6 +525,8 @@
       const heading = selection.li.querySelector("h1");
       if (heading) heading.textContent = nextName;
       selection.name = nextName;
+      const card = window.cardData?.find((item) => String(item.uid) === selection.monsterId);
+      if (card) card.username = nextName;
     }
     const listingDoc = await fetchDocument(findListingPageUrl(detailDoc, selection));
     if (price === 0) {
@@ -565,6 +588,11 @@
           }
           selection.li.dataset.esBazaarListingState =
             result.price === 0 ? "unlisted" : "listed";
+          const card = window.cardData?.find((item) => String(item.uid) === selection.monsterId);
+          if (card) card.bazzar = result.price > 0;
+          selection.li.querySelectorAll('img.i[src*="card_b"]').forEach((icon) => {
+            icon.style.display = result.price > 0 ? "" : "none";
+          });
           appendListingResult(selection.li, result.price, result.wasAlreadyUnlisted);
           controls.status.textContent =
             result.price === 0
@@ -597,14 +625,29 @@
       alert("ブックのモンスター一覧画面で実行してください。");
       return;
     }
-    const list = document.querySelector("nav.block ul");
+    const list = document.querySelector("#mlist, nav.block ul");
     const heading = document.querySelector("header.page h1");
     if (!list || heading?.textContent.trim() !== "ブック") {
       alert("ブックのモンスター一覧を取得できませんでした。");
       return;
     }
+    window.__eldersignCardSelectionCleanup?.();
+    cleanup = () => teardown(list);
+    window.__eldersignCardSelectionCleanup = cleanup;
     const controls = buildActionPanel();
     setupSelectableList(list, controls.status);
+    selectionObserver = new MutationObserver(() => {
+      let changed = false;
+      list.querySelectorAll("li.es-bazaar-item.is-selected").forEach((li) => {
+        if (!isVisibleItem(li)) {
+          li.classList.remove("is-selected");
+          li.querySelector(".es-bazaar-check").checked = false;
+          changed = true;
+        }
+      });
+      if (changed) updateSelectedCount(controls.status);
+    });
+    selectionObserver.observe(list, { subtree: true, attributes: true, attributeFilter: ["style", "hidden"], childList: true });
     let nextSelectAll = true;
     controls.selectAllButton.addEventListener("click", () => {
       setAllSelections(nextSelectAll, controls.status);
