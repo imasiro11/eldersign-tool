@@ -1,0 +1,93 @@
+player,letter,出場回数,monster,level,variant,image,A(アクティブ),P(コンパニオン),match01,match02,match03,match04,match05,match06,match07,match08,match09,match10,match11
+煌龍,I,4,ティターニア,90,亜2,https://eldersign.jp/img/mi/p/f1/106_titania_2g4.png,アウェイクニング / ヒヤデスウィンド / ブラッドムーン / ホワイトインペール / ルビーレイン,ハートオブマーブル / リジェネレイト,A-I,C-I,H-I,I-K,,,,,,,
+煌龍,I,4,アンクー,89,亜1,https://eldersign.jp/img/mi/p/f0/044_ankou_1g4.png,ストーン / パンデミック / プレイグ / 光のベール,ハートオブオーシャン / リジェネレイト,A-I,C-I,H-I,I-K,,,,,,,
+煌龍,I,4,ペリ,90,亜1,https://eldersign.jp/img/mi/p/f0/042_peri_1g7.png,アイスランス / アウローラ / ステイシス / ペイルムーン / レーヴァテイン,クィックオーダー / 地味づくり,A-I,C-I,H-I,I-K,,,,,,,
+煌龍,I,4,サキュバス,89,亜1,https://eldersign.jp/img/mi/p/f0/043_succubus_1g4.png,ヒヤデスウィンド / ブラッドスティール / ペイルムーン / リヴァイヴ / 光のベール,HPブースト / クィックオーダー,A-I,C-I,H-I,I-K,,,,,,,
+煌龍,I,1,パズズ,90,亜1,https://eldersign.jp/img/mi/p/f0/045_pazuzu_1g4.png,スキュアー / チャージ / トランプル / ドラゴニックロア / ブラッドセイバー,カウンター / ハートオブフレイム,B-I,,,,,,,,,,
+煌龍,I,1,ブラスドラゴン,90,亜1,https://eldersign.jp/img/mi/p/f0/049_brass-dragon_1g4.png,スキュアー / チャージ / ブラッドセイバー / ベノムスクラッチ / ヴェンデッタ,守りのミンネ / 戦いのエール,B-I,,,,,,,,,,
+煌龍,I,1,シルバードラゴン,70,原,https://eldersign.jp/img/mi/g/f0/050_silver-dragon_0g4.png,エルフショット / カラカス / クルセイド / ヒヤデスウィンド / ファイアランス,ローズイズレッド / ヴァイオレッツブルー,B-I,,,,,,,,,,
+煌龍,I,1,ウルタールの猫,70,亜2,https://eldersign.jp/img/mi/g/f0/065_cats-of-ulthar_2g4.png,カラカス / フライト / 光のベール / 日光浴 / 月光浴,HPブースト / クィックオーダー,B-I,,,,,,,,,,
+煌龍,I,6,ダークヤング,90,亜2,https://eldersign.jp/img/mi/p/f0/055_dark-young_2g4.png,インクリーズ / ガッシマ / スキュアー / スタンピード / トランプル,守りのミンネ / 戦いのエール,D-I,E-I,F-I,G-I,I-J,I-L,,,,,
+煌龍,I,6,ダークサルガッスム,89,亜1,https://eldersign.jp/img/mi/p/f1/128_dark-sargassum_1g4.png,インクリーズ / エンバール / スキュアー / ゼルハ / トランプル,守りのミンネ / 攻撃ブースト,D-I,E-I,F-I,G-I,I-J,I-L,,,,,
+煌龍,I,6,オールドワン,70,原,https://eldersign.jp/img/mi/g/f0/051_old-one_0g4.png,シュリンク / セメタリーゲート / ハウリングムーン / ミラーズ / ユロール,ハートオブオーシャン / リジェネレイト,D-I,E-I,F-I,G-I,I-J,I-L,,,,,
+煌龍,I,6,スターヴァンパイア,70,原,https://eldersign.jp/img/mi/g/f0/052_star-vampire_0g7.png,アンブッシュ / ミラーズ / ユロール / 光のベール / 光の楔,HPブースト / クィックオーダー,D-I,E-I,F-I,G-I,I-J,I-L,,,,,
+oui,C,4,ドール (1),90,亜1,https://eldersign.jp/img/mi/p/f0/056_dhole_1g4.png,アースクェイク / スキュアー / ダルバドーハ / ユロール,リジェネレイト,A-C,C-D,C-H,C-L,,,,,,,
+oui,C,4,ドール (2),82,亜2,https://eldersign.jp/img/mi/p/f0/056_dhole_2g4.png,アースクェイク / スキュアー / ダルバドーハ / チャージ / 光のベール,リジェネレイト,A-C,C-D,C-H,C-L,,,,,,,
+oui,C,4,ダークサルガッスム,78,亜1,https://eldersign.jp/img/mi/p/f1/128_dark-sargassum_1g4.png,エンバール / ゼルハ / トランキリティ / ミラーズ / 炎のベール,リジェネレイト,A-C,C-D,C-H,C-L,,,,,,,
+oui,C,4,ハンティングホラー,70,原,https://eldersign.jp/img/mi/g/f1/100_hunting-horror_0g4.png,アンブッシュ / ウラザイス / ガティス / セメタリーゲート / テンペスト,HPブースト / クィックオーダー,A-C,C-D,C-H,C-L,,,,,,,
+oui,C,6,ティターニア (1),70,原,https://eldersign.jp/img/mi/g/f1/106_titania_0g4.png,オブシニティ / ストーン / セメタリーゲート / ネクター / ホワイトインペール,レジストスリープ,B-C,C-E,C-F,C-G,C-J,C-K,,,,,
+oui,C,6,ティターニア (2),70,原,https://eldersign.jp/img/mi/g/f1/106_titania_0g4.png,オブシニティ / ストーン / セメタリーゲート / フォトケミカルスモッグ / ホワイトインペール,レジストスリープ,B-C,C-E,C-F,C-G,C-J,C-K,,,,,
+oui,C,6,エアリエル,70,原,https://eldersign.jp/img/mi/g/f0/039_ariel_0g4.png,セメタリーゲート / テンペスト / フェアリーエイド / リヴァイヴ / 悪魔のトリル,クィックオーダー / ハートオブフレイム,B-C,C-E,C-F,C-G,C-J,C-K,,,,,
+oui,C,6,バンシー,70,亜1,https://eldersign.jp/img/mi/g/f0/097_banshee_1g7.png,ストーン / セメタリーゲート / ヒーリング / ペイルムーン / 悪魔のトリル,レジストスリープ / ヴァイオレッツブルー,B-C,C-E,C-F,C-G,C-J,C-K,,,,,
+oui,C,1,バステト,70,原,https://eldersign.jp/img/mi/g/f1/110_bastet_0g7.png,セメタリーゲート / ルビーレイン / 光のベール,フレイムアシスト / 敏捷ブースト,C-I,,,,,,,,,,
+oui,C,1,パステト,70,原,https://eldersign.jp/img/mi/g/f1/110_bastet_0g4.png,ダークネビュラ / テンペスト / ペイルムーン,守りのミンネ / 防御ブースト,C-I,,,,,,,,,,
+oui,C,1,グリマルキソ,70,原,https://eldersign.jp/img/mi/g/f0/085_grimalkin_0g7.png,クリアランス / セメタリーゲート / ヒヤデスウィンド / ルビーレイン,ハートオブマーブル,C-I,,,,,,,,,,
+oui,C,1,グリマルキン,70,亜2,https://eldersign.jp/img/mi/g/f0/085_grimalkin_2g7.png,セメタリーゲート,ハートオブマーブル,C-I,,,,,,,,,,
+Ｄｒ．ウェスト,D,11,ドール,73,亜1,https://eldersign.jp/img/mi/p/f0/056_dhole_1g4.png,アースクェイク / スキュアー / スタンピード / トランプル / ブラッドセイバー,夏の思い出 / 守りのミンネ / 戦いのエール / 遮光布,A-D,B-D,C-D,D-E,D-F,D-G,D-H,D-I,D-J,D-K,D-L
+Ｄｒ．ウェスト,D,11,アークディスプレイサー,53,亜2,https://eldersign.jp/img/mi/p/f0/057_arch-displacers_2g4.png,ディスプレイスメント / フォトケミカルスモッグ / プロテクトディザスター / 光のベール / 光の楔,ダークシギル / 守りのミンネ / 戦いのエール,A-D,B-D,C-D,D-E,D-F,D-G,D-H,D-I,D-J,D-K,D-L
+Ｄｒ．ウェスト,D,11,F.S.M.,49,亜1,https://eldersign.jp/img/mi/p/f0/053_fsm_1g7.png,アゼランザ / ミラーズ / ユロール / 光のベール / 闇の楔,クィックオーダー / ボディケア / 心の壁 / 心の棘,A-D,B-D,C-D,D-E,D-F,D-G,D-H,D-I,D-J,D-K,D-L
+Ｄｒ．ウェスト,D,10,スターヴァンパイア,71,亜2,https://eldersign.jp/img/mi/p/f0/052_star-vampire_2g4.png,アンブッシュ / テンペスト / フォトケミカルスモッグ / ミラーズ / ユロール,クィックオーダー / メンタルケア,A-D,B-D,C-D,D-E,D-F,D-G,D-H,D-J,D-K,D-L,
+Ｄｒ．ウェスト,D,1,サキュバス,68,亜2,https://eldersign.jp/img/mi/p/f0/043_succubus_2g4.png,フサリア / 光の楔 / 闇の楔,夏の思い出,D-I,,,,,,,,,,
+☆新九郎☆,F,6,シムルグ,80,亜1,https://eldersign.jp/img/mi/p/f0/046_simorgh_1g4.png,アウターキラー / ウォークライ / チャージ / トランプル / ベノムスクラッチ,守りのミンネ / 戦いのエール,A-F,B-F,C-F,D-F,F-H,F-I,,,,,
+☆新九郎☆,F,6,ハイドラ,80,亜1,https://eldersign.jp/img/mi/p/f0/048_hydra_1g4.png,アンダートウ / スキュアー / ヒーリング / ベノムスティング / ラーヴァフロウ,HPブースト / クィックオーダー,A-F,B-F,C-F,D-F,F-H,F-I,,,,,
+☆新九郎☆,F,4,クン・アヌン,69,亜2,https://eldersign.jp/img/mi/g/f0/026_cwn-annwn_2g7.png,クルセイド / バーニングレイジ / パンデミック / ファイアランス / 風葬,リジェネレイト,A-F,B-F,D-F,F-H,,,,,,,
+☆新九郎☆,F,6,バステト,70,原,https://eldersign.jp/img/mi/g/f1/110_bastet_0g7.png,ウジャトの瞳 / マウ・バスト / ルビーレイン / 光のベール / 日光浴,リジェネレイト / 防御ブースト,A-F,B-F,C-F,D-F,F-H,F-I,,,,,
+☆新九郎☆,F,2,パズズ,53,亜1,https://eldersign.jp/img/mi/p/f0/045_pazuzu_1g4.png,トランプル / ドラゴニックロア / ハウリングムーン / ヒヤデスウィンド / ローカストスウォーム,リジェネレイト,C-F,F-I,,,,,,,,,
+☆新九郎☆,F,2,ルサルカ (1),70,亜1,https://eldersign.jp/img/mi/p/f0/041_rusalka_1g4.png,アイシクルレイン / ウィンターブラスト / ガイドスター,アクアノート / バナナフロート,E-F,F-L,,,,,,,,,
+☆新九郎☆,F,2,ルサルカ (2),69,亜1,https://eldersign.jp/img/mi/p/f0/041_rusalka_1g4.png,アイスランス / ウィンターブラスト / ガイドスター / ヒーリング / 氷の花,アクアノート / バナナフロート,F-J,F-K,,,,,,,,,
+☆新九郎☆,F,4,アルルーナ,74,亜2,https://eldersign.jp/img/mi/p/f0/040_alrunes_2g4.png,アイシクルレイン / エンジェルダスト / ステイシス / バブルマトリクス / ルビーレイン,エンジェリックウィング / リジェネレイト / リフレクション,E-F,F-J,F-K,F-L,,,,,,,
+☆新九郎☆,F,4,ウーナ,55,亜2,https://eldersign.jp/img/mi/p/f1/135_oona_2g4.png,ファイアランス / ブラッドムーン / ルビーレイン / レーヴァテイン / 銀の癒し手,リフレクション / 攻撃ブースト / 魔力ブースト,E-F,F-J,F-K,F-L,,,,,,,
+☆新九郎☆,F,4,サキュバス,77,亜1,https://eldersign.jp/img/mi/p/f0/043_succubus_1g4.png,アイシクルレイン / エーテルクラウド / テンプテイション / ヒーリング / ペイルムーン,コールドアシスト / リジェネレイト / リフレクション / 魔力ブースト,E-F,F-J,F-K,F-L,,,,,,,
+☆新九郎☆,F,1,ドール,61,亜2,https://eldersign.jp/img/mi/p/f0/056_dhole_2g7.png,アースクェイク / インクリーズ / スキュアー / ダルバドーハ / ラーヴァフロウ,エンジェリックウィング / セントリー,F-G,,,,,,,,,,
+☆新九郎☆,F,1,ダークサルガッスム,74,亜2,https://eldersign.jp/img/mi/p/f1/128_dark-sargassum_2g4.png,ウォークライ / エンバール / ゼルハ / トランプル / ルビーレイン,リジェネレイト / 守りのミンネ,F-G,,,,,,,,,,
+☆新九郎☆,F,1,F.S.M.,61,亜2,https://eldersign.jp/img/mi/p/f0/053_fsm_2g4.png,アイスランス / ミラーズ / ユロール / ルビーレイン / 光のベール,魔力ブースト,F-G,,,,,,,,,,
+☆新九郎☆,F,1,オールドワン,80,亜1,https://eldersign.jp/img/mi/p/f0/051_old-one_1g4.png,ヒヤデスウィンド / ミラーズ / ユロール / ルビーレイン / 夢引き,エンジェリックウィング / 魔力ブースト,F-G,,,,,,,,,,
+tambourine813,L,9,桃苑,60,亜1,https://eldersign.jp/img/mi/g/f1/107_myrmecoleon_1g4.png,アースクェイク / ウォークライ / シングルハート / スキュアー / チャージ,レジストスリープ / 命中ブースト / 戦いのエール / 攻撃ブースト,A-L,B-L,C-L,E-L,F-L,G-L,H-L,I-L,K-L,,
+tambourine813,L,2,大仙,69,原,https://eldersign.jp/img/mi/g/f0/056_dhole_0g4.png,のしかかり / アースクェイク / ダイブ / チャージ / ペトロガス,コールドアシスト / 戦いのエール / 攻撃ブースト,A-L,D-L,,,,,,,,,
+tambourine813,L,5,文龍,70,原,https://eldersign.jp/img/mi/g/f0/050_silver-dragon_0g4.png,ウォークライ / カラカス / クリアランス / クルセイド / 光のベール,フレイムアシスト / レジストチャーム,A-L,B-L,C-L,G-L,I-L,,,,,,
+tambourine813,L,1,臨機,30,亜2,https://eldersign.jp/img/mi/g/f0/098_ubume_2g4.png,アフェクション / カラカス / セメタリーゲート / 光のベール,クィックオーダー / メンタルケア,A-L,,,,,,,,,,
+tambourine813,L,8,黒亭,44,亜2,https://eldersign.jp/img/mi/g/f1/107_myrmecoleon_2g4.png,アースクェイク / シングルハート / スキュアー / ベノムスティング / 光の刻印,クィックオーダー / メンタルケア / レジストスリープ / 命中ブースト / 戦いのエール / 攻撃ブースト,B-L,E-L,F-L,G-L,H-L,I-L,J-L,K-L,,,
+tambourine813,L,7,天外天,49,亜1,https://eldersign.jp/img/mi/g/f0/090_hati_1g4.png,アンダートウ / エーテルクラウド / カラカス / 光のベール / 日光浴,クィックオーダー / メンタルケア / レジストチャーム,B-L,C-L,E-L,G-L,H-L,I-L,K-L,,,,
+tambourine813,L,2,大黒,58,原,https://eldersign.jp/img/mi/g/f0/057_arch-displacers_0g7.png,ガイドスター / 光のベール / 風葬,エンジェリックウィング / クィックオーダー / メンタルケア,C-L,F-L,,,,,,,,,
+tambourine813,L,1,ペリュトン,18,原,https://eldersign.jp/img/mi/g/f0/047_peryton_0g1.png,滅びの翼,レジストバインド,D-L,,,,,,,,,,
+tambourine813,L,1,スノウ,34,原,https://eldersign.jp/img/mi/s/f0/020_snow_0g4.png,スノウストーム,予習復習,D-L,,,,,,,,,,
+tambourine813,L,1,グリマルキン,23,原,https://eldersign.jp/img/mi/s/f0/085_grimalkin_0g4.png,ブラッドムーン / ルビーレイン,予習復習,D-L,,,,,,,,,,
+tambourine813,L,1,F.S.M.,19,原,https://eldersign.jp/img/mi/g/f0/053_fsm_0g4.png,アイスボール / ダークネビュラ / テラーコール / ハスタリーザ,リジェネレイト / 防御ブースト,E-L,,,,,,,,,,
+tambourine813,L,3,北熊,59,亜2,https://eldersign.jp/img/mi/g/f0/026_cwn-annwn_2g4.png,カラカス / クルセイド / バーニングレイジ / ヒーリング / ファイアランス,クィックオーダー / フレイムアシスト,F-L,H-L,K-L,,,,,,,,
+tambourine813,L,1,育成ルサルカ,12,原,https://eldersign.jp/img/mi/g/f0/041_rusalka_0g1.png,コールドボルト / フラッド,コールドアシスト / コールドバリア,J-L,,,,,,,,,,
+tambourine813,L,1,宗運,36,原,https://eldersign.jp/img/mi/g/f0/039_ariel_0g1.png,セメタリーゲート / テラーコール / テンペスト / ファイアボール,命中ブースト / 戦いのエール,J-L,,,,,,,,,,
+tambourine813,L,1,ルサルカ,4,原,https://eldersign.jp/img/mi/g/f0/041_rusalka_0g1.png,フラッド,コールドアシスト,J-L,,,,,,,,,,
+KTN,E,11,シルバードラゴン,68,亜1,https://eldersign.jp/img/mi/p/f0/050_silver-dragon_1g4.png,アースクェイク / ウォークライ / シードハウザー / バードサンクチュアリ / ブラッドセイバー,フレイムアシスト / フレイムバリア,A-E,B-E,C-E,D-E,E-F,E-G,E-H,E-I,E-J,E-K,E-L
+KTN,E,11,ティアマト,75,亜1,https://eldersign.jp/img/mi/p/f0/096_tiamat_1g4.png,アースクェイク / ウォークライ / シードハウザー / チャージ / プライマルシー,エンジェリックウィング / ミラージュ,A-E,B-E,C-E,D-E,E-F,E-G,E-H,E-I,E-J,E-K,E-L
+KTN,E,11,バステト,70,原,https://eldersign.jp/img/mi/g/f1/110_bastet_0g7.png,ウジャトの瞳 / テンペスト / ヒーリング / マウ・バスト / 六花,エンジェリックウィング / ハートオブオーシャン,A-E,B-E,C-E,D-E,E-F,E-G,E-H,E-I,E-J,E-K,E-L
+KTN,E,11,姑獲鳥,70,亜2,https://eldersign.jp/img/mi/g/f0/098_ubume_2g4.png,アンダートウ / キャンセレイション / ダークネビュラ / 日光浴 / 燐火,リジェネレイト,A-E,B-E,C-E,D-E,E-F,E-G,E-H,E-I,E-J,E-K,E-L
+イマクロ,H,11,ブラスドラゴン,70,原,https://eldersign.jp/img/mi/g/f0/049_brass-dragon_0g4.png,アウターキラー / アースクェイク / ウォークライ / ブラッドセイバー / ラーヴァフロウ,守りのミンネ / 戦いのエール,A-H,B-H,C-H,D-H,E-H,F-H,G-H,H-I,H-J,H-K,H-L
+イマクロ,H,11,ハイドラ,70,原,https://eldersign.jp/img/mi/g/f0/048_hydra_0g7.png,アースクェイク / ウォークライ / ブラッドセイバー / ベノムスクラッチ / ラーヴァフロウ,守りのミンネ / 戦いのエール,A-H,B-H,C-H,D-H,E-H,F-H,G-H,H-I,H-J,H-K,H-L
+イマクロ,H,11,ウルタールの猫,70,亜1,https://eldersign.jp/img/mi/g/f0/065_cats-of-ulthar_1g7.png,エルフショット / パンデミック / フライト / 光のベール / 月光浴,クィックオーダー / 命中ブースト,A-H,B-H,C-H,D-H,E-H,F-H,G-H,H-I,H-J,H-K,H-L
+イマクロ,H,11,シムルグ,70,原,https://eldersign.jp/img/mi/g/f0/046_simorgh_0g7.png,キャンセレイション / テンペスト / ドラゴニックロア / リヴァイヴ / 光のベール,クィックオーダー / 防御ブースト,A-H,B-H,C-H,D-H,E-H,F-H,G-H,H-I,H-J,H-K,H-L
+Doll,B,11,ダークヤング,70,原,https://eldersign.jp/img/mi/g/f0/055_dark-young_0g4.png,ウォークライ / ガッシマ / スキュアー / チャージ / ベノムスクラッチ,守りのミンネ / 戦いのエール,A-B,B-C,B-D,B-E,B-F,B-G,B-H,B-I,B-J,B-K,B-L
+Doll,B,11,ドール,87,亜1,https://eldersign.jp/img/mi/p/f0/056_dhole_1g1.png,ウォークライ / スキュアー / ディスペル / トライペック / ブラッドセイバー,守りのミンネ / 戦いのエール,A-B,B-C,B-D,B-E,B-F,B-G,B-H,B-I,B-J,B-K,B-L
+Doll,B,11,アークディスプレイサー,85,亜2,https://eldersign.jp/img/mi/p/f0/057_arch-displacers_2g1.png,アンブッシュ / スリープクラウド / フォトケミカルスモッグ / ホロウワールド / 光のベール,クィックオーダー,A-B,B-C,B-D,B-E,B-F,B-G,B-H,B-I,B-J,B-K,B-L
+Doll,B,5,スターヴァンパイア,70,原,https://eldersign.jp/img/mi/g/f0/052_star-vampire_0g7.png,アンガドーリエラ / ユロール / 光のベール / 光の楔 / 風葬,クィックオーダー / 防御ブースト,A-B,B-D,B-F,B-I,B-K,,,,,,
+Doll,B,6,ハンティングホラー,70,原,https://eldersign.jp/img/mi/g/f1/100_hunting-horror_0g7.png,ウラザイス / カラカス / ミラーズ / ユロール / 光のベール,クィックオーダー / 防御ブースト,B-C,B-E,B-G,B-H,B-J,B-L,,,,,
+覚者ロイ,G,11,ダークヤング (1),70,原,https://eldersign.jp/img/mi/g/f0/055_dark-young_0g4.png,インクリーズ / ガッシマ / スパーク / トライペック / トランキリティ,命中ブースト / 戦いのエール,A-G,B-G,C-G,D-G,E-G,F-G,G-H,G-I,G-J,G-K,G-L
+覚者ロイ,G,11,ダークヤング (2),70,原,https://eldersign.jp/img/mi/g/f0/055_dark-young_0g4.png,インクリーズ / ガッシマ / トライペック / ニグラーヌ / ブラッドセイバー,守りのミンネ / 戦いのエール,A-G,B-G,C-G,D-G,E-G,F-G,G-H,G-I,G-J,G-K,G-L
+覚者ロイ,G,11,アトラク＝ナクア,70,原,https://eldersign.jp/img/mi/g/f0/066_atlach-nacha_0g7.png,ヒーリング / ミラーズ / ユロール / ルールオブドリームス / 光の楔,リジェネレイト / リフレクション,A-G,B-G,C-G,D-G,E-G,F-G,G-H,G-I,G-J,G-K,G-L
+覚者ロイ,G,11,ジェラルドショゴス,70,亜2,https://eldersign.jp/img/mi/g/f0/034_shoggoth_2g7.png,アンブッシュ / ヒーリング / フォトケミカルスモッグ / プロテクトディザスター / 光のベール,クィックオーダー,A-G,B-G,C-G,D-G,E-G,F-G,G-H,G-I,G-J,G-K,G-L
+ハイジ,J,9,パズの威を貸し出すパズ,70,原,https://eldersign.jp/img/mi/g/f0/045_pazuzu_0g7.png,アンダートウ / スキュアー / チャージ / ドラゴニックロア / ベノムスティング,ハートオブオーシャン / ミラージュ / リフレクション / 守りのミンネ / 戦いのエール,A-J,B-J,C-J,D-J,F-J,H-J,I-J,J-K,J-L,,
+ハイジ,J,9,パズの威を借らずともパズ,90,亜2,https://eldersign.jp/img/mi/p/f0/045_pazuzu_2g4.png,アイスブランド / スキュアー / トランプル / バインドグラスプ / ヴェンデッタ,コールドアシスト / リジェネレイト / リフレクション / 敏捷ブースト,A-J,B-J,C-J,D-J,F-J,H-J,I-J,J-K,J-L,,
+ハイジ,J,9,パズの威を借るパズ,84,亜1,https://eldersign.jp/img/mi/p/f0/045_pazuzu_1g4.png,カラカス / ドラゴニックロア / ローカストスウォーム / 光の楔 / 月光浴,ハートオブオーシャン / ミラージュ / 守りのミンネ / 戦いのエール,A-J,B-J,C-J,D-J,F-J,H-J,I-J,J-K,J-L,,
+ハイジ,J,10,パズの威を借る猫,70,亜1,https://eldersign.jp/img/mi/g/f0/065_cats-of-ulthar_1g4.png,カラカス / シードハウザー / テンペスト / バードサンクチュアリ / フォトケミカルスモッグ,HPブースト / クィックオーダー / ディレイオーダー / 守りのミンネ / 防御ブースト,A-J,B-J,C-J,D-J,F-J,G-J,H-J,I-J,J-K,J-L,
+ハイジ,J,1,最古参ドール,70,原,https://eldersign.jp/img/mi/g/f0/056_dhole_0g7.png,アースクェイク / カロウシブスピット,守りのミンネ / 防御ブースト,E-J,,,,,,,,,,
+ハイジ,J,1,エアリエル,53,原,https://eldersign.jp/img/mi/g/f0/039_ariel_0g4.png,スノウストーム / テンペスト,魔力ブースト,E-J,,,,,,,,,,
+ハイジ,J,2,ルサルカ姉,70,原,https://eldersign.jp/img/mi/g/f0/041_rusalka_0g7.png,フラッド / ペイルムーン,コールドアシスト / 敏捷ブースト,E-J,G-J,,,,,,,,,
+ハイジ,J,2,ルサルカ：従姉妹,68,亜1,https://eldersign.jp/img/mi/p/f0/041_rusalka_1g4.png,ストーン / ダークボルト / ファイアランス / フサリア / フラッド,命中ブースト / 守りのミンネ,E-J,G-J,,,,,,,,,
+ハイジ,J,1,10レベブラッドムーン,50,原,https://eldersign.jp/img/mi/s/f0/085_grimalkin_0g4.png,ブラッドムーン / ルビーレイン,フレイムアシスト / 魔力ブースト,G-J,,,,,,,,,,
+なまはる,K,11,フラーユ,90,原,https://eldersign.jp/img/mi/p/f0/058_floweyu_0g1.png,パンデミック / ヒヤデスウィンド / フサリア / ベノムスクラッチ / 桜花泡影,クィックオーダー / ボディケア,A-K,B-K,C-K,D-K,E-K,F-K,G-K,H-K,I-K,J-K,K-L
+なまはる,K,11,エアリエル,70,原,https://eldersign.jp/img/mi/g/f0/039_ariel_0g7.png,ステイシス / ストーンレイン / テンペスト / フェアリーエイド / 風切り,HPブースト / クィックオーダー,A-K,B-K,C-K,D-K,E-K,F-K,G-K,H-K,I-K,J-K,K-L
+なまはる,K,11,サキュバス,90,亜1,https://eldersign.jp/img/mi/p/f0/043_succubus_1g4.png,スタンダールシンドローム / ストーンレイン / スノウストーム / スリートストーム / リヴァイヴ,HPブースト / クィックオーダー,A-K,B-K,C-K,D-K,E-K,F-K,G-K,H-K,I-K,J-K,K-L
+なまはる,K,11,セイレン,70,亜2,https://eldersign.jp/img/mi/g/f0/024_seiren_2g7.png,アウェイクニング / セメタリーゲート / ヒーリング / ペイルムーン / ポイズンクラウド,クィックオーダー,A-K,B-K,C-K,D-K,E-K,F-K,G-K,H-K,I-K,J-K,K-L
+歯ら黒い白猫,A,11,花蘇芳,70,原,https://eldersign.jp/img/mi/g/f0/071_y-ddraig-goch_0g4.png,スキュアー / ダブルアタック / チャージ / トランプル / ブレイズ,ハートオブマーブル / ミラージュ / 命中ブースト / 戦いのエール,A-B,A-C,A-D,A-E,A-F,A-G,A-H,A-I,A-J,A-K,A-L
+歯ら黒い白猫,A,11,曼珠沙華,70,原,https://eldersign.jp/img/mi/g/f0/048_hydra_0g4.png,スウィング / スキュアー / チャージ / ベノムスティング / 光の刻印,リフレクション / 命中ブースト / 戦いのエール,A-B,A-C,A-D,A-E,A-F,A-G,A-H,A-I,A-J,A-K,A-L
+歯ら黒い白猫,A,11,アンチューサ,70,原,https://eldersign.jp/img/mi/g/f0/040_alrunes_0g4.png,アイスランス / エンジェルダスト / ファイアランス / フサリア / リヴァイヴ,ハートオブウィンド,A-B,A-C,A-D,A-E,A-F,A-G,A-H,A-I,A-J,A-K,A-L
+歯ら黒い白猫,A,11,ローリエ,64,亜1,https://eldersign.jp/img/mi/g/f0/065_cats-of-ulthar_1g4.png,カラカス / ヒーリング / メガリス / 光のベール / 光の楔,クィックオーダー / レジストチャーム / レジストフィアー / 命中ブースト,A-B,A-C,A-D,A-E,A-F,A-G,A-H,A-I,A-J,A-K,A-L
